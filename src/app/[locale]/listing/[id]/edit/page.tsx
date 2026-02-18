@@ -46,11 +46,13 @@ export default async function EditListingPage({ params }: { params: Promise<{ id
     metricType: "revenue" as const,
   };
 
+  // For existing images loaded from DB, key uses the URL since R2 keys aren't stored separately.
+  // On edit save, all images are replaced, so individual R2 key tracking isn't needed.
   const initialImages = (listing.images || []).map((img) => ({
     id: img.id,
     url: img.url,
     key: img.url,
-    name: `Image ${img.order}`,
+    name: `Image ${(img.order || 0) + 1}`,
     order: img.order || 0,
   }));
 

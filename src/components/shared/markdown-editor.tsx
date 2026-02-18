@@ -54,10 +54,9 @@ export function MarkdownEditor({ value, onChange, label, placeholder, className 
         const start = textarea.selectionStart;
         const previousValue = textarea.value;
         const lineStart = previousValue.lastIndexOf('\n', start - 1) + 1;
-        const needsNewline = lineStart > 0 && previousValue[lineStart - 1] !== '\n' && start === lineStart ? '' : '';
 
-        const newText = previousValue.substring(0, lineStart) + needsNewline + prefix + previousValue.substring(lineStart);
-        const newCursorPos = start + prefix.length + needsNewline.length;
+        const newText = previousValue.substring(0, lineStart) + prefix + previousValue.substring(lineStart);
+        const newCursorPos = start + prefix.length;
 
         onChange(newText);
 
