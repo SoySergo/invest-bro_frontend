@@ -37,7 +37,7 @@ export default async function ProfilePage({
       {/* Profile Header */}
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-4">
-          <Avatar size="lg">
+          <Avatar className="h-16 w-16">
             <AvatarImage src={profile?.image ?? undefined} />
             <AvatarFallback>
               {profile?.name?.charAt(0)?.toUpperCase() ?? "U"}

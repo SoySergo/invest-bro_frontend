@@ -86,7 +86,7 @@ export function MainNav() {
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
                                         <Button variant="ghost" size="sm" className="relative h-8 w-8 rounded-full">
-                                            <Avatar size="sm">
+                                            <Avatar className="h-8 w-8">
                                                 <AvatarImage src={session.user.image ?? undefined} />
                                                 <AvatarFallback>
                                                     {session.user.name?.charAt(0)?.toUpperCase() ?? "U"}
