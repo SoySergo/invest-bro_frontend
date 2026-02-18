@@ -2,7 +2,7 @@
 
 import { db } from "@/db";
 import { reviews, listings, conversations } from "@/db/schema";
-import { eq, and } from "drizzle-orm";
+import { eq, and, or } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { auth } from "@/lib/auth";
 import { reviewSchema } from "@/lib/schemas/review";
@@ -37,10 +37,14 @@ export async function submitReview(data: {
         return { success: false, error: "Listing not found" };
       }
 
-      // Verify conversation exists between these users
+      // Verify conversation exists between these users for this listing
       const conversation = await db.query.conversations.findFirst({
         where: and(
           eq(conversations.listingId, listingId),
+          or(
+            and(eq(conversations.buyerId, session.user.id), eq(conversations.sellerId, toUserId)),
+            and(eq(conversations.sellerId, session.user.id), eq(conversations.buyerId, toUserId)),
+          ),
         ),
       });
 
