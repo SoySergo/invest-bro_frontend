@@ -66,3 +66,4 @@ export const investorProfileSchema = z.object({
 });
 
 export type InvestorProfileFormData = z.infer<typeof investorProfileSchema>;
+export type InvestorProfileFormInput = z.input<typeof investorProfileSchema>;

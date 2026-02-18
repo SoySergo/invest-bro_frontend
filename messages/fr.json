@@ -89,7 +89,9 @@
     "removedFromFavorites": "Retiré des favoris",
     "safetyTip": "Protégez-vous contre la fraude.",
     "safetyWarning": "Ne payez jamais avant d'avoir vérifié l'entreprise.",
-    "revenueChart": "Tendance mensuelle du chiffre d'affaires"
+    "revenueChart": "Tendance mensuelle du chiffre d'affaires",
+    "matchingInvestors": "Investisseurs correspondants",
+    "viewAllInvestors": "Voir tous les investisseurs"
   },
   "Wizard": {
     "sellTitle": "Vendez votre entreprise",

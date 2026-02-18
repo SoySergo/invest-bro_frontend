@@ -1,6 +1,6 @@
 import { db } from "@/db";
-import { investorProfiles, users, listings, categories } from "@/db/schema";
-import { eq, and, inArray, desc, sql } from "drizzle-orm";
+import { investorProfiles, listings } from "@/db/schema";
+import { eq, and, desc } from "drizzle-orm";
 
 export interface InvestorFilters {
   type?: string;

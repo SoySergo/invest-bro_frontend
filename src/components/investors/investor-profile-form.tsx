@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
@@ -23,7 +23,7 @@ import { Plus, X, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import {
   investorProfileSchema,
-  type InvestorProfileFormData,
+  type InvestorProfileFormInput,
   INVESTOR_TYPES,
   INVESTOR_STAGES,
   INVESTOR_INDUSTRIES,
@@ -34,7 +34,7 @@ import { createInvestorProfile, editInvestorProfile } from "@/lib/actions/invest
 import { COUNTRY_CODES } from "@/lib/constants/countries";
 
 interface InvestorProfileFormProps {
-  initialData?: InvestorProfileFormData & { id?: string };
+  initialData?: InvestorProfileFormInput & { id?: string };
   mode: "create" | "edit";
 }
 
@@ -51,7 +51,7 @@ export function InvestorProfileForm({ initialData, mode }: InvestorProfileFormPr
     setValue,
     watch,
     formState: { errors },
-  } = useForm<InvestorProfileFormData>({
+  } = useForm<InvestorProfileFormInput>({
     resolver: zodResolver(investorProfileSchema),
     defaultValues: initialData || {
       type: "angel",
@@ -98,11 +98,16 @@ export function InvestorProfileForm({ initialData, mode }: InvestorProfileFormPr
     setValue("portfolio", updated);
   };
 
-  const onSubmit = (data: InvestorProfileFormData) => {
+  const onSubmit = (data: InvestorProfileFormInput) => {
     startTransition(async () => {
+      const parsed = investorProfileSchema.safeParse(data);
+      if (!parsed.success) {
+        toast.error("Invalid data");
+        return;
+      }
       const result = mode === "edit" && initialData?.id
-        ? await editInvestorProfile(initialData.id, data)
-        : await createInvestorProfile(data);
+        ? await editInvestorProfile(initialData.id, parsed.data)
+        : await createInvestorProfile(parsed.data);
 
       if (result.success) {
         toast.success(mode === "edit" ? t("profileUpdated") : t("profileCreated"));
@@ -127,7 +132,7 @@ export function InvestorProfileForm({ initialData, mode }: InvestorProfileFormPr
         <CardContent>
           <Select
             value={watch("type")}
-            onValueChange={(value) => setValue("type", value as InvestorProfileFormData["type"])}
+            onValueChange={(value) => setValue("type", value as InvestorProfileFormInput["type"])}
           >
             <SelectTrigger className="bg-surface-2/50">
               <SelectValue placeholder={t("form.selectType")} />

@@ -89,7 +89,9 @@
     "removedFromFavorites": "Verwijderd uit favorieten",
     "safetyTip": "Bescherm uzelf tegen fraude.",
     "safetyWarning": "Betaal nooit voordat u het bedrijf heeft geverifieerd.",
-    "revenueChart": "Maandelijkse omzettrend"
+    "revenueChart": "Maandelijkse omzettrend",
+    "matchingInvestors": "Overeenkomende investeerders",
+    "viewAllInvestors": "Alle investeerders bekijken"
   },
   "Wizard": {
     "sellTitle": "Verkoop uw bedrijf",

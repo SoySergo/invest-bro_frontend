@@ -89,7 +89,9 @@
     "removedFromFavorites": "Eliminado de favoritos",
     "safetyTip": "Protégete del fraude.",
     "safetyWarning": "Nunca pagues antes de verificar el negocio.",
-    "revenueChart": "Tendencia mensual de ingresos"
+    "revenueChart": "Tendencia mensual de ingresos",
+    "matchingInvestors": "Inversores compatibles",
+    "viewAllInvestors": "Ver todos los inversores"
   },
   "Wizard": {
     "sellTitle": "Vende tu negocio",

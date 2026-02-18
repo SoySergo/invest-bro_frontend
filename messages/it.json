@@ -89,7 +89,9 @@
     "removedFromFavorites": "Rimosso dai preferiti",
     "safetyTip": "Proteggiti dalle frodi.",
     "safetyWarning": "Non pagare mai prima di aver verificato l'attività.",
-    "revenueChart": "Andamento mensile del fatturato"
+    "revenueChart": "Andamento mensile del fatturato",
+    "matchingInvestors": "Investitori compatibili",
+    "viewAllInvestors": "Vedi tutti gli investitori"
   },
   "Wizard": {
     "sellTitle": "Vendi la tua attività",

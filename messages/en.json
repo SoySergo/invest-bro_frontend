@@ -89,7 +89,9 @@
     "removedFromFavorites": "Removed from Favorites",
     "safetyTip": "Protect yourself from fraud.",
     "safetyWarning": "Never pay before verifying the business.",
-    "revenueChart": "Monthly Revenue Trend"
+    "revenueChart": "Monthly Revenue Trend",
+    "matchingInvestors": "Matching Investors",
+    "viewAllInvestors": "View all investors"
   },
   "Wizard": {
     "sellTitle": "Sell your Business",

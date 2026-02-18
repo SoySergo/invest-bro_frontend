@@ -89,7 +89,9 @@
     "removedFromFavorites": "Убрано из избранного",
     "safetyTip": "Защитите себя от мошенничества.",
     "safetyWarning": "Никогда не платите до проверки бизнеса.",
-    "revenueChart": "Тренд ежемесячной выручки"
+    "revenueChart": "Тренд ежемесячной выручки",
+    "matchingInvestors": "Подходящие инвесторы",
+    "viewAllInvestors": "Все инвесторы"
   },
   "Wizard": {
     "sellTitle": "Продать бизнес",
