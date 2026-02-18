@@ -2,6 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { redirect } from "@/i18n/routing";
 import { auth } from "@/lib/auth";
 import { getProfile, getMyListings } from "@/lib/data/profile";
+import { getReviewsForUser, getUserRating } from "@/lib/data/reviews";
 import { ProfileForm } from "@/components/profile/profile-form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -9,6 +10,10 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from "@/i18n/routing";
 import { Settings, Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { VerifiedBadge } from "@/components/shared/verified-badge";
+import { VerificationRequest } from "@/components/shared/verification-request";
+import { ReviewList } from "@/components/shared/review-list";
+import { StarRating } from "@/components/shared/star-rating";
 
 export async function generateMetadata() {
   const t = await getTranslations("Profile");
@@ -32,6 +37,10 @@ export default async function ProfilePage({
   const myListings = await getMyListings();
   const t = await getTranslations("Profile");
   const tNav = await getTranslations("Navigation");
+  const tTrust = await getTranslations("Trust");
+
+  const userReviews = await getReviewsForUser(session.user.id);
+  const userRating = await getUserRating(session.user.id);
 
   return (
     <div className="container max-w-4xl py-8 px-4 space-y-8">
@@ -45,8 +54,21 @@ export default async function ProfilePage({
             </AvatarFallback>
           </Avatar>
           <div>
-            <h1 className="text-2xl font-bold">{profile?.name ?? session.user.name}</h1>
+            <div className="flex items-center gap-1.5">
+              <h1 className="text-2xl font-bold">{profile?.name ?? session.user.name}</h1>
+              {profile?.verificationStatus === "verified" && (
+                <VerifiedBadge size="md" />
+              )}
+            </div>
             <p className="text-sm text-muted-foreground">{session.user.email}</p>
+            {userRating.totalReviews > 0 && (
+              <div className="flex items-center gap-1.5 mt-1">
+                <StarRating rating={userRating.averageRating} size="sm" />
+                <span className="text-xs text-muted-foreground">
+                  ({userRating.totalReviews})
+                </span>
+              </div>
+            )}
             {profile?.createdAt && (
               <p className="text-xs text-muted-foreground mt-1">
                 {t("memberSince")} {new Date(profile.createdAt).toLocaleDateString(locale)}
@@ -74,6 +96,33 @@ export default async function ProfilePage({
           city: profile?.city ?? null,
         }}
       />
+
+      {/* Verification */}
+      <Card className="border-border/50">
+        <CardHeader>
+          <CardTitle>{tTrust("requestVerification")}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <VerificationRequest currentStatus={profile?.verificationStatus ?? "none"} />
+        </CardContent>
+      </Card>
+
+      {/* Reviews Received */}
+      <Card className="border-border/50">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            {tTrust("sellerRating")}
+            {userRating.totalReviews > 0 && (
+              <span className="text-sm font-normal text-muted-foreground">
+                ({userRating.averageRating.toFixed(1)} / 5)
+              </span>
+            )}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <ReviewList reviews={userReviews} />
+        </CardContent>
+      </Card>
 
       {/* My Listings */}
       <Card className="border-border/50">

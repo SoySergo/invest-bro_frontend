@@ -1,6 +1,7 @@
 import { getListingById } from "@/lib/data/listing-details";
 import { getMatchingInvestors } from "@/lib/data/investors";
 import { getSimilarListings } from "@/lib/data/listings";
+import { getReviewsForUser, getUserRating } from "@/lib/data/reviews";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,6 +13,11 @@ import { getTranslations, getLocale } from "next-intl/server";
 import { RevenueChart } from "@/components/charts/revenue-chart";
 import { FavoriteButton } from "@/components/shared/favorite-button";
 import { MarkdownViewer } from "@/components/shared/markdown-viewer";
+import { VerifiedBadge } from "@/components/shared/verified-badge";
+import { ReviewForm } from "@/components/shared/review-form";
+import { ReviewList } from "@/components/shared/review-list";
+import { ReportButton } from "@/components/shared/report-button";
+import { StarRating } from "@/components/shared/star-rating";
 import { formatPrice } from "@/lib/constants/countries";
 import { auth } from "@/lib/auth";
 import { ListingOwnerActions } from "@/components/listings/listing-owner-actions";
@@ -59,8 +65,11 @@ export default async function ListingDetailsPage({ params }: ListingDetailPagePr
 
   const matchingInvestors = await getMatchingInvestors(id, 5);
   const similarListings = await getSimilarListings(id, 6);
+  const sellerReviews = await getReviewsForUser(listing.userId);
+  const sellerRating = await getUserRating(listing.userId);
 
   const tSimilar = await getTranslations("SimilarListings");
+  const tTrust = await getTranslations("Trust");
 
   const isOwner = session?.user?.id === listing.userId;
 
@@ -192,6 +201,25 @@ export default async function ListingDetailsPage({ params }: ListingDetailPagePr
               <RevenueChart data={chartData as any[]} />
             </CardContent>
           </Card>
+
+          {/* Reviews Section */}
+          {sellerReviews.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  {tTrust("sellerRating")}
+                  {sellerRating.totalReviews > 0 && (
+                    <span className="text-sm font-normal text-muted-foreground">
+                      ({sellerRating.averageRating.toFixed(1)} / 5)
+                    </span>
+                  )}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ReviewList reviews={sellerReviews} />
+              </CardContent>
+            </Card>
+          )}
         </div>
 
         {/* Right Column: Seller Info & Actions */}
@@ -207,11 +235,24 @@ export default async function ListingDetailsPage({ params }: ListingDetailPagePr
                   {listing.user.name?.[0] || "U"}
                 </div>
                 <div>
-                  <div className="font-bold text-lg">{listing.user.name}</div>
+                  <div className="font-bold text-lg flex items-center gap-1.5">
+                    {listing.user.name}
+                    {listing.user.verificationStatus === "verified" && (
+                      <VerifiedBadge size="md" />
+                    )}
+                  </div>
                   <div className="text-sm text-muted-foreground flex items-center gap-1.5">
                     <div className="w-2 h-2 rounded-full bg-emerald-500" />
                     {t("memberSince")} {new Date(listing.user.createdAt).getFullYear()}
                   </div>
+                  {sellerRating.totalReviews > 0 && (
+                    <div className="flex items-center gap-1.5 mt-1">
+                      <StarRating rating={sellerRating.averageRating} size="sm" />
+                      <span className="text-xs text-muted-foreground">
+                        ({sellerRating.totalReviews})
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -229,6 +270,16 @@ export default async function ListingDetailsPage({ params }: ListingDetailPagePr
               <div className="text-xs text-muted-foreground/80 text-center p-4 bg-muted/30 rounded-xl border border-muted/50">
                 <p className="font-semibold mb-1 text-foreground">{t("safetyTip")}</p>
                 <p>{t("safetyWarning")}</p>
+              </div>
+
+              {/* Report & Review */}
+              <div className="flex items-center justify-between pt-2">
+                {!isOwner && session?.user?.id && (
+                  <ReviewForm toUserId={listing.userId} listingId={listing.id} />
+                )}
+                {!isOwner && session?.user?.id && (
+                  <ReportButton listingId={listing.id} reportedUserId={listing.userId} />
+                )}
               </div>
             </CardContent>
           </Card>

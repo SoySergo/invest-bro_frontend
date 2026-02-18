@@ -12,6 +12,9 @@ export const jobLevelEnum = pgEnum('job_level', ['junior', 'middle', 'senior', '
 export const conversationTypeEnum = pgEnum('conversation_type', ['listing', 'investment', 'job']);
 export const messageStatusEnum = pgEnum('message_status', ['sent', 'delivered', 'read']);
 export const notificationTypeEnum = pgEnum('notification_type', ['new_message', 'job_application', 'favorite_added', 'chat_invitation']);
+export const verificationStatusEnum = pgEnum('verification_status', ['none', 'pending', 'verified', 'rejected']);
+export const reportStatusEnum = pgEnum('report_status', ['pending', 'reviewed', 'resolved', 'dismissed']);
+export const reportReasonEnum = pgEnum('report_reason', ['spam', 'fraud', 'inappropriate', 'duplicate', 'misleading', 'other']);
 
 // USERS
 export const users = pgTable("users", {
@@ -28,6 +31,11 @@ export const users = pgTable("users", {
   phone: text("phone"),
   country: text("country"),
   city: text("city"),
+  verificationStatus: verificationStatusEnum("verification_status").default("none").notNull(),
+  verifiedAt: timestamp("verified_at"),
+  isBlocked: boolean("is_blocked").default(false).notNull(),
+  blockedAt: timestamp("blocked_at"),
+  blockReason: text("block_reason"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
@@ -221,6 +229,31 @@ export const notifications = pgTable("notifications", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+// REVIEWS
+export const reviews = pgTable("reviews", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  fromUserId: uuid("from_user_id").references(() => users.id, { onDelete: "cascade" }).notNull(),
+  toUserId: uuid("to_user_id").references(() => users.id, { onDelete: "cascade" }).notNull(),
+  listingId: uuid("listing_id").references(() => listings.id, { onDelete: "set null" }),
+  rating: integer("rating").notNull(), // 1-5
+  comment: text("comment"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// REPORTS
+export const reports = pgTable("reports", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  reporterUserId: uuid("reporter_user_id").references(() => users.id, { onDelete: "cascade" }).notNull(),
+  reportedUserId: uuid("reported_user_id").references(() => users.id, { onDelete: "set null" }),
+  listingId: uuid("listing_id").references(() => listings.id, { onDelete: "set null" }),
+  reason: reportReasonEnum("reason").notNull(),
+  description: text("description"),
+  status: reportStatusEnum("status").default("pending").notNull(),
+  resolvedBy: uuid("resolved_by").references(() => users.id, { onDelete: "set null" }),
+  resolvedAt: timestamp("resolved_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
 // RELATIONS
 export const usersRelations = relations(users, ({ many }) => ({
   listings: many(listings),
@@ -231,6 +264,9 @@ export const usersRelations = relations(users, ({ many }) => ({
   jobs: many(jobs),
   jobApplications: many(jobApplications),
   notifications: many(notifications),
+  reviewsGiven: many(reviews, { relationName: "reviewer" }),
+  reviewsReceived: many(reviews, { relationName: "reviewed" }),
+  reportsSubmitted: many(reports, { relationName: "reporter" }),
 }));
 
 export const accountsRelations = relations(accounts, ({ one }) => ({
@@ -306,6 +342,19 @@ export const jobApplicationsRelations = relations(jobApplications, ({ one }) => 
 
 export const notificationsRelations = relations(notifications, ({ one }) => ({
   user: one(users, { fields: [notifications.userId], references: [users.id] }),
+}));
+
+export const reviewsRelations = relations(reviews, ({ one }) => ({
+  fromUser: one(users, { fields: [reviews.fromUserId], references: [users.id], relationName: "reviewer" }),
+  toUser: one(users, { fields: [reviews.toUserId], references: [users.id], relationName: "reviewed" }),
+  listing: one(listings, { fields: [reviews.listingId], references: [listings.id] }),
+}));
+
+export const reportsRelations = relations(reports, ({ one }) => ({
+  reporter: one(users, { fields: [reports.reporterUserId], references: [users.id], relationName: "reporter" }),
+  reportedUser: one(users, { fields: [reports.reportedUserId], references: [users.id] }),
+  listing: one(listings, { fields: [reports.listingId], references: [listings.id] }),
+  resolver: one(users, { fields: [reports.resolvedBy], references: [users.id] }),
 }));
 
 // Quick fix for the category listing relation field naming
