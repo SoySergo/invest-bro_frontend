@@ -3,32 +3,50 @@
 import { Button } from "@/components/ui/button";
 import { ListingFormData } from "@/lib/schemas/listing";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { createListing } from "@/lib/actions/listings";
+import { createListing, editListing } from "@/lib/actions/listings";
 import { toast } from "sonner";
 import { useRouter as useI18nRouter } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
+import type { UploadedImage } from "@/components/shared/image-upload";
+import Image from "next/image";
 
 type StepReviewProps = {
     data: Partial<ListingFormData>;
+    images: UploadedImage[];
+    listingId?: string;
+    mode?: "create" | "edit";
     onBack: () => void;
 };
 
-export function StepReview({ data, onBack }: StepReviewProps) {
+export function StepReview({ data, images, listingId, mode = "create", onBack }: StepReviewProps) {
     const t = useTranslations("Wizard");
+    const tManage = useTranslations("ListingManage");
     const tCountries = useTranslations("Countries");
     const router = useI18nRouter();
 
     const handleSubmit = async () => {
         try {
-            const res = await createListing(data as ListingFormData);
-            if (res.error) {
-                toast.error(res.error);
+            const imageData = images.map((img) => ({ url: img.url, key: img.key, order: img.order }));
+
+            if (mode === "edit" && listingId) {
+                const res = await editListing(listingId, data as ListingFormData, imageData);
+                if (res.error) {
+                    toast.error(res.error);
+                } else {
+                    toast.success(tManage("updateSuccess"));
+                    router.push(`/listing/${listingId}`);
+                }
             } else {
-                toast.success(t("publishSuccess"));
-                router.push("/listings");
+                const res = await createListing(data as ListingFormData, imageData);
+                if (res.error) {
+                    toast.error(res.error);
+                } else {
+                    toast.success(t("publishSuccess"));
+                    router.push("/listings");
+                }
             }
         } catch {
-            toast.error(t("publishError"));
+            toast.error(mode === "edit" ? tManage("updateError") : t("publishError"));
         }
     };
 
@@ -69,13 +87,26 @@ export function StepReview({ data, onBack }: StepReviewProps) {
                         <span className="font-semibold block">{t("description")}:</span>
                         <p className="text-sm text-muted-foreground whitespace-pre-wrap">{data.description}</p>
                     </div>
+
+                    {images.length > 0 && (
+                        <div>
+                            <span className="font-semibold block mb-2">{t("stepImages")}:</span>
+                            <div className="grid grid-cols-4 gap-2">
+                                {images.map((img) => (
+                                    <div key={img.id} className="relative aspect-square rounded-md overflow-hidden border">
+                                        <Image src={img.url} alt={img.name} fill className="object-cover" sizes="25vw" />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </CardContent>
             </Card>
 
             <div className="flex justify-between">
                 <Button type="button" variant="outline" onClick={onBack}>{t("back")}</Button>
                 <Button onClick={handleSubmit} className="bg-linear-to-r from-primary to-primary/80 btn-glow transition-all duration-200">
-                    {t("publish")}
+                    {mode === "edit" ? tManage("savePublish") : t("publish")}
                 </Button>
             </div>
         </div>

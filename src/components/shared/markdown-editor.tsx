@@ -77,7 +77,6 @@ export function MarkdownEditor({ value, onChange, label, placeholder, className 
     const handleOrderedList = () => insertLinePrefix("1. ");
     const handleQuote = () => insertLinePrefix("> ");
     const handleCode = () => insertText("`", "`");
-    const handleCodeBlock = () => insertText("\n```\n", "\n```\n");
     const handleLink = () => insertText("[", "](url)");
     const handleHorizontalRule = () => insertText("\n---\n");
     const handleTable = () => insertText("\n| Column 1 | Column 2 | Column 3 |\n| --- | --- | --- |\n| ", " | | |\n");

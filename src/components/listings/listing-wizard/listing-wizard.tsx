@@ -8,6 +8,7 @@ import { StepMetrics } from "./step-metrics";
 import { StepImages } from "./step-images";
 import { StepReview } from "./step-review";
 import { ListingFormData } from "@/lib/schemas/listing";
+import type { UploadedImage } from "@/components/shared/image-upload";
 
 export interface CategoryOption {
     slug: string;
@@ -17,15 +18,27 @@ export interface CategoryOption {
 interface ListingWizardProps {
     onlineCategories: CategoryOption[];
     offlineCategories: CategoryOption[];
+    initialData?: Partial<ListingFormData>;
+    initialImages?: UploadedImage[];
+    listingId?: string;
+    mode?: "create" | "edit";
 }
 
 type Step = "category" | "info" | "metrics" | "images" | "review";
 
 const STEPS: Step[] = ["category", "info", "metrics", "images", "review"];
 
-export function ListingWizard({ onlineCategories, offlineCategories }: ListingWizardProps) {
+export function ListingWizard({
+    onlineCategories,
+    offlineCategories,
+    initialData,
+    initialImages,
+    listingId,
+    mode = "create",
+}: ListingWizardProps) {
     const [currentStep, setCurrentStep] = useState<Step>("category");
-    const [formData, setFormData] = useState<Partial<ListingFormData>>({});
+    const [formData, setFormData] = useState<Partial<ListingFormData>>(initialData || {});
+    const [images, setImages] = useState<UploadedImage[]>(initialImages || []);
 
     const stepIndex = STEPS.indexOf(currentStep);
     const progress = ((stepIndex + 1) / STEPS.length) * 100;
@@ -89,7 +102,8 @@ export function ListingWizard({ onlineCategories, offlineCategories }: ListingWi
                     )}
                     {currentStep === "images" && (
                         <StepImages
-                            defaultValues={formData}
+                            images={images}
+                            onImagesChange={setImages}
                             onNext={(data: Partial<ListingFormData>) => {
                                 updateData(data);
                                 nextStep();
@@ -100,6 +114,9 @@ export function ListingWizard({ onlineCategories, offlineCategories }: ListingWi
                     {currentStep === "review" && (
                         <StepReview
                             data={formData}
+                            images={images}
+                            listingId={listingId}
+                            mode={mode}
                             onBack={prevStep}
                         />
                     )}
