@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/db";
-import { favorites } from "@/db/schema";
+import { favorites, listings, notifications } from "@/db/schema";
 import { eq, and } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { auth } from "@/lib/auth";
@@ -32,6 +32,21 @@ export async function toggleFavorite(listingId: string) {
         userId,
         listingId,
       });
+
+      // Notify the listing owner
+      const listing = await db.query.listings.findFirst({
+        where: eq(listings.id, listingId),
+      });
+      if (listing && listing.userId !== userId) {
+        await db.insert(notifications).values({
+          userId: listing.userId,
+          type: "favorite_added",
+          title: "Listing favorited",
+          body: `Someone added "${listing.title}" to favorites`,
+          link: `/listing/${listingId}`,
+        });
+      }
+
       revalidatePath("/favorites");
       revalidatePath("/listings");
       return { success: true, isFavorited: true };

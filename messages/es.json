@@ -152,12 +152,19 @@
   },
   "Chat": {
     "title": "Mensajes",
-    "noConversations": "Aún no hay conversaciones",
+    "noConversations": "No hay conversaciones",
     "startChat": "¡Inicia la conversación!",
     "typePlaceholder": "Escribe un mensaje...",
     "send": "Enviar",
-    "pleaseLogin": "Por favor, inicia sesión primero",
-    "noMessagesYet": "Aún no hay mensajes"
+    "pleaseLogin": "Inicia sesión primero",
+    "noMessagesYet": "No hay mensajes",
+    "searchMessages": "Buscar mensajes...",
+    "typeListing": "Negocio",
+    "typeInvestment": "Inversión",
+    "typeJob": "Empleo",
+    "statusSent": "Enviado",
+    "statusDelivered": "Entregado",
+    "statusRead": "Leído"
   },
   "Footer": {
     "description": "Tu marketplace de confianza para comprar y vender negocios en Europa",
@@ -627,5 +634,18 @@
     "applicationSent": "¡Solicitud enviada!",
     "safetyTip": "Protégete del fraude.",
     "safetyWarning": "Verifica toda la información antes de comprometerte."
+  },
+  "Notifications": {
+    "title": "Notificaciones",
+    "empty": "Sin notificaciones",
+    "markAllRead": "Marcar todo como leído",
+    "newMessage": "Nuevo mensaje",
+    "jobApplication": "Nueva solicitud",
+    "favoriteAdded": "Añadido a favoritos",
+    "chatInvitation": "Nueva conversación",
+    "justNow": "Ahora",
+    "minutesAgo": "hace {count}min",
+    "hoursAgo": "hace {count}h",
+    "daysAgo": "hace {count}d"
   }
 }

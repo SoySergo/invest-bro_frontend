@@ -9,6 +9,9 @@ export const investorTypeEnum = pgEnum('investor_type', ['angel', 'vc', 'private
 export const jobStatusEnum = pgEnum('job_status', ['active', 'closed', 'draft']);
 export const jobUrgencyEnum = pgEnum('job_urgency', ['low', 'medium', 'high', 'asap']);
 export const jobLevelEnum = pgEnum('job_level', ['junior', 'middle', 'senior', 'lead', 'head', 'clevel']);
+export const conversationTypeEnum = pgEnum('conversation_type', ['listing', 'investment', 'job']);
+export const messageStatusEnum = pgEnum('message_status', ['sent', 'delivered', 'read']);
+export const notificationTypeEnum = pgEnum('notification_type', ['new_message', 'job_application', 'favorite_added', 'chat_invitation']);
 
 // USERS
 export const users = pgTable("users", {
@@ -187,7 +190,9 @@ export const favorites = pgTable("favorites", {
 // CHAT
 export const conversations = pgTable("conversations", {
   id: uuid("id").defaultRandom().primaryKey(),
+  type: conversationTypeEnum("type").default("listing").notNull(),
   listingId: uuid("listing_id").references(() => listings.id),
+  jobId: uuid("job_id").references(() => jobs.id),
   buyerId: uuid("buyer_id").references(() => users.id).notNull(),
   sellerId: uuid("seller_id").references(() => users.id).notNull(),
   lastMessageAt: timestamp("last_message_at").defaultNow(),
@@ -199,8 +204,21 @@ export const messages = pgTable("messages", {
   conversationId: uuid("conversation_id").references(() => conversations.id).notNull(),
   senderId: uuid("sender_id").references(() => users.id).notNull(),
   content: text("content").notNull(),
+  status: messageStatusEnum("status").default("sent").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   readAt: timestamp("read_at"),
+});
+
+// NOTIFICATIONS
+export const notifications = pgTable("notifications", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  userId: uuid("user_id").references(() => users.id, { onDelete: "cascade" }).notNull(),
+  type: notificationTypeEnum("type").notNull(),
+  title: text("title").notNull(),
+  body: text("body"),
+  link: text("link"),
+  isRead: boolean("is_read").default(false).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
 // RELATIONS
@@ -212,6 +230,7 @@ export const usersRelations = relations(users, ({ many }) => ({
   investorProfiles: many(investorProfiles),
   jobs: many(jobs),
   jobApplications: many(jobApplications),
+  notifications: many(notifications),
 }));
 
 export const accountsRelations = relations(accounts, ({ one }) => ({
@@ -251,6 +270,7 @@ export const listingsRelations = relations(listings, ({ one, many }) => ({
 
 export const conversationsRelations = relations(conversations, ({ one, many }) => ({
   listing: one(listings, { fields: [conversations.listingId], references: [listings.id] }),
+  job: one(jobs, { fields: [conversations.jobId], references: [jobs.id] }),
   buyer: one(users, { fields: [conversations.buyerId], references: [users.id], relationName: "buyer" }),
   seller: one(users, { fields: [conversations.sellerId], references: [users.id], relationName: "seller" }),
   messages: many(messages),
@@ -282,6 +302,10 @@ export const jobsRelations = relations(jobs, ({ one, many }) => ({
 export const jobApplicationsRelations = relations(jobApplications, ({ one }) => ({
   job: one(jobs, { fields: [jobApplications.jobId], references: [jobs.id] }),
   user: one(users, { fields: [jobApplications.userId], references: [users.id] }),
+}));
+
+export const notificationsRelations = relations(notifications, ({ one }) => ({
+  user: one(users, { fields: [notifications.userId], references: [users.id] }),
 }));
 
 // Quick fix for the category listing relation field naming

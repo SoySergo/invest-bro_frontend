@@ -152,12 +152,19 @@
   },
   "Chat": {
     "title": "Messages",
-    "noConversations": "Aucune conversation pour le moment",
-    "startChat": "Lancez la conversation !",
+    "noConversations": "Aucune conversation",
+    "startChat": "Commencez la conversation !",
     "typePlaceholder": "Tapez un message...",
     "send": "Envoyer",
-    "pleaseLogin": "Veuillez d'abord vous connecter",
-    "noMessagesYet": "Aucun message pour le moment"
+    "pleaseLogin": "Veuillez vous connecter",
+    "noMessagesYet": "Aucun message",
+    "searchMessages": "Rechercher des messages...",
+    "typeListing": "Business",
+    "typeInvestment": "Investissement",
+    "typeJob": "Emploi",
+    "statusSent": "Envoyé",
+    "statusDelivered": "Livré",
+    "statusRead": "Lu"
   },
   "Footer": {
     "description": "Votre marketplace de confiance pour acheter et vendre des entreprises en Europe",
@@ -627,5 +634,18 @@
     "applicationSent": "Candidature envoyée !",
     "safetyTip": "Protégez-vous contre la fraude.",
     "safetyWarning": "Vérifiez toutes les informations avant de vous engager."
+  },
+  "Notifications": {
+    "title": "Notifications",
+    "empty": "Aucune notification",
+    "markAllRead": "Tout marquer comme lu",
+    "newMessage": "Nouveau message",
+    "jobApplication": "Nouvelle candidature",
+    "favoriteAdded": "Ajouté aux favoris",
+    "chatInvitation": "Nouvelle conversation",
+    "justNow": "À l'instant",
+    "minutesAgo": "il y a {count}min",
+    "hoursAgo": "il y a {count}h",
+    "daysAgo": "il y a {count}j"
   }
 }
