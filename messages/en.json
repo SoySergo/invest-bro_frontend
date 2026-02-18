@@ -647,5 +647,14 @@
     "minutesAgo": "{count}m ago",
     "hoursAgo": "{count}h ago",
     "daysAgo": "{count}d ago"
+  },
+  "Search": {
+    "placeholder": "Search...",
+    "inputPlaceholder": "Search businesses, investors, jobs...",
+    "searching": "Searching...",
+    "noResults": "No results found.",
+    "businesses": "Businesses",
+    "investors": "Investors",
+    "jobs": "Jobs"
   }
 }

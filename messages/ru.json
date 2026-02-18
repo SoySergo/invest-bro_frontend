@@ -647,5 +647,14 @@
     "minutesAgo": "{count} мин назад",
     "hoursAgo": "{count} ч назад",
     "daysAgo": "{count} д назад"
+  },
+  "Search": {
+    "placeholder": "Поиск...",
+    "inputPlaceholder": "Поиск бизнесов, инвесторов, вакансий...",
+    "searching": "Поиск...",
+    "noResults": "Результатов не найдено.",
+    "businesses": "Бизнесы",
+    "investors": "Инвесторы",
+    "jobs": "Вакансии"
   }
 }

@@ -647,5 +647,14 @@
     "minutesAgo": "vor {count}min",
     "hoursAgo": "vor {count}h",
     "daysAgo": "vor {count}T"
+  },
+  "Search": {
+    "placeholder": "Suchen...",
+    "inputPlaceholder": "Unternehmen, Investoren, Jobs suchen...",
+    "searching": "Suche...",
+    "noResults": "Keine Ergebnisse gefunden.",
+    "businesses": "Unternehmen",
+    "investors": "Investoren",
+    "jobs": "Jobs"
   }
 }

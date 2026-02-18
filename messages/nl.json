@@ -647,5 +647,14 @@
     "minutesAgo": "{count}min geleden",
     "hoursAgo": "{count}u geleden",
     "daysAgo": "{count}d geleden"
+  },
+  "Search": {
+    "placeholder": "Zoeken...",
+    "inputPlaceholder": "Zoek bedrijven, investeerders, banen...",
+    "searching": "Zoeken...",
+    "noResults": "Geen resultaten gevonden.",
+    "businesses": "Bedrijven",
+    "investors": "Investeerders",
+    "jobs": "Banen"
   }
 }

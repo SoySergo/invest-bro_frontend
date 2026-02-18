@@ -647,5 +647,14 @@
     "minutesAgo": "il y a {count}min",
     "hoursAgo": "il y a {count}h",
     "daysAgo": "il y a {count}j"
+  },
+  "Search": {
+    "placeholder": "Rechercher...",
+    "inputPlaceholder": "Rechercher entreprises, investisseurs, emplois...",
+    "searching": "Recherche...",
+    "noResults": "Aucun résultat trouvé.",
+    "businesses": "Entreprises",
+    "investors": "Investisseurs",
+    "jobs": "Emplois"
   }
 }
