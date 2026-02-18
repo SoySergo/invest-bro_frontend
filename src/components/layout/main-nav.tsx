@@ -15,7 +15,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Menu, BriefcaseBusiness, Heart, MessageCircle, User, LogOut, Settings } from "lucide-react";
+import { Menu, BriefcaseBusiness, Heart, MessageCircle, User, LogOut, Settings, TrendingUp } from "lucide-react";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 
@@ -57,6 +57,12 @@ export function MainNav() {
                             className="transition-colors hover:text-foreground text-muted-foreground"
                         >
                             {t("listings")}
+                        </Link>
+                        <Link
+                            href="/investors"
+                            className="transition-colors hover:text-foreground text-muted-foreground"
+                        >
+                            {t("investors")}
                         </Link>
                         <Link
                             href="/favorites"
@@ -162,6 +168,10 @@ export function MainNav() {
                                 </Link>
                                 <Link href="/listings" className="text-lg font-medium">
                                     {t("listings")}
+                                </Link>
+                                <Link href="/investors" className="text-lg font-medium flex items-center gap-2">
+                                    <TrendingUp className="h-5 w-5" />
+                                    {t("investors")}
                                 </Link>
                                 <Link href="/favorites" className="text-lg font-medium flex items-center gap-2">
                                     <Heart className="h-5 w-5" />

@@ -1,8 +1,10 @@
 import { getListingById } from "@/lib/data/listing-details";
+import { getMatchingInvestors } from "@/lib/data/investors";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Store, TrendingUp, DollarSign, Clock, MapPin, Globe } from "lucide-react";
 import { Link } from "@/i18n/routing";
 import { getTranslations, getLocale } from "next-intl/server";
@@ -25,6 +27,8 @@ export default async function ListingDetailsPage({ params }: { params: Promise<{
   if (!listing) {
     notFound();
   }
+
+  const matchingInvestors = await getMatchingInvestors(id, 5);
 
   const isOwner = session?.user?.id === listing.userId;
 
@@ -199,6 +203,49 @@ export default async function ListingDetailsPage({ params }: { params: Promise<{
         </div>
 
       </div>
+
+      {/* Matching Investors */}
+      {matchingInvestors.length > 0 && (
+        <div className="mt-12">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold tracking-tight">{t("matchingInvestors")}</h2>
+            <Link href="/investors" className="text-primary hover:underline text-sm font-medium">
+              {t("viewAllInvestors")}
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {matchingInvestors.map((investor) => (
+              <Link key={investor.id} href={`/investor/${investor.id}`}>
+                <Card className="glass-card hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 cursor-pointer">
+                  <CardContent className="p-4 flex items-center gap-3">
+                    <Avatar className="h-10 w-10 border border-primary/20">
+                      <AvatarImage src={investor.user.image ?? undefined} />
+                      <AvatarFallback className="bg-primary/10 text-primary text-sm font-bold">
+                        {investor.user.name?.charAt(0)?.toUpperCase() ?? "I"}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-semibold text-sm truncate">{investor.user.name}</p>
+                      <div className="flex items-center gap-1.5">
+                        <Badge variant="secondary" className="text-xs capitalize bg-primary/10 text-primary border-0">
+                          <TrendingUp className="h-2.5 w-2.5 mr-0.5" />
+                          {investor.type}
+                        </Badge>
+                        {investor.user.country && (
+                          <span className="text-xs text-muted-foreground flex items-center gap-0.5">
+                            <MapPin className="h-2.5 w-2.5" />
+                            {tCountries(investor.user.country)}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

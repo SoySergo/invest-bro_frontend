@@ -5,6 +5,7 @@ import type { AdapterAccountType } from "next-auth/adapters";
 export const listingStatusEnum = pgEnum('listing_status', ['active', 'sold', 'hidden', 'draft']);
 export const metricTypeEnum = pgEnum('metric_type', ['revenue', 'profit', 'users', 'traffic', 'other']);
 export const userRoleEnum = pgEnum('user_role', ['user', 'admin']);
+export const investorTypeEnum = pgEnum('investor_type', ['angel', 'vc', 'private', 'strategic', 'institutional']);
 
 // USERS
 export const users = pgTable("users", {
@@ -114,6 +115,27 @@ export const listingImages = pgTable("listing_images", {
   order: integer("order").default(0),
 });
 
+// INVESTOR PROFILES
+export const investorProfiles = pgTable("investor_profiles", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  userId: uuid("user_id").references(() => users.id, { onDelete: "cascade" }).notNull(),
+  type: investorTypeEnum("type").notNull(),
+  stages: jsonb("stages").$type<string[]>().default([]),
+  industries: jsonb("industries").$type<string[]>().default([]),
+  ticketMin: decimal("ticket_min", { precision: 12, scale: 2 }),
+  ticketMax: decimal("ticket_max", { precision: 12, scale: 2 }),
+  currency: text("currency").default("EUR").notNull(),
+  geoFocus: jsonb("geo_focus").$type<string[]>().default([]),
+  instrumentTypes: jsonb("instrument_types").$type<string[]>().default([]),
+  participationType: text("participation_type"),
+  requirements: text("requirements"),
+  portfolio: jsonb("portfolio").$type<Array<{ name: string; url?: string }>>().default([]),
+  exitStrategy: text("exit_strategy"),
+  isPublic: boolean("is_public").default(true).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
 // FAVORITES
 export const favorites = pgTable("favorites", {
   id: uuid("id").defaultRandom().primaryKey(),
@@ -147,6 +169,7 @@ export const usersRelations = relations(users, ({ many }) => ({
   favorites: many(favorites),
   accounts: many(accounts),
   sessions: many(sessions),
+  investorProfiles: many(investorProfiles),
 }));
 
 export const accountsRelations = relations(accounts, ({ one }) => ({
@@ -202,6 +225,10 @@ export const metricsRelations = relations(metrics, ({ one }) => ({
 
 export const listingImagesRelations = relations(listingImages, ({ one }) => ({
   listing: one(listings, { fields: [listingImages.listingId], references: [listings.id] }),
+}));
+
+export const investorProfilesRelations = relations(investorProfiles, ({ one }) => ({
+  user: one(users, { fields: [investorProfiles.userId], references: [users.id] }),
 }));
 
 // Quick fix for the category listing relation field naming

@@ -40,7 +40,9 @@
     "sellBusiness": "Vendre une entreprise",
     "toggleMenu": "Basculer le menu",
     "create": "Créer",
-    "profile": "Profil"
+    "profile": "Profil",
+    "investors": "Investisseurs",
+    "createInvestor": "Profil investisseur"
   },
   "Listings": {
     "title": "Parcourir les entreprises",
@@ -87,7 +89,9 @@
     "removedFromFavorites": "Retiré des favoris",
     "safetyTip": "Protégez-vous contre la fraude.",
     "safetyWarning": "Ne payez jamais avant d'avoir vérifié l'entreprise.",
-    "revenueChart": "Tendance mensuelle du chiffre d'affaires"
+    "revenueChart": "Tendance mensuelle du chiffre d'affaires",
+    "matchingInvestors": "Investisseurs correspondants",
+    "viewAllInvestors": "Voir tous les investisseurs"
   },
   "Wizard": {
     "sellTitle": "Vendez votre entreprise",
@@ -361,5 +365,124 @@
     "confirmDelete": "Supprimer",
     "saveDraft": "Enregistrer comme brouillon",
     "savePublish": "Enregistrer et publier"
+  },
+  "Investors": {
+    "title": "Catalogue des investisseurs",
+    "subtitle": "Trouvez l'investisseur idéal pour votre projet",
+    "allTypes": "Tous les types",
+    "allStages": "Tous les stades",
+    "allIndustries": "Toutes les industries",
+    "allParticipation": "Tous les types",
+    "noResults": "Aucun investisseur trouvé",
+    "beFirst": "Soyez le premier à créer un profil d'investisseur !",
+    "loading": "Chargement...",
+    "createTitle": "Créer un profil investisseur",
+    "createSubtitle": "Décrivez vos critères d'investissement aux startups et entreprises",
+    "editTitle": "Modifier le profil investisseur",
+    "editSubtitle": "Mettez à jour vos critères et préférences d'investissement",
+    "profileCreated": "Profil investisseur créé avec succès",
+    "profileUpdated": "Profil investisseur mis à jour avec succès",
+    "types": {
+      "angel": "Business Angel",
+      "vc": "Capital-risque",
+      "private": "Investisseur privé",
+      "strategic": "Investisseur stratégique",
+      "institutional": "Fonds institutionnel"
+    },
+    "stages": {
+      "idea": "Idée",
+      "mvp": "MVP",
+      "pre-seed": "Pre-Seed",
+      "seed": "Seed",
+      "series-a": "Series A",
+      "series-b": "Series B",
+      "growth": "Croissance"
+    },
+    "industries": {
+      "tech": "Technologie",
+      "ecommerce": "E-Commerce",
+      "horeca": "HoReCa",
+      "healthcare": "Santé",
+      "edtech": "EdTech",
+      "fintech": "FinTech",
+      "greentech": "GreenTech",
+      "agritech": "AgriTech",
+      "proptech": "PropTech",
+      "logtech": "LogTech",
+      "saas": "SaaS",
+      "retail": "Commerce de détail",
+      "manufacturing": "Industrie",
+      "entertainment": "Divertissement",
+      "tourism": "Tourisme",
+      "generalist": "Généraliste"
+    },
+    "instruments": {
+      "equity": "Capital",
+      "safe": "SAFE",
+      "convertible-note": "Note convertible",
+      "loan": "Prêt",
+      "option": "Option",
+      "revenue-share": "Part des revenus"
+    },
+    "participation": {
+      "passive": "Passif",
+      "smart-money": "Smart Money",
+      "operational": "Opérationnel"
+    },
+    "form": {
+      "typeTitle": "Type d'investisseur",
+      "selectType": "Sélectionnez le type",
+      "stagesTitle": "Stades d'investissement",
+      "industriesTitle": "Industries d'intérêt",
+      "ticketTitle": "Ticket d'investissement",
+      "ticketMin": "Minimum",
+      "ticketMax": "Maximum",
+      "currency": "Devise",
+      "geoFocusTitle": "Focus géographique",
+      "instrumentsTitle": "Instruments d'investissement",
+      "participationTitle": "Type de participation",
+      "selectParticipation": "Sélectionnez le type",
+      "requirementsTitle": "Exigences",
+      "requirementsPlaceholder": "Décrivez vos exigences pour les projets...",
+      "portfolioTitle": "Portfolio",
+      "addProject": "Ajouter un projet",
+      "projectName": "Nom du projet",
+      "projectUrl": "URL (optionnel)",
+      "noPortfolio": "Aucun projet ajouté",
+      "exitStrategyTitle": "Stratégie de sortie",
+      "exitStrategyPlaceholder": "Décrivez votre stratégie de sortie préférée",
+      "visibilityTitle": "Visibilité",
+      "publicProfile": "Afficher le profil dans le catalogue public",
+      "createProfile": "Créer le profil",
+      "saveChanges": "Enregistrer"
+    }
+  },
+  "InvestorCard": {
+    "viewProfile": "Voir le profil",
+    "investmentTicket": "Ticket d'investissement",
+    "stages": "Stades",
+    "industries": "Industries",
+    "from": "à partir de",
+    "upTo": "jusqu'à",
+    "anonymous": "Investisseur anonyme"
+  },
+  "InvestorDetail": {
+    "edit": "Modifier",
+    "investmentTicket": "Ticket d'investissement",
+    "from": "à partir de",
+    "upTo": "jusqu'à",
+    "stages": "Stades d'investissement",
+    "industries": "Industries",
+    "geoFocus": "Focus géographique",
+    "instruments": "Instruments d'investissement",
+    "requirements": "Exigences",
+    "exitStrategy": "Stratégie de sortie",
+    "portfolio": "Portfolio",
+    "visitProject": "Visiter",
+    "contactInfo": "Informations de contact",
+    "contactInvestor": "Contacter l'investisseur",
+    "safetyTip": "Protégez-vous contre la fraude.",
+    "safetyWarning": "Vérifiez toutes les informations avant de vous engager.",
+    "matchingProjects": "Projets correspondants"
   }
 }
