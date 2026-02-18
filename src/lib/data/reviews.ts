@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { reviews, users } from "@/db/schema";
+import { reviews } from "@/db/schema";
 import { eq, desc, avg, count } from "drizzle-orm";
 
 export async function getReviewsForUser(userId: string) {
