@@ -28,7 +28,16 @@
     "offlineBusinesses": "Attività fisiche",
     "onlineBusinesses": "Attività online",
     "ctaTitle": "Pronto per iniziare?",
-    "ctaSubtitle": "Unisciti a migliaia di investitori e imprenditori"
+    "ctaSubtitle": "Unisciti a migliaia di investitori e imprenditori",
+    "heroSearchPlaceholder": "Cerca attività per nome, categoria, posizione...",
+    "trendingListings": "Annunci di tendenza",
+    "investorsSection": "Investitori",
+    "jobsSection": "Lavoro nelle startup",
+    "platformStats": "Piattaforma in numeri",
+    "statListings": "Attività",
+    "statInvestors": "Investitori",
+    "statCountries": "Paesi",
+    "statJobs": "Lavori"
   },
   "Navigation": {
     "home": "Home",
@@ -656,5 +665,30 @@
     "businesses": "Aziende",
     "investors": "Investitori",
     "jobs": "Lavori"
+  },
+  "CategoryPage": {
+    "breadcrumbHome": "Home",
+    "subcategories": "Sottocategorie",
+    "listingsInCategory": "Annunci in {category}",
+    "noListingsInCategory": "Nessun annuncio in questa categoria",
+    "browseAll": "Sfoglia tutti gli annunci"
+  },
+  "SimilarListings": {
+    "title": "Attività simili",
+    "viewAll": "Vedi tutti"
+  },
+  "SEO": {
+    "homeTitle": "InvestBro — Compra e vendi attività in Europa",
+    "homeDescription": "Scopri attività redditizie in vendita in tutta Europa. Connettiti con investitori e trova lavoro nelle startup.",
+    "listingsTitle": "Annunci di attività — InvestBro",
+    "listingsDescription": "Sfoglia le attività in vendita in Europa. Filtra per categoria, prezzo, posizione e altro.",
+    "investorsTitle": "Investitori — InvestBro",
+    "investorsDescription": "Trova investitori per la tua attività o startup in tutta Europa.",
+    "jobsTitle": "Lavoro nelle startup — InvestBro",
+    "jobsDescription": "Trova lavoro nelle startup e nelle aziende in crescita in tutta Europa.",
+    "categoryTitle": "{category} — InvestBro",
+    "categoryDescription": "Sfoglia gli annunci {category} su InvestBro",
+    "listingDetailTitle": "{title} — InvestBro",
+    "listingDetailDescription": "{title} in vendita su InvestBro. Consulta le metriche finanziarie e contatta il venditore."
   }
 }

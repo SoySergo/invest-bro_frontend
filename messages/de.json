@@ -28,7 +28,16 @@
     "offlineBusinesses": "Offline-Unternehmen",
     "onlineBusinesses": "Online-Unternehmen",
     "ctaTitle": "Bereit loszulegen?",
-    "ctaSubtitle": "Schließen Sie sich Tausenden von Investoren und Unternehmern an"
+    "ctaSubtitle": "Schließen Sie sich Tausenden von Investoren und Unternehmern an",
+    "heroSearchPlaceholder": "Unternehmen nach Name, Kategorie, Standort suchen...",
+    "trendingListings": "Trendige Angebote",
+    "investorsSection": "Investoren",
+    "jobsSection": "Jobs in Startups",
+    "platformStats": "Plattform in Zahlen",
+    "statListings": "Unternehmen",
+    "statInvestors": "Investoren",
+    "statCountries": "Länder",
+    "statJobs": "Jobs"
   },
   "Navigation": {
     "home": "Startseite",
@@ -656,5 +665,30 @@
     "businesses": "Unternehmen",
     "investors": "Investoren",
     "jobs": "Jobs"
+  },
+  "CategoryPage": {
+    "breadcrumbHome": "Startseite",
+    "subcategories": "Unterkategorien",
+    "listingsInCategory": "Angebote in {category}",
+    "noListingsInCategory": "Noch keine Angebote in dieser Kategorie",
+    "browseAll": "Alle Angebote durchsuchen"
+  },
+  "SimilarListings": {
+    "title": "Ähnliche Unternehmen",
+    "viewAll": "Alle anzeigen"
+  },
+  "SEO": {
+    "homeTitle": "InvestBro — Unternehmen in Europa kaufen und verkaufen",
+    "homeDescription": "Entdecken Sie profitable Unternehmen zum Verkauf in ganz Europa. Verbinden Sie sich mit Investoren und finden Sie Startup-Jobs.",
+    "listingsTitle": "Geschäftsangebote — InvestBro",
+    "listingsDescription": "Durchsuchen Sie Unternehmen zum Verkauf in Europa. Filtern Sie nach Kategorie, Preis, Standort und mehr.",
+    "investorsTitle": "Investoren — InvestBro",
+    "investorsDescription": "Finden Sie Investoren für Ihr Unternehmen oder Startup in ganz Europa.",
+    "jobsTitle": "Jobs in Startups — InvestBro",
+    "jobsDescription": "Finden Sie Jobs in Startups und wachsenden Unternehmen in ganz Europa.",
+    "categoryTitle": "{category} — InvestBro",
+    "categoryDescription": "{category}-Angebote auf InvestBro durchsuchen",
+    "listingDetailTitle": "{title} — InvestBro",
+    "listingDetailDescription": "{title} zum Verkauf auf InvestBro. Finanzkennzahlen ansehen und den Verkäufer kontaktieren."
   }
 }

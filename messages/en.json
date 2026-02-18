@@ -28,7 +28,16 @@
     "offlineBusinesses": "Offline Businesses",
     "onlineBusinesses": "Online Businesses",
     "ctaTitle": "Ready to Get Started?",
-    "ctaSubtitle": "Join thousands of investors and entrepreneurs"
+    "ctaSubtitle": "Join thousands of investors and entrepreneurs",
+    "heroSearchPlaceholder": "Search businesses by name, category, location...",
+    "trendingListings": "Trending Listings",
+    "investorsSection": "Investors",
+    "jobsSection": "Jobs in Startups",
+    "platformStats": "Platform in Numbers",
+    "statListings": "Businesses",
+    "statInvestors": "Investors",
+    "statCountries": "Countries",
+    "statJobs": "Jobs"
   },
   "Navigation": {
     "home": "Home",
@@ -656,5 +665,30 @@
     "businesses": "Businesses",
     "investors": "Investors",
     "jobs": "Jobs"
+  },
+  "CategoryPage": {
+    "breadcrumbHome": "Home",
+    "subcategories": "Subcategories",
+    "listingsInCategory": "Listings in {category}",
+    "noListingsInCategory": "No listings in this category yet",
+    "browseAll": "Browse All Listings"
+  },
+  "SimilarListings": {
+    "title": "Similar Businesses",
+    "viewAll": "View All"
+  },
+  "SEO": {
+    "homeTitle": "InvestBro — Buy & Sell Businesses in Europe",
+    "homeDescription": "Discover profitable businesses for sale across Europe. Connect with investors and find startup jobs.",
+    "listingsTitle": "Business Listings — InvestBro",
+    "listingsDescription": "Browse businesses for sale in Europe. Filter by category, price, location and more.",
+    "investorsTitle": "Investors — InvestBro",
+    "investorsDescription": "Find investors for your business or startup across Europe.",
+    "jobsTitle": "Jobs in Startups — InvestBro",
+    "jobsDescription": "Find jobs in startups and growing businesses across Europe.",
+    "categoryTitle": "{category} — InvestBro",
+    "categoryDescription": "Browse {category} listings on InvestBro",
+    "listingDetailTitle": "{title} — InvestBro",
+    "listingDetailDescription": "{title} for sale on InvestBro. View financial metrics and contact the seller."
   }
 }
