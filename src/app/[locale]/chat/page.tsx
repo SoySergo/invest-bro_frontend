@@ -1,11 +1,25 @@
 import { db } from "@/db";
 import { conversations, messages } from "@/db/schema";
-import { desc, eq, or } from "drizzle-orm";
+import { eq, or, and, count } from "drizzle-orm";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import { Link } from "@/i18n/routing";
 import { getTranslations } from "next-intl/server";
 import { auth } from "@/lib/auth";
+import { Store, TrendingUp, Briefcase } from "lucide-react";
+
+const typeIcons = {
+  listing: Store,
+  investment: TrendingUp,
+  job: Briefcase,
+} as const;
+
+const typeBadgeColors = {
+  listing: "bg-primary/10 text-primary border-primary/20",
+  investment: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20",
+  job: "bg-amber-500/10 text-amber-500 border-amber-500/20",
+} as const;
 
 export default async function ChatListPage() {
   const t = await getTranslations("Chat");
@@ -20,6 +34,7 @@ export default async function ChatListPage() {
     ),
     with: {
       listing: true,
+      job: true,
       buyer: true,
       seller: true,
       messages: {
@@ -30,6 +45,23 @@ export default async function ChatListPage() {
     orderBy: (conversations, { desc }) => [desc(conversations.lastMessageAt)],
   });
 
+  // Get unread counts per conversation
+  const unreadCounts = new Map<string, number>();
+  for (const conv of userConversations) {
+    const result = await db
+      .select({ value: count() })
+      .from(messages)
+      .where(
+        and(
+          eq(messages.conversationId, conv.id),
+          eq(messages.status, "sent"),
+          // Messages from the other user (not from current user)
+          eq(messages.senderId, conv.buyerId === currentUserId ? conv.sellerId : conv.buyerId)
+        )
+      );
+    unreadCounts.set(conv.id, result[0]?.value ?? 0);
+  }
+
   return (
     <div className="container max-w-2xl py-10">
       <h1 className="text-2xl font-bold mb-6">{t("title")}</h1>
@@ -37,6 +69,9 @@ export default async function ChatListPage() {
         {userConversations.map((conv) => {
           const otherUser = conv.buyerId === currentUserId ? conv.seller : conv.buyer;
           const lastMsg = conv.messages[0]?.content || t("noMessagesYet");
+          const unreadCount = unreadCounts.get(conv.id) ?? 0;
+          const Icon = typeIcons[conv.type];
+          const contextTitle = conv.type === "job" ? conv.job?.title : conv.listing?.title;
 
           return (
             <Link href={`/chat/${conv.id}`} key={conv.id}>
@@ -46,16 +81,34 @@ export default async function ChatListPage() {
                     <AvatarFallback>{otherUser.name?.[0]}</AvatarFallback>
                   </Avatar>
                   <div className="flex-1 min-w-0">
-                    <div className="flex justify-between items-baseline mb-1">
-                      <h3 className="font-semibold truncate">{otherUser.name}</h3>
-                      <span className="text-xs text-muted-foreground whitespace-nowrap">
-                        {conv.lastMessageAt ? new Date(conv.lastMessageAt).toLocaleDateString() : ""}
-                      </span>
+                    <div className="flex justify-between items-center mb-1">
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-semibold truncate">{otherUser.name}</h3>
+                        <Badge
+                          variant="outline"
+                          className={`text-[10px] px-1.5 py-0 ${typeBadgeColors[conv.type]}`}
+                        >
+                          <Icon className="h-3 w-3 mr-0.5" />
+                          {t(`type${conv.type.charAt(0).toUpperCase() + conv.type.slice(1)}`)}
+                        </Badge>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        {unreadCount > 0 && (
+                          <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1.5 text-[10px] font-medium text-primary-foreground">
+                            {unreadCount}
+                          </span>
+                        )}
+                        <span className="text-xs text-muted-foreground whitespace-nowrap">
+                          {conv.lastMessageAt ? new Date(conv.lastMessageAt).toLocaleDateString() : ""}
+                        </span>
+                      </div>
                     </div>
                     <div className="text-sm text-muted-foreground truncate">
-                      <span className="font-medium text-foreground mr-2">
-                        {conv.listing?.title}:
-                      </span>
+                      {contextTitle && (
+                        <span className="font-medium text-foreground mr-2">
+                          {contextTitle}:
+                        </span>
+                      )}
                       {lastMsg}
                     </div>
                   </div>

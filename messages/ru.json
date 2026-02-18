@@ -152,12 +152,19 @@
   },
   "Chat": {
     "title": "Сообщения",
-    "noConversations": "Пока нет чатов",
-    "startChat": "Начните общение!",
+    "noConversations": "Нет диалогов",
+    "startChat": "Начните разговор!",
     "typePlaceholder": "Введите сообщение...",
     "send": "Отправить",
-    "pleaseLogin": "Пожалуйста, войдите в аккаунт",
-    "noMessagesYet": "Пока нет сообщений"
+    "pleaseLogin": "Войдите в аккаунт",
+    "noMessagesYet": "Нет сообщений",
+    "searchMessages": "Поиск сообщений...",
+    "typeListing": "Бизнес",
+    "typeInvestment": "Инвестиция",
+    "typeJob": "Вакансия",
+    "statusSent": "Отправлено",
+    "statusDelivered": "Доставлено",
+    "statusRead": "Прочитано"
   },
   "Footer": {
     "description": "Надёжная платформа для покупки и продажи бизнеса в Европе",
@@ -627,5 +634,18 @@
     "applicationSent": "Отклик отправлен!",
     "safetyTip": "Защитите себя от мошенничества.",
     "safetyWarning": "Проверяйте всю информацию перед принятием обязательств."
+  },
+  "Notifications": {
+    "title": "Уведомления",
+    "empty": "Нет уведомлений",
+    "markAllRead": "Прочитать все",
+    "newMessage": "Новое сообщение",
+    "jobApplication": "Новый отклик",
+    "favoriteAdded": "Добавлено в избранное",
+    "chatInvitation": "Новый диалог",
+    "justNow": "Только что",
+    "minutesAgo": "{count} мин назад",
+    "hoursAgo": "{count} ч назад",
+    "daysAgo": "{count} д назад"
   }
 }

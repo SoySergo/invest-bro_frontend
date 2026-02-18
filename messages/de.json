@@ -152,12 +152,19 @@
   },
   "Chat": {
     "title": "Nachrichten",
-    "noConversations": "Noch keine Unterhaltungen",
-    "startChat": "Starten Sie die Unterhaltung!",
+    "noConversations": "Keine Unterhaltungen",
+    "startChat": "Starten Sie das Gespräch!",
     "typePlaceholder": "Nachricht eingeben...",
     "send": "Senden",
-    "pleaseLogin": "Bitte melden Sie sich zuerst an",
-    "noMessagesYet": "Noch keine Nachrichten"
+    "pleaseLogin": "Bitte melden Sie sich an",
+    "noMessagesYet": "Keine Nachrichten",
+    "searchMessages": "Nachrichten suchen...",
+    "typeListing": "Business",
+    "typeInvestment": "Investition",
+    "typeJob": "Stelle",
+    "statusSent": "Gesendet",
+    "statusDelivered": "Zugestellt",
+    "statusRead": "Gelesen"
   },
   "Footer": {
     "description": "Ihr vertrauenswürdiger Marktplatz für den Kauf und Verkauf von Unternehmen in Europa",
@@ -627,5 +634,18 @@
     "applicationSent": "Bewerbung gesendet!",
     "safetyTip": "Schützen Sie sich vor Betrug.",
     "safetyWarning": "Überprüfen Sie alle Informationen, bevor Sie sich verpflichten."
+  },
+  "Notifications": {
+    "title": "Benachrichtigungen",
+    "empty": "Keine Benachrichtigungen",
+    "markAllRead": "Alle als gelesen markieren",
+    "newMessage": "Neue Nachricht",
+    "jobApplication": "Neue Bewerbung",
+    "favoriteAdded": "Zu Favoriten hinzugefügt",
+    "chatInvitation": "Neue Unterhaltung",
+    "justNow": "Gerade eben",
+    "minutesAgo": "vor {count}min",
+    "hoursAgo": "vor {count}h",
+    "daysAgo": "vor {count}T"
   }
 }

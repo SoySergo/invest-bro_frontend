@@ -164,6 +164,16 @@ export async function applyToJob(data: JobApplicationFormData) {
       resumeUrl: result.data.resumeUrl || null,
     });
 
+    // Notify the job poster about the new application
+    const { notifications } = await import("@/db/schema");
+    await db.insert(notifications).values({
+      userId: job.userId,
+      type: "job_application",
+      title: "New job application",
+      body: `Someone applied to "${job.title}"`,
+      link: `/job/${result.data.jobId}`,
+    });
+
     revalidatePath(`/job/${result.data.jobId}`);
     return { success: true as const };
   } catch (e) {

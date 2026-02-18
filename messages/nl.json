@@ -152,12 +152,19 @@
   },
   "Chat": {
     "title": "Berichten",
-    "noConversations": "Nog geen gesprekken",
-    "startChat": "Begin het gesprek!",
+    "noConversations": "Geen gesprekken",
+    "startChat": "Start het gesprek!",
     "typePlaceholder": "Typ een bericht...",
-    "send": "Verzenden",
+    "send": "Verstuur",
     "pleaseLogin": "Log eerst in",
-    "noMessagesYet": "Nog geen berichten"
+    "noMessagesYet": "Geen berichten",
+    "searchMessages": "Berichten zoeken...",
+    "typeListing": "Business",
+    "typeInvestment": "Investering",
+    "typeJob": "Vacature",
+    "statusSent": "Verzonden",
+    "statusDelivered": "Afgeleverd",
+    "statusRead": "Gelezen"
   },
   "Footer": {
     "description": "Uw vertrouwde marktplaats voor het kopen en verkopen van bedrijven in Europa",
@@ -627,5 +634,18 @@
     "applicationSent": "Sollicitatie verzonden!",
     "safetyTip": "Bescherm uzelf tegen fraude.",
     "safetyWarning": "Controleer alle informatie voordat u zich verbindt."
+  },
+  "Notifications": {
+    "title": "Meldingen",
+    "empty": "Geen meldingen",
+    "markAllRead": "Alles als gelezen markeren",
+    "newMessage": "Nieuw bericht",
+    "jobApplication": "Nieuwe sollicitatie",
+    "favoriteAdded": "Toegevoegd aan favorieten",
+    "chatInvitation": "Nieuw gesprek",
+    "justNow": "Zojuist",
+    "minutesAgo": "{count}min geleden",
+    "hoursAgo": "{count}u geleden",
+    "daysAgo": "{count}d geleden"
   }
 }
