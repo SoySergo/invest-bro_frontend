@@ -2,6 +2,24 @@ import { getInvestors } from "@/lib/data/investors";
 import { InvestorCard } from "@/components/investors/investor-card";
 import { InvestorFilters } from "@/components/investors/investor-filters";
 import { getTranslations } from "next-intl/server";
+import type { Metadata } from "next";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations("SEO");
+  return {
+    title: t("investorsTitle"),
+    description: t("investorsDescription"),
+    openGraph: {
+      title: t("investorsTitle"),
+      description: t("investorsDescription"),
+      type: "website",
+    },
+    alternates: {
+      canonical: `/${locale}/investors`,
+    },
+  };
+}
 
 export default async function InvestorsPage({
   searchParams,

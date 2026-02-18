@@ -3,29 +3,59 @@ import { Link } from '@/i18n/routing';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { getListings } from '@/lib/data/listings';
+import type { Metadata } from 'next';
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations('SEO');
+  return {
+    title: t('homeTitle'),
+    description: t('homeDescription'),
+    openGraph: {
+      title: t('homeTitle'),
+      description: t('homeDescription'),
+      type: 'website',
+    },
+    alternates: {
+      canonical: `/${locale}`,
+    },
+  };
+}
+import { getInvestors } from '@/lib/data/investors';
+import { getJobs } from '@/lib/data/jobs';
 import { ListingCard } from '@/components/listings/listing-card';
+import { InvestorCard } from '@/components/investors/investor-card';
+import { JobCard } from '@/components/jobs/job-card';
+import { ScrollRow } from '@/components/shared/scroll-row';
+import { AnimatedCounter } from '@/components/shared/animated-counter';
 import { getCategoriesByType } from '@/lib/data/categories';
 import { CATEGORY_ICONS } from '@/lib/constants/category-icons';
 import {
   Store, Monitor,
   Search, BarChart3, MessageCircle, Rocket, TrendingUp, Handshake,
-  ArrowRight
+  ArrowRight, Building2, Users, Briefcase, Globe
 } from 'lucide-react';
 
 export default async function HomePage() {
   const t = await getTranslations('HomePage');
   const tCat = await getTranslations('Categories');
 
-  const [listings, onlineCats, offlineCats] = await Promise.all([
+  const [allListings, onlineCats, offlineCats, investors, jobs] = await Promise.all([
     getListings(),
     getCategoriesByType("online"),
     getCategoriesByType("offline"),
+    getInvestors(),
+    getJobs(),
   ]);
-  const featuredListings = listings.slice(0, 6);
 
-  // Take up to 6 categories per section for the grid
-  const offlineCategories = offlineCats.slice(0, 6);
-  const onlineCategories = onlineCats.slice(0, 6);
+  const featuredListings = allListings.slice(0, 8);
+  const onlineListings = allListings.filter((l) => l.locationType === 'online').slice(0, 8);
+  const offlineListings = allListings.filter((l) => l.locationType === 'offline').slice(0, 8);
+  const latestJobs = jobs.slice(0, 8);
+  const latestInvestors = investors.slice(0, 8);
+
+  const offlineCategories = offlineCats.slice(0, 10);
+  const onlineCategories = onlineCats.slice(0, 10);
 
   return (
     <div className="flex flex-col">
@@ -50,7 +80,18 @@ export default async function HomePage() {
             <p className="mt-6 text-lg text-muted-foreground md:text-xl max-w-2xl mx-auto leading-relaxed animate-fade-up" style={{ animationDelay: '150ms' }}>
               {t('heroSubtitle')}
             </p>
-            <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center animate-fade-up" style={{ animationDelay: '300ms' }}>
+
+            {/* Hero Search Bar */}
+            <div className="mt-8 max-w-xl mx-auto animate-fade-up" style={{ animationDelay: '200ms' }}>
+              <Link href="/listings" className="block">
+                <div className="flex items-center gap-3 h-13 px-5 rounded-2xl bg-surface-2/80 backdrop-blur-sm border border-border/50 text-muted-foreground hover:border-primary/30 hover:bg-surface-2 transition-all duration-200 cursor-pointer">
+                  <Search className="h-5 w-5 shrink-0" />
+                  <span className="text-base">{t('heroSearchPlaceholder')}</span>
+                </div>
+              </Link>
+            </div>
+
+            <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center animate-fade-up" style={{ animationDelay: '300ms' }}>
               <Link href="/listings">
                 <Button size="lg" className="h-12 px-8 text-base rounded-full shadow-lg bg-linear-to-r from-primary to-primary/80 btn-glow transition-all duration-200">
                   {t('browseListings')}
@@ -126,95 +167,204 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Categories */}
-      <section className="py-16 md:py-24">
-        <div className="container px-4 md:px-8">
-          <h2 className="text-3xl font-bold text-center mb-12" style={{ letterSpacing: '-0.02em' }}>{t('categories')}</h2>
-
-          <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-            {/* Offline */}
-            <div>
-              <h3 className="text-lg font-semibold mb-6 flex items-center gap-2">
-                <Store className="h-5 w-5 text-primary" />
-                {t('offlineBusinesses')}
-              </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 stagger-grid">
-                {offlineCategories.map((cat) => {
-                  const IconComponent = CATEGORY_ICONS[cat.slug] || Store;
-                  return (
-                    <Link
-                      key={cat.slug}
-                      href={`/listings?category=${cat.slug}`}
-                      className="block group"
-                    >
-                      <Card className="h-full glass-card hover:bg-surface-3/40 transition-all duration-300 hover:border-primary/20 hover:shadow-lg hover:-translate-y-1">
-                        <CardContent className="p-6 flex flex-col items-center text-center gap-3">
-                          <div className="p-3 rounded-xl bg-primary/5 group-hover:bg-primary/10 transition-colors">
-                            <IconComponent className="h-8 w-8 text-muted-foreground group-hover:text-primary transition-colors" />
-                          </div>
-                          <span className="font-medium">{tCat(cat.slug)}</span>
-                        </CardContent>
-                      </Card>
-                    </Link>
-                  );
-                })}
-              </div>
+      {/* Trending Listings — Netflix Scroll Row */}
+      {featuredListings.length > 0 && (
+        <section className="py-12 md:py-16">
+          <div className="container px-4 md:px-8">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl md:text-3xl font-bold" style={{ letterSpacing: '-0.02em' }}>{t('trendingListings')}</h2>
+              <Link href="/listings" className="text-primary hover:underline flex items-center gap-1 font-medium text-sm">
+                {t('viewAll')}
+                <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
-
-            {/* Online */}
-            <div>
-              <h3 className="text-lg font-semibold mb-6 flex items-center gap-2">
-                <Monitor className="h-5 w-5 text-primary" />
-                {t('onlineBusinesses')}
-              </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 stagger-grid">
-                {onlineCategories.map((cat) => {
-                  const IconComponent = CATEGORY_ICONS[cat.slug] || Monitor;
-                  return (
-                    <Link
-                      key={cat.slug}
-                      href={`/listings?category=${cat.slug}`}
-                      className="block group"
-                    >
-                      <Card className="h-full glass-card hover:bg-surface-3/40 transition-all duration-300 hover:border-primary/20 hover:shadow-lg hover:-translate-y-1">
-                        <CardContent className="p-6 flex flex-col items-center text-center gap-3">
-                          <div className="p-3 rounded-xl bg-primary/5 group-hover:bg-primary/10 transition-colors">
-                            <IconComponent className="h-8 w-8 text-muted-foreground group-hover:text-primary transition-colors" />
-                          </div>
-                          <span className="font-medium">{tCat(cat.slug)}</span>
-                        </CardContent>
-                      </Card>
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
+            <ScrollRow>
+              {featuredListings.map((listing) => (
+                <div key={listing.id} className="min-w-[300px] md:min-w-[340px] shrink-0" style={{ scrollSnapAlign: 'start' }}>
+                  <ListingCard listing={listing} />
+                </div>
+              ))}
+            </ScrollRow>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      {/* Featured Listings */}
-      <section className="py-16 md:py-24 bg-surface-1/50">
+      {/* Online Categories Row */}
+      <section className="py-12 md:py-16 bg-surface-1/50">
         <div className="container px-4 md:px-8">
-          <div className="flex justify-between items-center mb-8">
-            <h2 className="text-3xl font-bold" style={{ letterSpacing: '-0.02em' }}>{t('featuredListings')}</h2>
-            <Link href="/listings" className="text-primary hover:underline flex items-center gap-1 font-medium">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-2" style={{ letterSpacing: '-0.02em' }}>
+              <Monitor className="h-6 w-6 text-primary" />
+              {t('onlineBusinesses')}
+            </h2>
+            <Link href="/listings?type=online" className="text-primary hover:underline flex items-center gap-1 font-medium text-sm">
               {t('viewAll')}
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
+          <ScrollRow>
+            {onlineCategories.map((cat) => {
+              const IconComponent = CATEGORY_ICONS[cat.slug] || Monitor;
+              return (
+                <Link key={cat.slug} href={`/category/${cat.slug}`} className="block group shrink-0" style={{ scrollSnapAlign: 'start' }}>
+                  <div className="w-[130px] md:w-[160px] aspect-square rounded-2xl bg-gradient-to-br from-primary/80 to-chart-4/80 flex flex-col items-center justify-center gap-2 p-4 hover:scale-105 active:scale-98 transition-transform duration-200 shadow-md hover:shadow-xl">
+                    <IconComponent className="h-8 w-8 text-white" strokeWidth={1.5} />
+                    <span className="text-sm font-medium text-white text-center leading-tight line-clamp-2">{tCat(cat.slug)}</span>
+                  </div>
+                </Link>
+              );
+            })}
+          </ScrollRow>
 
-          {featuredListings.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-grid">
-              {featuredListings.map((listing) => (
-                <ListingCard key={listing.id} listing={listing} />
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-16 text-muted-foreground">
-              {t('noListings')}
+          {/* Online Listings Row */}
+          {onlineListings.length > 0 && (
+            <div className="mt-8">
+              <ScrollRow>
+                {onlineListings.map((listing) => (
+                  <div key={listing.id} className="min-w-[300px] md:min-w-[340px] shrink-0" style={{ scrollSnapAlign: 'start' }}>
+                    <ListingCard listing={listing} />
+                  </div>
+                ))}
+              </ScrollRow>
             </div>
           )}
+        </div>
+      </section>
+
+      {/* Offline Categories Row */}
+      <section className="py-12 md:py-16">
+        <div className="container px-4 md:px-8">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-2" style={{ letterSpacing: '-0.02em' }}>
+              <Store className="h-6 w-6 text-primary" />
+              {t('offlineBusinesses')}
+            </h2>
+            <Link href="/listings?type=offline" className="text-primary hover:underline flex items-center gap-1 font-medium text-sm">
+              {t('viewAll')}
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+          <ScrollRow>
+            {offlineCategories.map((cat) => {
+              const IconComponent = CATEGORY_ICONS[cat.slug] || Store;
+              return (
+                <Link key={cat.slug} href={`/category/${cat.slug}`} className="block group shrink-0" style={{ scrollSnapAlign: 'start' }}>
+                  <div className="w-[130px] md:w-[160px] aspect-square rounded-2xl bg-gradient-to-br from-emerald-600/80 to-teal-600/80 flex flex-col items-center justify-center gap-2 p-4 hover:scale-105 active:scale-98 transition-transform duration-200 shadow-md hover:shadow-xl">
+                    <IconComponent className="h-8 w-8 text-white" strokeWidth={1.5} />
+                    <span className="text-sm font-medium text-white text-center leading-tight line-clamp-2">{tCat(cat.slug)}</span>
+                  </div>
+                </Link>
+              );
+            })}
+          </ScrollRow>
+
+          {/* Offline Listings Row */}
+          {offlineListings.length > 0 && (
+            <div className="mt-8">
+              <ScrollRow>
+                {offlineListings.map((listing) => (
+                  <div key={listing.id} className="min-w-[300px] md:min-w-[340px] shrink-0" style={{ scrollSnapAlign: 'start' }}>
+                    <ListingCard listing={listing} />
+                  </div>
+                ))}
+              </ScrollRow>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Investors Row */}
+      {latestInvestors.length > 0 && (
+        <section className="py-12 md:py-16 bg-surface-1/50">
+          <div className="container px-4 md:px-8">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-2" style={{ letterSpacing: '-0.02em' }}>
+                <TrendingUp className="h-6 w-6 text-primary" />
+                {t('investorsSection')}
+              </h2>
+              <Link href="/investors" className="text-primary hover:underline flex items-center gap-1 font-medium text-sm">
+                {t('viewAll')}
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+            <ScrollRow>
+              {latestInvestors.map((investor) => (
+                <div key={investor.id} className="min-w-[300px] md:min-w-[360px] shrink-0" style={{ scrollSnapAlign: 'start' }}>
+                  <InvestorCard investor={investor} />
+                </div>
+              ))}
+            </ScrollRow>
+          </div>
+        </section>
+      )}
+
+      {/* Jobs Row */}
+      {latestJobs.length > 0 && (
+        <section className="py-12 md:py-16">
+          <div className="container px-4 md:px-8">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-2" style={{ letterSpacing: '-0.02em' }}>
+                <Briefcase className="h-6 w-6 text-primary" />
+                {t('jobsSection')}
+              </h2>
+              <Link href="/jobs" className="text-primary hover:underline flex items-center gap-1 font-medium text-sm">
+                {t('viewAll')}
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+            <ScrollRow>
+              {latestJobs.map((job) => (
+                <div key={job.id} className="min-w-[300px] md:min-w-[360px] shrink-0" style={{ scrollSnapAlign: 'start' }}>
+                  <JobCard job={job} />
+                </div>
+              ))}
+            </ScrollRow>
+          </div>
+        </section>
+      )}
+
+      {/* Platform Statistics */}
+      <section className="py-16 md:py-24 bg-surface-1/50">
+        <div className="container px-4 md:px-8">
+          <h2 className="text-3xl font-bold text-center mb-12" style={{ letterSpacing: '-0.02em' }}>{t('platformStats')}</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+            <div className="text-center space-y-2">
+              <div className="inline-flex p-3 rounded-2xl bg-primary/10 mb-2">
+                <Building2 className="h-6 w-6 text-primary" />
+              </div>
+              <div className="text-3xl md:text-4xl font-bold">
+                <AnimatedCounter target={allListings.length || 150} suffix="+" />
+              </div>
+              <p className="text-sm text-muted-foreground">{t('statListings')}</p>
+            </div>
+            <div className="text-center space-y-2">
+              <div className="inline-flex p-3 rounded-2xl bg-primary/10 mb-2">
+                <Users className="h-6 w-6 text-primary" />
+              </div>
+              <div className="text-3xl md:text-4xl font-bold">
+                <AnimatedCounter target={investors.length || 50} suffix="+" />
+              </div>
+              <p className="text-sm text-muted-foreground">{t('statInvestors')}</p>
+            </div>
+            <div className="text-center space-y-2">
+              <div className="inline-flex p-3 rounded-2xl bg-primary/10 mb-2">
+                <Globe className="h-6 w-6 text-primary" />
+              </div>
+              <div className="text-3xl md:text-4xl font-bold">
+                <AnimatedCounter target={19} suffix="+" />
+              </div>
+              <p className="text-sm text-muted-foreground">{t('statCountries')}</p>
+            </div>
+            <div className="text-center space-y-2">
+              <div className="inline-flex p-3 rounded-2xl bg-primary/10 mb-2">
+                <Briefcase className="h-6 w-6 text-primary" />
+              </div>
+              <div className="text-3xl md:text-4xl font-bold">
+                <AnimatedCounter target={jobs.length || 30} suffix="+" />
+              </div>
+              <p className="text-sm text-muted-foreground">{t('statJobs')}</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -255,7 +405,7 @@ function StepCard({
   description
 }: {
   number: number;
-  icon: any;
+  icon: React.ComponentType<{ className?: string }>;
   title: string;
   description: string;
 }) {

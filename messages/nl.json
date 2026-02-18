@@ -28,7 +28,16 @@
     "offlineBusinesses": "Fysieke bedrijven",
     "onlineBusinesses": "Online bedrijven",
     "ctaTitle": "Klaar om te beginnen?",
-    "ctaSubtitle": "Sluit u aan bij duizenden investeerders en ondernemers"
+    "ctaSubtitle": "Sluit u aan bij duizenden investeerders en ondernemers",
+    "heroSearchPlaceholder": "Zoek bedrijven op naam, categorie, locatie...",
+    "trendingListings": "Trending advertenties",
+    "investorsSection": "Investeerders",
+    "jobsSection": "Vacatures bij startups",
+    "platformStats": "Platform in cijfers",
+    "statListings": "Bedrijven",
+    "statInvestors": "Investeerders",
+    "statCountries": "Landen",
+    "statJobs": "Vacatures"
   },
   "Navigation": {
     "home": "Home",
@@ -647,5 +656,39 @@
     "minutesAgo": "{count}min geleden",
     "hoursAgo": "{count}u geleden",
     "daysAgo": "{count}d geleden"
+  },
+  "Search": {
+    "placeholder": "Zoeken...",
+    "inputPlaceholder": "Zoek bedrijven, investeerders, banen...",
+    "searching": "Zoeken...",
+    "noResults": "Geen resultaten gevonden.",
+    "businesses": "Bedrijven",
+    "investors": "Investeerders",
+    "jobs": "Banen"
+  },
+  "CategoryPage": {
+    "breadcrumbHome": "Home",
+    "subcategories": "Subcategorieën",
+    "listingsInCategory": "Advertenties in {category}",
+    "noListingsInCategory": "Nog geen advertenties in deze categorie",
+    "browseAll": "Alle advertenties bekijken"
+  },
+  "SimilarListings": {
+    "title": "Vergelijkbare bedrijven",
+    "viewAll": "Alles bekijken"
+  },
+  "SEO": {
+    "homeTitle": "InvestBro — Koop en verkoop bedrijven in Europa",
+    "homeDescription": "Ontdek winstgevende bedrijven te koop in heel Europa. Maak contact met investeerders en vind startup-banen.",
+    "listingsTitle": "Bedrijfsadvertenties — InvestBro",
+    "listingsDescription": "Bekijk bedrijven te koop in Europa. Filter op categorie, prijs, locatie en meer.",
+    "investorsTitle": "Investeerders — InvestBro",
+    "investorsDescription": "Vind investeerders voor uw bedrijf of startup in heel Europa.",
+    "jobsTitle": "Vacatures bij startups — InvestBro",
+    "jobsDescription": "Vind banen bij startups en groeiende bedrijven in heel Europa.",
+    "categoryTitle": "{category} — InvestBro",
+    "categoryDescription": "Bekijk {category} advertenties op InvestBro",
+    "listingDetailTitle": "{title} — InvestBro",
+    "listingDetailDescription": "{title} te koop op InvestBro. Bekijk financiële cijfers en neem contact op met de verkoper."
   }
 }

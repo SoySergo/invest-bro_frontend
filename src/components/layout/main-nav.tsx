@@ -19,6 +19,7 @@ import { Menu, BriefcaseBusiness, Heart, MessageCircle, User, LogOut, Settings, 
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { NotificationBell } from "@/components/shared/notification-bell";
+import { CommandSearch } from "@/components/shared/command-search";
 
 export function MainNav() {
     const t = useTranslations("Navigation");
@@ -157,6 +158,7 @@ export function MainNav() {
                             </>
                         )}
                     </div>
+                    <CommandSearch />
                     <ThemeToggle />
                     <LanguageSwitcher />
 

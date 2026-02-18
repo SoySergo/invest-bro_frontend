@@ -28,7 +28,16 @@
     "offlineBusinesses": "Entreprises physiques",
     "onlineBusinesses": "Entreprises en ligne",
     "ctaTitle": "Prêt à commencer ?",
-    "ctaSubtitle": "Rejoignez des milliers d'investisseurs et d'entrepreneurs"
+    "ctaSubtitle": "Rejoignez des milliers d'investisseurs et d'entrepreneurs",
+    "heroSearchPlaceholder": "Rechercher des entreprises par nom, catégorie, localisation...",
+    "trendingListings": "Annonces tendance",
+    "investorsSection": "Investisseurs",
+    "jobsSection": "Emplois dans les startups",
+    "platformStats": "La plateforme en chiffres",
+    "statListings": "Entreprises",
+    "statInvestors": "Investisseurs",
+    "statCountries": "Pays",
+    "statJobs": "Emplois"
   },
   "Navigation": {
     "home": "Accueil",
@@ -647,5 +656,39 @@
     "minutesAgo": "il y a {count}min",
     "hoursAgo": "il y a {count}h",
     "daysAgo": "il y a {count}j"
+  },
+  "Search": {
+    "placeholder": "Rechercher...",
+    "inputPlaceholder": "Rechercher entreprises, investisseurs, emplois...",
+    "searching": "Recherche...",
+    "noResults": "Aucun résultat trouvé.",
+    "businesses": "Entreprises",
+    "investors": "Investisseurs",
+    "jobs": "Emplois"
+  },
+  "CategoryPage": {
+    "breadcrumbHome": "Accueil",
+    "subcategories": "Sous-catégories",
+    "listingsInCategory": "Annonces dans {category}",
+    "noListingsInCategory": "Aucune annonce dans cette catégorie",
+    "browseAll": "Parcourir toutes les annonces"
+  },
+  "SimilarListings": {
+    "title": "Entreprises similaires",
+    "viewAll": "Voir tout"
+  },
+  "SEO": {
+    "homeTitle": "InvestBro — Achetez et vendez des entreprises en Europe",
+    "homeDescription": "Découvrez des entreprises rentables à vendre en Europe. Connectez-vous avec des investisseurs et trouvez des emplois en startup.",
+    "listingsTitle": "Annonces d'entreprises — InvestBro",
+    "listingsDescription": "Parcourez les entreprises à vendre en Europe. Filtrez par catégorie, prix, localisation et plus.",
+    "investorsTitle": "Investisseurs — InvestBro",
+    "investorsDescription": "Trouvez des investisseurs pour votre entreprise ou startup en Europe.",
+    "jobsTitle": "Emplois dans les startups — InvestBro",
+    "jobsDescription": "Trouvez des emplois dans les startups et entreprises en croissance en Europe.",
+    "categoryTitle": "{category} — InvestBro",
+    "categoryDescription": "Parcourir les annonces {category} sur InvestBro",
+    "listingDetailTitle": "{title} — InvestBro",
+    "listingDetailDescription": "{title} à vendre sur InvestBro. Consultez les métriques financières et contactez le vendeur."
   }
 }

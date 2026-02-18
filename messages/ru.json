@@ -28,7 +28,16 @@
     "offlineBusinesses": "Офлайн-бизнес",
     "onlineBusinesses": "Онлайн-бизнес",
     "ctaTitle": "Готовы начать?",
-    "ctaSubtitle": "Присоединяйтесь к тысячам инвесторов и предпринимателей"
+    "ctaSubtitle": "Присоединяйтесь к тысячам инвесторов и предпринимателей",
+    "heroSearchPlaceholder": "Поиск бизнеса по названию, категории, локации...",
+    "trendingListings": "Популярные объявления",
+    "investorsSection": "Инвесторы",
+    "jobsSection": "Вакансии в стартапах",
+    "platformStats": "Платформа в цифрах",
+    "statListings": "Бизнесы",
+    "statInvestors": "Инвесторы",
+    "statCountries": "Страны",
+    "statJobs": "Вакансии"
   },
   "Navigation": {
     "home": "Главная",
@@ -647,5 +656,39 @@
     "minutesAgo": "{count} мин назад",
     "hoursAgo": "{count} ч назад",
     "daysAgo": "{count} д назад"
+  },
+  "Search": {
+    "placeholder": "Поиск...",
+    "inputPlaceholder": "Поиск бизнесов, инвесторов, вакансий...",
+    "searching": "Поиск...",
+    "noResults": "Результатов не найдено.",
+    "businesses": "Бизнесы",
+    "investors": "Инвесторы",
+    "jobs": "Вакансии"
+  },
+  "CategoryPage": {
+    "breadcrumbHome": "Главная",
+    "subcategories": "Подкатегории",
+    "listingsInCategory": "Объявления в {category}",
+    "noListingsInCategory": "В этой категории пока нет объявлений",
+    "browseAll": "Смотреть все объявления"
+  },
+  "SimilarListings": {
+    "title": "Похожие бизнесы",
+    "viewAll": "Смотреть все"
+  },
+  "SEO": {
+    "homeTitle": "InvestBro — Покупка и продажа бизнеса в Европе",
+    "homeDescription": "Откройте для себя прибыльный бизнес на продажу по всей Европе. Свяжитесь с инвесторами и найдите вакансии в стартапах.",
+    "listingsTitle": "Объявления о бизнесе — InvestBro",
+    "listingsDescription": "Просматривайте бизнесы на продажу в Европе. Фильтруйте по категории, цене, локации и другим параметрам.",
+    "investorsTitle": "Инвесторы — InvestBro",
+    "investorsDescription": "Найдите инвесторов для вашего бизнеса или стартапа по всей Европе.",
+    "jobsTitle": "Вакансии в стартапах — InvestBro",
+    "jobsDescription": "Найдите вакансии в стартапах и растущих компаниях по всей Европе.",
+    "categoryTitle": "{category} — InvestBro",
+    "categoryDescription": "Просмотр объявлений {category} на InvestBro",
+    "listingDetailTitle": "{title} — InvestBro",
+    "listingDetailDescription": "{title} на продажу на InvestBro. Просмотрите финансовые показатели и свяжитесь с продавцом."
   }
 }
