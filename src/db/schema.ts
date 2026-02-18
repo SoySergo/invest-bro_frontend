@@ -6,6 +6,9 @@ export const listingStatusEnum = pgEnum('listing_status', ['active', 'sold', 'hi
 export const metricTypeEnum = pgEnum('metric_type', ['revenue', 'profit', 'users', 'traffic', 'other']);
 export const userRoleEnum = pgEnum('user_role', ['user', 'admin']);
 export const investorTypeEnum = pgEnum('investor_type', ['angel', 'vc', 'private', 'strategic', 'institutional']);
+export const jobStatusEnum = pgEnum('job_status', ['active', 'closed', 'draft']);
+export const jobUrgencyEnum = pgEnum('job_urgency', ['low', 'medium', 'high', 'asap']);
+export const jobLevelEnum = pgEnum('job_level', ['junior', 'middle', 'senior', 'lead', 'head', 'clevel']);
 
 // USERS
 export const users = pgTable("users", {
@@ -136,6 +139,43 @@ export const investorProfiles = pgTable("investor_profiles", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
+// JOBS
+export const jobs = pgTable("jobs", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  userId: uuid("user_id").references(() => users.id, { onDelete: "cascade" }).notNull(),
+  listingId: uuid("listing_id").references(() => listings.id, { onDelete: "set null" }),
+  title: text("title").notNull(),
+  description: text("description").notNull(),
+  roleCategory: text("role_category").notNull(),
+  level: jobLevelEnum("level").notNull(),
+  employmentType: jsonb("employment_type").$type<string[]>().default([]),
+  country: text("country"),
+  city: text("city"),
+  salaryMin: decimal("salary_min", { precision: 12, scale: 2 }),
+  salaryMax: decimal("salary_max", { precision: 12, scale: 2 }),
+  currency: text("currency").default("EUR").notNull(),
+  hasEquity: boolean("has_equity").default(false).notNull(),
+  equityDetails: text("equity_details"),
+  experienceYears: integer("experience_years"),
+  requiredStack: jsonb("required_stack").$type<string[]>().default([]),
+  languages: jsonb("languages").$type<string[]>().default([]),
+  urgency: jobUrgencyEnum("urgency").default("medium").notNull(),
+  status: jobStatusEnum("status").default("draft").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// JOB APPLICATIONS
+export const jobApplications = pgTable("job_applications", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  jobId: uuid("job_id").references(() => jobs.id, { onDelete: "cascade" }).notNull(),
+  userId: uuid("user_id").references(() => users.id, { onDelete: "cascade" }).notNull(),
+  coverLetter: text("cover_letter"),
+  resumeUrl: text("resume_url"),
+  status: text("status").default("pending").notNull(), // pending, reviewed, accepted, rejected
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
 // FAVORITES
 export const favorites = pgTable("favorites", {
   id: uuid("id").defaultRandom().primaryKey(),
@@ -170,6 +210,8 @@ export const usersRelations = relations(users, ({ many }) => ({
   accounts: many(accounts),
   sessions: many(sessions),
   investorProfiles: many(investorProfiles),
+  jobs: many(jobs),
+  jobApplications: many(jobApplications),
 }));
 
 export const accountsRelations = relations(accounts, ({ one }) => ({
@@ -229,6 +271,17 @@ export const listingImagesRelations = relations(listingImages, ({ one }) => ({
 
 export const investorProfilesRelations = relations(investorProfiles, ({ one }) => ({
   user: one(users, { fields: [investorProfiles.userId], references: [users.id] }),
+}));
+
+export const jobsRelations = relations(jobs, ({ one, many }) => ({
+  user: one(users, { fields: [jobs.userId], references: [users.id] }),
+  listing: one(listings, { fields: [jobs.listingId], references: [listings.id] }),
+  applications: many(jobApplications),
+}));
+
+export const jobApplicationsRelations = relations(jobApplications, ({ one }) => ({
+  job: one(jobs, { fields: [jobApplications.jobId], references: [jobs.id] }),
+  user: one(users, { fields: [jobApplications.userId], references: [users.id] }),
 }));
 
 // Quick fix for the category listing relation field naming

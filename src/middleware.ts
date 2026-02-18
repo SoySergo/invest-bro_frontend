@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 const intlMiddleware = createMiddleware(routing);
 
-const protectedPaths = ['/listing/create', '/favorites', '/chat', '/profile', '/dashboard', '/investor/create'];
+const protectedPaths = ['/listing/create', '/favorites', '/chat', '/profile', '/dashboard', '/investor/create', '/job/create'];
 
 const localePattern = new RegExp(`^\\/(${routing.locales.join('|')})`);
 
