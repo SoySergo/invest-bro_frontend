@@ -1,6 +1,6 @@
 import { db } from "@/db";
 import { conversations, messages } from "@/db/schema";
-import { desc, eq, or } from "drizzle-orm";
+import { eq, or, and, count } from "drizzle-orm";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -45,6 +45,23 @@ export default async function ChatListPage() {
     orderBy: (conversations, { desc }) => [desc(conversations.lastMessageAt)],
   });
 
+  // Get unread counts per conversation
+  const unreadCounts = new Map<string, number>();
+  for (const conv of userConversations) {
+    const result = await db
+      .select({ value: count() })
+      .from(messages)
+      .where(
+        and(
+          eq(messages.conversationId, conv.id),
+          eq(messages.status, "sent"),
+          // Messages from the other user (not from current user)
+          eq(messages.senderId, conv.buyerId === currentUserId ? conv.sellerId : conv.buyerId)
+        )
+      );
+    unreadCounts.set(conv.id, result[0]?.value ?? 0);
+  }
+
   return (
     <div className="container max-w-2xl py-10">
       <h1 className="text-2xl font-bold mb-6">{t("title")}</h1>
@@ -52,9 +69,7 @@ export default async function ChatListPage() {
         {userConversations.map((conv) => {
           const otherUser = conv.buyerId === currentUserId ? conv.seller : conv.buyer;
           const lastMsg = conv.messages[0]?.content || t("noMessagesYet");
-          const unreadCount = conv.messages.filter(
-            (m) => m.senderId !== currentUserId && m.status === "sent"
-          ).length;
+          const unreadCount = unreadCounts.get(conv.id) ?? 0;
           const Icon = typeIcons[conv.type];
           const contextTitle = conv.type === "job" ? conv.job?.title : conv.listing?.title;
 

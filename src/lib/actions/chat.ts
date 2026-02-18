@@ -181,12 +181,27 @@ export async function sendMessage(conversationId: string, formData: FormData) {
 export async function markMessagesRead(conversationId: string) {
     const session = await auth();
     if (!session?.user?.id) return;
+    const currentUserId = session.user.id;
+
+    // Verify user is a participant in this conversation
+    const conversation = await db.query.conversations.findFirst({
+        where: eq(conversations.id, conversationId),
+    });
+
+    if (!conversation) return;
+    if (conversation.buyerId !== currentUserId && conversation.sellerId !== currentUserId) return;
+
+    // Only mark messages from the OTHER user as read (not our own)
+    const otherUserId = conversation.buyerId === currentUserId
+        ? conversation.sellerId
+        : conversation.buyerId;
 
     await db.update(messages)
         .set({ status: "read", readAt: new Date() })
         .where(
             and(
                 eq(messages.conversationId, conversationId),
+                eq(messages.senderId, otherUserId),
                 eq(messages.status, "sent")
             )
         );

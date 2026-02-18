@@ -2,7 +2,7 @@ import { NextRequest } from "next/server";
 import { auth } from "@/lib/auth";
 import { db } from "@/db";
 import { notifications } from "@/db/schema";
-import { eq, and, desc } from "drizzle-orm";
+import { eq, and, desc, count } from "drizzle-orm";
 
 export const dynamic = "force-dynamic";
 
@@ -22,17 +22,32 @@ export async function GET(request: NextRequest) {
       };
 
       // Send initial unread count
-      const unread = await db.query.notifications.findMany({
-        where: and(
-          eq(notifications.userId, userId),
-          eq(notifications.isRead, false)
-        ),
-      });
-      sendEvent({ type: "init", unreadCount: unread.length });
+      const countResult = await db
+        .select({ value: count() })
+        .from(notifications)
+        .where(
+          and(
+            eq(notifications.userId, userId),
+            eq(notifications.isRead, false)
+          )
+        );
+      const unreadCount = countResult[0]?.value ?? 0;
+      sendEvent({ type: "init", unreadCount });
 
       // Poll for new notifications every 5 seconds
       const interval = setInterval(async () => {
         try {
+          const latestCountResult = await db
+            .select({ value: count() })
+            .from(notifications)
+            .where(
+              and(
+                eq(notifications.userId, userId),
+                eq(notifications.isRead, false)
+              )
+            );
+          const latestCount = latestCountResult[0]?.value ?? 0;
+
           const latestUnread = await db.query.notifications.findMany({
             where: and(
               eq(notifications.userId, userId),
@@ -41,9 +56,10 @@ export async function GET(request: NextRequest) {
             orderBy: [desc(notifications.createdAt)],
             limit: 5,
           });
+
           sendEvent({
             type: "update",
-            unreadCount: latestUnread.length,
+            unreadCount: latestCount,
             latest: latestUnread,
           });
         } catch {

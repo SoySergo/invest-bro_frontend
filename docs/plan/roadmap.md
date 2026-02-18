@@ -400,7 +400,8 @@
 | 2 | ✅ Выполнено | 2026-02-18 |
 | 3 | ✅ Выполнено | 2026-02-18 |
 | 4 | ✅ Выполнено | 2026-02-18 |
-| 5-8 | 🔲 Не начато | — |
+| 5 | ✅ Выполнено | 2026-02-18 |
+| 6-8 | 🔲 Не начато | — |
 
 ### Фаза 1 — Что реализовано
 
@@ -457,3 +458,18 @@
 - Middleware: `/job/create` в protected routes
 - i18n: секции Jobs, JobCard, JobDetail во все 8 локалей
 - Документация: docs/completed/phase-4/
+
+### Фаза 5 — Что реализовано
+
+- DB schema: enums conversationTypeEnum, messageStatusEnum, notificationTypeEnum; таблица notifications; обновлены conversations (type, jobId) и messages (status)
+- Типизированные диалоги: listing (бизнес-сделка), investment (инвестиция), job (найм)
+- Server actions: startInvestorChat, startJobChat, sendMessage (обновлён с уведомлениями), markMessagesRead
+- Server actions уведомлений: createNotification, markNotificationRead, markAllNotificationsRead
+- Data queries: getUserConversations, getConversationById, searchMessages, getUnreadMessageCount, getUserNotifications, getUnreadNotificationCount
+- Real-time SSE: /api/chat/stream (polling 2s), /api/notifications/stream (polling 5s)
+- Компоненты: ChatMessages (real-time, optimistic updates, статусы сообщений), ChatContextCard, ChatSearch, NotificationBell (dropdown с историей)
+- Уведомления при: новом сообщении, отклике на вакансию, добавлении в избранное, создании диалога
+- Навигация: NotificationBell с badge в header
+- Chat list: badge типа диалога, контекст, счётчик непрочитанных
+- i18n: секции Chat и Notifications обновлены во все 8 локалей
+- Документация: docs/completed/phase-5/

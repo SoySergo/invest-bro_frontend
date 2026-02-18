@@ -4,7 +4,7 @@ import * as React from "react";
 import { useTranslations } from "next-intl";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Check, CheckCheck, Clock, Send } from "lucide-react";
+import { Check, CheckCheck, Send } from "lucide-react";
 import { sendMessage, markMessagesRead } from "@/lib/actions/chat";
 
 interface Message {

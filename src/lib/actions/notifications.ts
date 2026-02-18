@@ -25,7 +25,7 @@ export async function createNotification(data: {
       })
       .returning();
     return { success: true, data: notification };
-  } catch (error) {
+  } catch {
     return { success: false, error: "Failed to create notification" };
   }
 }
@@ -46,7 +46,7 @@ export async function markNotificationRead(notificationId: string) {
       );
     revalidatePath("/");
     return { success: true };
-  } catch (error) {
+  } catch {
     return { success: false, error: "Failed to mark notification as read" };
   }
 }
@@ -67,7 +67,7 @@ export async function markAllNotificationsRead() {
       );
     revalidatePath("/");
     return { success: true };
-  } catch (error) {
+  } catch {
     return { success: false, error: "Failed to mark all notifications as read" };
   }
 }

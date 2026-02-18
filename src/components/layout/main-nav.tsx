@@ -15,7 +15,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Menu, BriefcaseBusiness, Heart, MessageCircle, User, LogOut, Settings, TrendingUp, Bell } from "lucide-react";
+import { Menu, BriefcaseBusiness, Heart, MessageCircle, User, LogOut, Settings, TrendingUp } from "lucide-react";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { NotificationBell } from "@/components/shared/notification-bell";
