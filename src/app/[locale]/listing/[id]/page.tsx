@@ -1,5 +1,6 @@
 import { getListingById } from "@/lib/data/listing-details";
 import { getMatchingInvestors } from "@/lib/data/investors";
+import { getSimilarListings } from "@/lib/data/listings";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -14,9 +15,37 @@ import { MarkdownViewer } from "@/components/shared/markdown-viewer";
 import { formatPrice } from "@/lib/constants/countries";
 import { auth } from "@/lib/auth";
 import { ListingOwnerActions } from "@/components/listings/listing-owner-actions";
+import { ListingCard } from "@/components/listings/listing-card";
 import Image from "next/image";
+import type { Metadata } from "next";
 
-export default async function ListingDetailsPage({ params }: { params: Promise<{ id: string }> }) {
+interface ListingDetailPageProps {
+  params: Promise<{ id: string; locale: string }>;
+}
+
+export async function generateMetadata({ params }: ListingDetailPageProps): Promise<Metadata> {
+  const { id, locale } = await params;
+  const listing = await getListingById(id);
+  if (!listing) return {};
+
+  const price = Number(listing.price) || 0;
+  const description = `${listing.title} for sale on InvestBro. ${price > 0 ? `Asking price: €${price.toLocaleString()}.` : ""} View financial metrics and contact the seller.`;
+
+  return {
+    title: `${listing.title} — InvestBro`,
+    description,
+    openGraph: {
+      title: `${listing.title} — InvestBro`,
+      description,
+      type: "website",
+    },
+    alternates: {
+      canonical: `/${locale}/listing/${id}`,
+    },
+  };
+}
+
+export default async function ListingDetailsPage({ params }: ListingDetailPageProps) {
   const { id } = await params;
   const listing = await getListingById(id);
   const t = await getTranslations("ListingDetail");
@@ -29,6 +58,9 @@ export default async function ListingDetailsPage({ params }: { params: Promise<{
   }
 
   const matchingInvestors = await getMatchingInvestors(id, 5);
+  const similarListings = await getSimilarListings(id, 6);
+
+  const tSimilar = await getTranslations("SimilarListings");
 
   const isOwner = session?.user?.id === listing.userId;
 
@@ -242,6 +274,23 @@ export default async function ListingDetailsPage({ params }: { params: Promise<{
                   </CardContent>
                 </Card>
               </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Similar Listings */}
+      {similarListings.length > 0 && (
+        <div className="mt-12">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold tracking-tight">{tSimilar("title")}</h2>
+            <Link href="/listings" className="text-primary hover:underline text-sm font-medium">
+              {tSimilar("viewAll")}
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {similarListings.map((similar) => (
+              <ListingCard key={similar.id} listing={similar} />
             ))}
           </div>
         </div>

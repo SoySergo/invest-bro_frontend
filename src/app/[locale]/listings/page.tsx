@@ -3,6 +3,24 @@ import { ListingCard } from "@/components/listings/listing-card";
 import { ListingFilters } from "@/components/listings/listing-filters";
 import { getTranslations } from "next-intl/server";
 import { getLevel1Categories } from "@/lib/data/categories";
+import type { Metadata } from "next";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations("SEO");
+  return {
+    title: t("listingsTitle"),
+    description: t("listingsDescription"),
+    openGraph: {
+      title: t("listingsTitle"),
+      description: t("listingsDescription"),
+      type: "website",
+    },
+    alternates: {
+      canonical: `/${locale}/listings`,
+    },
+  };
+}
 
 export default async function ListingsPage({
   searchParams,

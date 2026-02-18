@@ -2,6 +2,24 @@ import { getJobs } from "@/lib/data/jobs";
 import { JobCard } from "@/components/jobs/job-card";
 import { JobFilters } from "@/components/jobs/job-filters";
 import { getTranslations } from "next-intl/server";
+import type { Metadata } from "next";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations("SEO");
+  return {
+    title: t("jobsTitle"),
+    description: t("jobsDescription"),
+    openGraph: {
+      title: t("jobsTitle"),
+      description: t("jobsDescription"),
+      type: "website",
+    },
+    alternates: {
+      canonical: `/${locale}/jobs`,
+    },
+  };
+}
 
 export default async function JobsPage({
   searchParams,
