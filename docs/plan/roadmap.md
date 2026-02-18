@@ -398,7 +398,8 @@
 | 0 | ⏳ В процессе | — |
 | 1 | ✅ Выполнено | 2026-02-18 |
 | 2 | ✅ Выполнено | 2026-02-18 |
-| 3-8 | 🔲 Не начато | — |
+| 3 | ✅ Выполнено | 2026-02-18 |
+| 4-8 | 🔲 Не начато | — |
 
 ### Фаза 1 — Что реализовано
 
@@ -425,3 +426,18 @@
 - i18n: MarkdownEditor, ImageUpload, ListingManage во все 8 локалей
 - Зависимости: @aws-sdk/client-s3, @aws-sdk/s3-request-presigner
 - Документация: docs/completed/phase-2/
+
+### Фаза 3 — Что реализовано
+
+- DB schema: таблица `investorProfiles` с полями type, stages, industries, ticketMin/Max, currency, geoFocus, instrumentTypes, participationType, requirements, portfolio, exitStrategy, isPublic
+- Enum `investorTypeEnum`: angel, vc, private, strategic, institutional
+- Zod-схема: `investorProfileSchema` с константами INVESTOR_TYPES, INVESTOR_STAGES, INVESTOR_INDUSTRIES, INSTRUMENT_TYPES, PARTICIPATION_TYPES
+- Server actions: `createInvestorProfile`, `editInvestorProfile`, `deleteInvestorProfile`
+- Data queries: `getInvestors` (с фильтрами), `getInvestorById`, `getMatchingInvestors`, `getMatchingListings`
+- Компоненты: `InvestorCard`, `InvestorFilters`, `InvestorProfileForm`
+- Страницы: `/investors` (каталог), `/investor/[id]` (детали), `/investor/create` (создание), `/investor/[id]/edit` (редактирование)
+- Matching: блок «Подходящие инвесторы» на странице листинга, блок «Подходящие проекты» на странице инвестора
+- Навигация: ссылка «Investors» в desktop nav и mobile sheet
+- Middleware: `/investor/create` в protected routes
+- i18n: секции Investors, InvestorCard, InvestorDetail во все 8 локалей
+- Документация: docs/completed/phase-3/
