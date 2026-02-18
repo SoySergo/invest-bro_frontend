@@ -6,6 +6,7 @@ export const profileSchema = z.object({
   company: z.string().max(100).optional().or(z.literal("")),
   website: z.string().url("Invalid URL").optional().or(z.literal("")),
   phone: z.string().max(20).optional().or(z.literal("")),
+  // ISO 3166-1 alpha-2 country code (e.g. "FR", "ES")
   country: z.string().max(2).optional().or(z.literal("")),
   city: z.string().max(100).optional().or(z.literal("")),
 });

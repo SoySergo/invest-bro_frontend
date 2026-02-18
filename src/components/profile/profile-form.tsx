@@ -34,6 +34,7 @@ interface ProfileFormProps {
 
 export function ProfileForm({ initialData }: ProfileFormProps) {
   const t = useTranslations("Profile");
+  const tAuth = useTranslations("Auth");
 
   const form = useForm<ProfileFormData>({
     resolver: zodResolver(profileSchema),
@@ -78,7 +79,7 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("title")}</FormLabel>
+                  <FormLabel>{tAuth("name")}</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>

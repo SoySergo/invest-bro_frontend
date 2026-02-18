@@ -6,9 +6,10 @@ const intlMiddleware = createMiddleware(routing);
 
 const protectedPaths = ['/listing/create', '/favorites', '/chat', '/profile', '/dashboard'];
 
+const localePattern = new RegExp(`^\\/(${routing.locales.join('|')})`);
+
 function isProtectedPath(pathname: string): boolean {
-  // Strip locale prefix
-  const pathWithoutLocale = pathname.replace(/^\/(en|fr|es|pt|de|it|nl|ru)/, '') || '/';
+  const pathWithoutLocale = pathname.replace(localePattern, '') || '/';
   return protectedPaths.some((path) => pathWithoutLocale.startsWith(path));
 }
 
@@ -22,9 +23,8 @@ export default async function middleware(request: NextRequest) {
       request.cookies.get('__Secure-authjs.session-token')?.value;
 
     if (!sessionToken) {
-      // Extract locale from pathname
-      const localeMatch = pathname.match(/^\/(en|fr|es|pt|de|it|nl|ru)/);
-      const locale = localeMatch ? localeMatch[1] : 'en';
+      const localeMatch = pathname.match(localePattern);
+      const locale = localeMatch ? localeMatch[1] : routing.defaultLocale;
       const loginUrl = new URL(`/${locale}/login`, request.url);
       loginUrl.searchParams.set('callbackUrl', pathname);
       return NextResponse.redirect(loginUrl);

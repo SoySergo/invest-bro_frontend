@@ -9,7 +9,9 @@ import bcrypt from "bcryptjs";
 export const { auth, signIn, signOut, handlers } = NextAuth({
   adapter: DrizzleAdapter(db),
   session: { strategy: "jwt" },
-  secret: process.env.NEXTAUTH_SECRET || "investbro-dev-secret-change-in-production",
+  secret: process.env.NEXTAUTH_SECRET || (process.env.NODE_ENV === "production"
+    ? (() => { throw new Error("NEXTAUTH_SECRET must be set in production"); })()
+    : "investbro-dev-secret-change-in-production"),
   pages: {
     signIn: "/login",
   },
@@ -71,7 +73,7 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.id as string;
-        (session.user as { role?: string }).role = token.role as string;
+        session.user.role = token.role as string;
       }
       return session;
     },
