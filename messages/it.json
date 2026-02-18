@@ -297,5 +297,27 @@
     "deleteAccountWarning": "Questa azione non può essere annullata",
     "profileUpdated": "Profilo aggiornato con successo",
     "memberSince": "Membro dal"
+  },
+  "MarkdownEditor": {
+    "heading": "Titolo",
+    "heading1": "Titolo 1",
+    "heading2": "Titolo 2",
+    "heading3": "Titolo 3",
+    "bold": "Grassetto",
+    "italic": "Corsivo",
+    "strikethrough": "Barrato",
+    "bulletList": "Elenco puntato",
+    "numberedList": "Elenco numerato",
+    "quote": "Citazione",
+    "inlineCode": "Codice in linea",
+    "codeBlock": "Blocco di codice",
+    "link": "Link",
+    "horizontalRule": "Linea orizzontale",
+    "table": "Tabella",
+    "preview": "Anteprima",
+    "showPreview": "Mostra anteprima",
+    "hidePreview": "Nascondi anteprima",
+    "nothingToPreview": "Niente da mostrare",
+    "markdownSupported": "Markdown supportato"
   }
 }

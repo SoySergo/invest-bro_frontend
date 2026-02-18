@@ -297,5 +297,27 @@
     "deleteAccountWarning": "Это действие нельзя отменить",
     "profileUpdated": "Профиль успешно обновлён",
     "memberSince": "Участник с"
+  },
+  "MarkdownEditor": {
+    "heading": "Заголовок",
+    "heading1": "Заголовок 1",
+    "heading2": "Заголовок 2",
+    "heading3": "Заголовок 3",
+    "bold": "Жирный",
+    "italic": "Курсив",
+    "strikethrough": "Зачёркнутый",
+    "bulletList": "Маркированный список",
+    "numberedList": "Нумерованный список",
+    "quote": "Цитата",
+    "inlineCode": "Код",
+    "codeBlock": "Блок кода",
+    "link": "Ссылка",
+    "horizontalRule": "Разделитель",
+    "table": "Таблица",
+    "preview": "Превью",
+    "showPreview": "Показать превью",
+    "hidePreview": "Скрыть превью",
+    "nothingToPreview": "Нечего показать",
+    "markdownSupported": "Поддерживается Markdown"
   }
 }

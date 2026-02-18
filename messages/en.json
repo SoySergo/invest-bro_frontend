@@ -297,5 +297,27 @@
     "deleteAccountWarning": "This action cannot be undone",
     "profileUpdated": "Profile updated successfully",
     "memberSince": "Member since"
+  },
+  "MarkdownEditor": {
+    "heading": "Heading",
+    "heading1": "Heading 1",
+    "heading2": "Heading 2",
+    "heading3": "Heading 3",
+    "bold": "Bold",
+    "italic": "Italic",
+    "strikethrough": "Strikethrough",
+    "bulletList": "Bullet List",
+    "numberedList": "Numbered List",
+    "quote": "Quote",
+    "inlineCode": "Inline Code",
+    "codeBlock": "Code Block",
+    "link": "Link",
+    "horizontalRule": "Horizontal Rule",
+    "table": "Table",
+    "preview": "Preview",
+    "showPreview": "Show Preview",
+    "hidePreview": "Hide Preview",
+    "nothingToPreview": "Nothing to preview",
+    "markdownSupported": "Markdown supported"
   }
 }

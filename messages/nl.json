@@ -297,5 +297,27 @@
     "deleteAccountWarning": "Deze actie kan niet ongedaan worden gemaakt",
     "profileUpdated": "Profiel succesvol bijgewerkt",
     "memberSince": "Lid sinds"
+  },
+  "MarkdownEditor": {
+    "heading": "Kop",
+    "heading1": "Kop 1",
+    "heading2": "Kop 2",
+    "heading3": "Kop 3",
+    "bold": "Vet",
+    "italic": "Cursief",
+    "strikethrough": "Doorgestreept",
+    "bulletList": "Opsommingslijst",
+    "numberedList": "Genummerde lijst",
+    "quote": "Citaat",
+    "inlineCode": "Inline code",
+    "codeBlock": "Codeblok",
+    "link": "Link",
+    "horizontalRule": "Horizontale lijn",
+    "table": "Tabel",
+    "preview": "Voorbeeld",
+    "showPreview": "Voorbeeld tonen",
+    "hidePreview": "Voorbeeld verbergen",
+    "nothingToPreview": "Niets om te tonen",
+    "markdownSupported": "Markdown ondersteund"
   }
 }

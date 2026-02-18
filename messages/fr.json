@@ -297,5 +297,27 @@
     "deleteAccountWarning": "Cette action est irréversible",
     "profileUpdated": "Profil mis à jour avec succès",
     "memberSince": "Membre depuis"
+  },
+  "MarkdownEditor": {
+    "heading": "Titre",
+    "heading1": "Titre 1",
+    "heading2": "Titre 2",
+    "heading3": "Titre 3",
+    "bold": "Gras",
+    "italic": "Italique",
+    "strikethrough": "Barré",
+    "bulletList": "Liste à puces",
+    "numberedList": "Liste numérotée",
+    "quote": "Citation",
+    "inlineCode": "Code en ligne",
+    "codeBlock": "Bloc de code",
+    "link": "Lien",
+    "horizontalRule": "Ligne horizontale",
+    "table": "Tableau",
+    "preview": "Aperçu",
+    "showPreview": "Afficher l'aperçu",
+    "hidePreview": "Masquer l'aperçu",
+    "nothingToPreview": "Rien à afficher",
+    "markdownSupported": "Markdown supporté"
   }
 }

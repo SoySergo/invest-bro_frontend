@@ -297,5 +297,27 @@
     "deleteAccountWarning": "Diese Aktion kann nicht rückgängig gemacht werden",
     "profileUpdated": "Profil erfolgreich aktualisiert",
     "memberSince": "Mitglied seit"
+  },
+  "MarkdownEditor": {
+    "heading": "Überschrift",
+    "heading1": "Überschrift 1",
+    "heading2": "Überschrift 2",
+    "heading3": "Überschrift 3",
+    "bold": "Fett",
+    "italic": "Kursiv",
+    "strikethrough": "Durchgestrichen",
+    "bulletList": "Aufzählung",
+    "numberedList": "Nummerierte Liste",
+    "quote": "Zitat",
+    "inlineCode": "Inline-Code",
+    "codeBlock": "Codeblock",
+    "link": "Link",
+    "horizontalRule": "Horizontale Linie",
+    "table": "Tabelle",
+    "preview": "Vorschau",
+    "showPreview": "Vorschau anzeigen",
+    "hidePreview": "Vorschau ausblenden",
+    "nothingToPreview": "Nichts anzuzeigen",
+    "markdownSupported": "Markdown unterstützt"
   }
 }

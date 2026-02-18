@@ -297,5 +297,27 @@
     "deleteAccountWarning": "Esta ação não pode ser desfeita",
     "profileUpdated": "Perfil atualizado com sucesso",
     "memberSince": "Membro desde"
+  },
+  "MarkdownEditor": {
+    "heading": "Título",
+    "heading1": "Título 1",
+    "heading2": "Título 2",
+    "heading3": "Título 3",
+    "bold": "Negrito",
+    "italic": "Itálico",
+    "strikethrough": "Riscado",
+    "bulletList": "Lista com marcadores",
+    "numberedList": "Lista numerada",
+    "quote": "Citação",
+    "inlineCode": "Código em linha",
+    "codeBlock": "Bloco de código",
+    "link": "Link",
+    "horizontalRule": "Linha horizontal",
+    "table": "Tabela",
+    "preview": "Pré-visualização",
+    "showPreview": "Mostrar pré-visualização",
+    "hidePreview": "Ocultar pré-visualização",
+    "nothingToPreview": "Nada para mostrar",
+    "markdownSupported": "Markdown suportado"
   }
 }
