@@ -399,7 +399,8 @@
 | 1 | ✅ Выполнено | 2026-02-18 |
 | 2 | ✅ Выполнено | 2026-02-18 |
 | 3 | ✅ Выполнено | 2026-02-18 |
-| 4-8 | 🔲 Не начато | — |
+| 4 | ✅ Выполнено | 2026-02-18 |
+| 5-8 | 🔲 Не начато | — |
 
 ### Фаза 1 — Что реализовано
 
@@ -441,3 +442,18 @@
 - Middleware: `/investor/create` в protected routes
 - i18n: секции Investors, InvestorCard, InvestorDetail во все 8 локалей
 - Документация: docs/completed/phase-3/
+
+### Фаза 4 — Что реализовано
+
+- DB schema: таблицы `jobs` и `jobApplications` с полями title, description, roleCategory, level, employmentType (jsonb), salaryMin/Max, hasEquity, equityDetails, experienceYears, requiredStack (jsonb), languages (jsonb), urgency, status
+- Enums: `jobStatusEnum` (active/closed/draft), `jobUrgencyEnum` (low/medium/high/asap), `jobLevelEnum` (junior/middle/senior/lead/head/clevel)
+- Zod-схема: `jobSchema` с константами ROLE_CATEGORIES (19 ролей), JOB_LEVELS, EMPLOYMENT_TYPES (9 форматов), URGENCY_LEVELS
+- Server actions: `createJob`, `editJob`, `deleteJob`, `applyToJob`
+- Data queries: `getJobs` (с фильтрами), `getJobById`, `getJobApplications`, `getUserApplication`
+- Компоненты: `JobCard` (с badge для спецформатов: co-founder, internship, fractional CXO, advisory), `JobFilters`, `JobForm`, `JobApplyButton`, `JobDeleteButton`
+- Страницы: `/jobs` (каталог), `/job/[id]` (детали), `/job/create` (создание), `/job/[id]/edit` (редактирование)
+- Уникальные форматы: визуально выделены badge — со-основатель (violet), стажировка (amber), fractional CXO (primary), advisory (emerald), с опционами (amber)
+- Навигация: ссылка «Jobs» в desktop nav и mobile sheet
+- Middleware: `/job/create` в protected routes
+- i18n: секции Jobs, JobCard, JobDetail во все 8 локалей
+- Документация: docs/completed/phase-4/

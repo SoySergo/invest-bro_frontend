@@ -10,12 +10,9 @@ import {
   Clock,
   Coins,
   Globe,
-  Users,
   Zap,
-  Award,
   FileText,
   Pencil,
-  Trash2,
   Code,
   Languages,
 } from "lucide-react";

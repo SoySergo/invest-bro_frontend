@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/select";
 import { X } from "lucide-react";
 import { useState, useTransition, useCallback } from "react";
-import { ROLE_CATEGORIES, JOB_LEVELS, EMPLOYMENT_TYPES, URGENCY_LEVELS } from "@/lib/schemas/job";
+import { ROLE_CATEGORIES, JOB_LEVELS, EMPLOYMENT_TYPES } from "@/lib/schemas/job";
 
 interface JobFiltersProps {
   defaultRoleCategory?: string;
