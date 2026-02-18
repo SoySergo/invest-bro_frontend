@@ -52,7 +52,8 @@
     "profile": "Profile",
     "investors": "Investors",
     "createInvestor": "Investor Profile",
-    "jobs": "Jobs"
+    "jobs": "Jobs",
+    "dashboard": "Dashboard"
   },
   "Listings": {
     "title": "Browse Businesses",
@@ -732,5 +733,46 @@
       "misleading": "Misleading information",
       "other": "Other"
     }
+  },
+  "Dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Track your listings performance and manage your business",
+    "sellerTab": "Seller",
+    "investorTab": "Investor",
+    "monetizationTab": "Monetization",
+    "totalViews": "Total Views",
+    "totalFavorites": "Total Favorites",
+    "totalContacts": "Total Contacts",
+    "activeListings": "Active Listings",
+    "viewsOverTime": "Views Over Time (30 days)",
+    "noViewsYet": "No views data yet. Views will appear here once your listings get traffic.",
+    "myListings": "My Listings",
+    "noListings": "You don't have any listings yet. Create your first listing to get started.",
+    "recentMessages": "Recent Messages",
+    "viewAll": "View All",
+    "noMessages": "No recent messages.",
+    "unknownUser": "Unknown User",
+    "tips": "Tips",
+    "tipAddPhotos": "Add photos to your listings — listings with photos get 3x more contacts.",
+    "tipPromote": "Promote your listings to appear higher in search results.",
+    "tipComplete": "You have draft listings. Publish them to start getting views.",
+    "investorDashboard": "Investor Dashboard",
+    "noInvestorProfile": "You don't have an investor profile yet. Create one to start receiving matching projects.",
+    "createInvestorProfile": "Create Investor Profile",
+    "incomingRequests": "Incoming Requests",
+    "matchingProjects": "Matching Projects",
+    "noMatchingProjects": "No matching projects found based on your preferences.",
+    "premiumTitle": "Premium Subscription",
+    "premiumActive": "Your Premium subscription is active",
+    "premiumDescription": "Unlock advanced features with a Premium subscription.",
+    "premiumFeature1": "Premium badge on your profile",
+    "premiumFeature2": "Extended analytics and insights",
+    "premiumFeature3": "Priority support",
+    "subscribePremium": "Subscribe Premium",
+    "premiumSuccess": "Premium subscription activated successfully!",
+    "promoteTitle": "Promote Listings",
+    "promoteDescription": "Boost your listings in search results and featured sections.",
+    "promoteSuccess": "Listing promoted successfully!",
+    "processing": "Processing..."
   }
 }

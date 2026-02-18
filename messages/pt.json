@@ -52,7 +52,8 @@
     "profile": "Perfil",
     "investors": "Investidores",
     "createInvestor": "Perfil investidor",
-    "jobs": "Empregos"
+    "jobs": "Empregos",
+    "dashboard": "Painel de controle"
   },
   "Listings": {
     "title": "Explorar negócios",
@@ -732,5 +733,46 @@
       "misleading": "Informação enganosa",
       "other": "Outro"
     }
+  },
+  "Dashboard": {
+    "title": "Painel de controle",
+    "subtitle": "Acompanhe o desempenho dos seus anúncios e gerencie seu negócio",
+    "sellerTab": "Vendedor",
+    "investorTab": "Investidor",
+    "monetizationTab": "Monetização",
+    "totalViews": "Total de visualizações",
+    "totalFavorites": "Total de favoritos",
+    "totalContacts": "Total de contatos",
+    "activeListings": "Anúncios ativos",
+    "viewsOverTime": "Visualizações em 30 dias",
+    "noViewsYet": "Ainda não há dados de visualizações. Eles aparecerão quando seus anúncios receberem tráfego.",
+    "myListings": "Meus anúncios",
+    "noListings": "Você ainda não tem anúncios. Crie seu primeiro anúncio para começar.",
+    "recentMessages": "Mensagens recentes",
+    "viewAll": "Ver tudo",
+    "noMessages": "Sem mensagens recentes.",
+    "unknownUser": "Usuário desconhecido",
+    "tips": "Dicas",
+    "tipAddPhotos": "Adicione fotos — anúncios com fotos recebem 3x mais contatos.",
+    "tipPromote": "Promova seus anúncios para aparecer mais alto nos resultados.",
+    "tipComplete": "Você tem rascunhos. Publique-os para começar a receber visualizações.",
+    "investorDashboard": "Painel do investidor",
+    "noInvestorProfile": "Você ainda não tem um perfil de investidor. Crie um para receber projetos compatíveis.",
+    "createInvestorProfile": "Criar perfil de investidor",
+    "incomingRequests": "Solicitações recebidas",
+    "matchingProjects": "Projetos compatíveis",
+    "noMatchingProjects": "Nenhum projeto compatível encontrado.",
+    "premiumTitle": "Assinatura Premium",
+    "premiumActive": "Sua assinatura Premium está ativa",
+    "premiumDescription": "Desbloqueie recursos avançados com uma assinatura Premium.",
+    "premiumFeature1": "Selo Premium no seu perfil",
+    "premiumFeature2": "Análises e insights avançados",
+    "premiumFeature3": "Suporte prioritário",
+    "subscribePremium": "Assinar Premium",
+    "premiumSuccess": "Assinatura Premium ativada com sucesso!",
+    "promoteTitle": "Promover anúncios",
+    "promoteDescription": "Destaque seus anúncios nos resultados de busca.",
+    "promoteSuccess": "Anúncio promovido com sucesso!",
+    "processing": "Processando..."
   }
 }

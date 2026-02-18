@@ -52,7 +52,8 @@
     "profile": "Profilo",
     "investors": "Investitori",
     "createInvestor": "Profilo investitore",
-    "jobs": "Lavoro"
+    "jobs": "Lavoro",
+    "dashboard": "Pannello di controllo"
   },
   "Listings": {
     "title": "Sfoglia le attività",
@@ -732,5 +733,46 @@
       "misleading": "Informazioni fuorvianti",
       "other": "Altro"
     }
+  },
+  "Dashboard": {
+    "title": "Pannello di controllo",
+    "subtitle": "Monitora le prestazioni dei tuoi annunci e gestisci la tua attività",
+    "sellerTab": "Venditore",
+    "investorTab": "Investitore",
+    "monetizationTab": "Monetizzazione",
+    "totalViews": "Visualizzazioni totali",
+    "totalFavorites": "Totale preferiti",
+    "totalContacts": "Totale contatti",
+    "activeListings": "Annunci attivi",
+    "viewsOverTime": "Visualizzazioni in 30 giorni",
+    "noViewsYet": "Ancora nessun dato sulle visualizzazioni. Appariranno quando i tuoi annunci riceveranno traffico.",
+    "myListings": "I miei annunci",
+    "noListings": "Non hai ancora annunci. Crea il tuo primo annuncio per iniziare.",
+    "recentMessages": "Messaggi recenti",
+    "viewAll": "Vedi tutto",
+    "noMessages": "Nessun messaggio recente.",
+    "unknownUser": "Utente sconosciuto",
+    "tips": "Suggerimenti",
+    "tipAddPhotos": "Aggiungi foto — gli annunci con foto ricevono 3 volte più contatti.",
+    "tipPromote": "Promuovi i tuoi annunci per apparire più in alto nei risultati.",
+    "tipComplete": "Hai delle bozze. Pubblicale per iniziare a ricevere visualizzazioni.",
+    "investorDashboard": "Pannello investitore",
+    "noInvestorProfile": "Non hai ancora un profilo investitore. Creane uno per ricevere progetti compatibili.",
+    "createInvestorProfile": "Crea profilo investitore",
+    "incomingRequests": "Richieste in arrivo",
+    "matchingProjects": "Progetti compatibili",
+    "noMatchingProjects": "Nessun progetto compatibile trovato.",
+    "premiumTitle": "Abbonamento Premium",
+    "premiumActive": "Il tuo abbonamento Premium è attivo",
+    "premiumDescription": "Sblocca funzionalità avanzate con un abbonamento Premium.",
+    "premiumFeature1": "Badge Premium sul tuo profilo",
+    "premiumFeature2": "Analisi e approfondimenti avanzati",
+    "premiumFeature3": "Supporto prioritario",
+    "subscribePremium": "Abbonati Premium",
+    "premiumSuccess": "Abbonamento Premium attivato con successo!",
+    "promoteTitle": "Promuovi annunci",
+    "promoteDescription": "Metti in evidenza i tuoi annunci nei risultati di ricerca.",
+    "promoteSuccess": "Annuncio promosso con successo!",
+    "processing": "Elaborazione..."
   }
 }

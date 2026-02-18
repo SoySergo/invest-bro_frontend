@@ -22,6 +22,7 @@ import { formatPrice } from "@/lib/constants/countries";
 import { auth } from "@/lib/auth";
 import { ListingOwnerActions } from "@/components/listings/listing-owner-actions";
 import { ListingCard } from "@/components/listings/listing-card";
+import { ViewTracker } from "@/components/dashboard/view-tracker";
 import Image from "next/image";
 import type { Metadata } from "next";
 
@@ -84,6 +85,7 @@ export default async function ListingDetailsPage({ params }: ListingDetailPagePr
 
   return (
     <div className="container py-10 px-4 md:px-8">
+      <ViewTracker listingId={listing.id} />
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
         {/* Left Column: Main Info & Charts */}
