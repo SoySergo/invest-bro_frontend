@@ -74,3 +74,27 @@ export async function getCategoriesByType(type: "online" | "offline") {
     }
     return all;
 }
+
+/**
+ * Get a category by slug with parent chain (for breadcrumbs).
+ */
+export async function getCategoryBySlug(slug: string) {
+    const category = await db.query.categories.findFirst({
+        where: eq(categories.slug, slug),
+    });
+    if (!category) return null;
+
+    // Build breadcrumb chain
+    const chain: typeof category[] = [category];
+    let current = category;
+    while (current.parentId) {
+        const parent = await db.query.categories.findFirst({
+            where: eq(categories.id, current.parentId),
+        });
+        if (!parent) break;
+        chain.unshift(parent);
+        current = parent;
+    }
+
+    return { category, breadcrumbs: chain };
+}
