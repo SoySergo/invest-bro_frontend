@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { recordListingView } from "@/lib/actions/dashboard";
 
 interface ViewTrackerProps {
@@ -8,8 +8,13 @@ interface ViewTrackerProps {
 }
 
 export function ViewTracker({ listingId }: ViewTrackerProps) {
+  const tracked = useRef(false);
+
   useEffect(() => {
-    recordListingView(listingId);
+    if (!tracked.current) {
+      tracked.current = true;
+      recordListingView(listingId);
+    }
   }, [listingId]);
 
   return null;

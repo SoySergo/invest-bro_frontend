@@ -1,6 +1,6 @@
 import { db } from "@/db";
-import { listings, favorites, conversations, listingViews, listingImages, promotedListings, premiumSubscriptions, investorProfiles } from "@/db/schema";
-import { eq, and, sql, gte } from "drizzle-orm";
+import { listings, favorites, conversations, messages, listingViews, listingImages, promotedListings, premiumSubscriptions, investorProfiles } from "@/db/schema";
+import { eq, and, sql, gte, inArray, ne } from "drizzle-orm";
 import { auth } from "@/lib/auth";
 
 export interface ListingStats {
@@ -136,7 +136,7 @@ export async function getSellerDashboard(): Promise<SellerDashboardData | null> 
       .from(listingViews)
       .where(
         and(
-          sql`${listingViews.listingId} = ANY(${listingIds})`,
+          inArray(listingViews.listingId, listingIds),
           gte(listingViews.createdAt, thirtyDaysAgo)
         )
       )
@@ -159,11 +159,10 @@ export async function getSellerDashboard(): Promise<SellerDashboardData | null> 
   let recentMessages: SellerDashboardData["recentMessages"] = [];
   if (convIds.length > 0) {
     const msgs = await db.query.messages.findMany({
-      where: (msg, { and: a, ne }) =>
-        a(
-          sql`${msg.conversationId} = ANY(${convIds})`,
-          ne(msg.senderId, userId)
-        ),
+      where: and(
+        inArray(messages.conversationId, convIds),
+        ne(messages.senderId, userId)
+      ),
       with: {
         sender: true,
       },
