@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { useTranslations } from "next-intl";
-import { useRouter } from "@/i18n/routing";
+import { useTranslations, useLocale } from "next-intl";
+import { useRouter } from "next/navigation";
 import {
   CommandDialog,
   CommandInput,
@@ -18,6 +18,7 @@ import { globalSearch, type SearchResults } from "@/lib/actions/search";
 
 export function CommandSearch() {
   const t = useTranslations("Search");
+  const locale = useLocale();
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
   const [query, setQuery] = React.useState("");
@@ -27,7 +28,7 @@ export function CommandSearch() {
     jobs: [],
   });
   const [loading, setLoading] = React.useState(false);
-  const debounceRef = React.useRef<ReturnType<typeof setTimeout>>();
+  const debounceRef = React.useRef<ReturnType<typeof setTimeout>>(undefined);
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -66,8 +67,7 @@ export function CommandSearch() {
   const handleSelect = (path: string) => {
     setOpen(false);
     setQuery("");
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    router.push(path as any);
+    router.push(`/${locale}${path}`);
   };
 
   const hasResults =

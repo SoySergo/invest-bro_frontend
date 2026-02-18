@@ -8,7 +8,7 @@ export interface SearchResults {
   listings: {
     id: string;
     title: string;
-    locationType: string;
+    locationType: string | null;
     country: string | null;
     price: string | null;
     categoryName: string | null;
