@@ -1,6 +1,5 @@
 import { getFavoriteListings } from "@/lib/actions/favorites";
-import { ListingCard } from "@/components/listing-card";
-import { useTranslations } from "next-intl";
+import { ListingCard } from "@/components/listings/listing-card";
 import { getTranslations } from "next-intl/server";
 import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -21,7 +20,7 @@ export default async function FavoritesPage() {
       </div>
 
       {listings.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-grid">
           {listings.map((listing) => (
             <ListingCard key={listing.id} listing={listing} initialFavorite={true} />
           ))}
@@ -32,7 +31,7 @@ export default async function FavoritesPage() {
           <h2 className="text-xl font-semibold mb-2">{t("empty")}</h2>
           <p className="text-muted-foreground mb-6">{t("emptyDesc")}</p>
           <Link href="/listings">
-            <Button>Browse Listings</Button>
+            <Button>{t("browseCta")}</Button>
           </Link>
         </div>
       )}

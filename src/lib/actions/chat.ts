@@ -3,47 +3,47 @@
 import { db } from "@/db";
 import { conversations, users, listings } from "@/db/schema";
 import { eq, and } from "drizzle-orm";
-import { redirect } from "@/i18n/routing";
+import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { messages } from "@/db/schema";
 
 export async function startChat(listingId: string) {
     // Mock user
-   const currentUser = await db.query.users.findFirst();
-   if (!currentUser) throw new Error("Not logged in");
+    const currentUser = await db.query.users.findFirst();
+    if (!currentUser) throw new Error("Not logged in");
 
-   const listing = await db.query.listings.findFirst({
-       where: eq(listings.id, listingId)
-   });
-   
-   if (!listing) throw new Error("Listing not found");
-   
-   if (listing.userId === currentUser.id) {
-       // Cannot chat with self
-       // In real app, just redirect to chats
-       return;
-   }
+    const listing = await db.query.listings.findFirst({
+        where: eq(listings.id, listingId)
+    });
 
-   // Check if conversation exists
-   const existing = await db.query.conversations.findFirst({
-       where: and(
-           eq(conversations.listingId, listingId),
-           eq(conversations.buyerId, currentUser.id),
-           eq(conversations.sellerId, listing.userId)
-       )
-   });
+    if (!listing) throw new Error("Listing not found");
 
-   if (existing) {
-       redirect(`/chat/${existing.id}`);
-   }
+    if (listing.userId === currentUser.id) {
+        // Cannot chat with self
+        // In real app, just redirect to chats
+        return;
+    }
 
-   const [newConv] = await db.insert(conversations).values({
-       listingId,
-       buyerId: currentUser.id,
-       sellerId: listing.userId,
-   } as any).returning();
+    // Check if conversation exists
+    const existing = await db.query.conversations.findFirst({
+        where: and(
+            eq(conversations.listingId, listingId),
+            eq(conversations.buyerId, currentUser.id),
+            eq(conversations.sellerId, listing.userId)
+        )
+    });
 
-   redirect(`/chat/${newConv.id}`);
+    if (existing) {
+        redirect(`/chat/${existing.id}`);
+    }
+
+    const [newConv] = await db.insert(conversations).values({
+        listingId,
+        buyerId: currentUser.id,
+        sellerId: listing.userId,
+    }).returning();
+
+    redirect(`/chat/${newConv.id}`);
 }
 
 export async function sendMessage(conversationId: string, formData: FormData) {

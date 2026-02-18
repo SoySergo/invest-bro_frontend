@@ -1,7 +1,8 @@
 import { getListings } from "@/lib/data/listings";
-import { ListingCard } from "@/components/listing-card";
-import { ListingFilters } from "@/components/listing-filters";
+import { ListingCard } from "@/components/listings/listing-card";
+import { ListingFilters } from "@/components/listings/listing-filters";
 import { getTranslations } from "next-intl/server";
+import { getLevel1Categories } from "@/lib/data/categories";
 
 export default async function ListingsPage({
   searchParams,
@@ -10,12 +11,17 @@ export default async function ListingsPage({
 }) {
   const params = await searchParams;
   const t = await getTranslations("Listings");
-  
-  const listings = await getListings({
-    search: params.search,
-    type: params.type,
-    category: params.category,
-  });
+
+  const [listings, dbCategories] = await Promise.all([
+    getListings({
+      search: params.search,
+      type: params.type,
+      category: params.category,
+    }),
+    getLevel1Categories(),
+  ]);
+
+  const categoryOptions = dbCategories.map((c) => ({ slug: c.slug, nameEn: c.nameEn }));
 
   return (
     <div className="container py-10 px-4 md:px-8">
@@ -29,10 +35,11 @@ export default async function ListingsPage({
           defaultSearch={params.search}
           defaultType={params.type}
           defaultCategory={params.category}
+          categories={categoryOptions}
         />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-grid">
         {listings.map((listing) => (
           <ListingCard key={listing.id} listing={listing} />
         ))}

@@ -37,7 +37,10 @@
     "chat": "Messages",
     "about": "About",
     "login": "Login",
-    "sellBusiness": "Sell Business"
+    "sellBusiness": "Sell Business",
+    "toggleMenu": "Toggle Menu",
+    "create": "Create",
+    "profile": "Profile"
   },
   "Listings": {
     "title": "Browse Businesses",
@@ -52,7 +55,8 @@
     "location": "Location",
     "noResults": "No listings found",
     "beFirst": "Be the first to sell!",
-    "clearFilters": "Clear Filters"
+    "clearFilters": "Clear Filters",
+    "loading": "Loading..."
   },
   "ListingCard": {
     "viewDetails": "View Details",
@@ -62,7 +66,9 @@
     "payback": "Payback",
     "years": "years",
     "addToFavorites": "Add to Favorites",
-    "removeFromFavorites": "Remove from Favorites"
+    "removeFromFavorites": "Remove from Favorites",
+    "users": "Users",
+    "performance": "Performance"
   },
   "ListingDetail": {
     "overview": "Business Overview",
@@ -70,14 +76,18 @@
     "yearlyRevenue": "Yearly Revenue",
     "yearlyProfit": "Yearly Net Profit",
     "paybackPeriod": "Payback Period",
+    "yearsLabel": "Years",
+    "askingPrice": "Asking Price",
+    "yearPayback": "{years} Year Payback",
     "sellerInfo": "Seller Information",
     "memberSince": "Member since",
     "contactSeller": "Contact Seller",
     "addToFavorites": "Add to Favorites",
     "inFavorites": "In Favorites",
+    "removedFromFavorites": "Removed from Favorites",
     "safetyTip": "Protect yourself from fraud.",
     "safetyWarning": "Never pay before verifying the business.",
-    "chartsComingSoon": "Detailed Financial Charts Coming Soon"
+    "revenueChart": "Monthly Revenue Trend"
   },
   "Wizard": {
     "sellTitle": "Sell your Business",
@@ -97,11 +107,16 @@
     "titlePlaceholder": "e.g. Profitable Cafe in Madrid Center",
     "description": "Description",
     "descriptionPlaceholder": "Describe your business, key highlights, and why you are selling...",
-    "askingPrice": "Asking Price",
+    "askingPrice": "Asking Price (EUR)",
     "location": "Location",
     "locationPlaceholder": "e.g. Madrid, Spain",
+    "country": "Country",
+    "selectCountry": "Select a country",
+    "city": "City",
+    "cityPlaceholder": "e.g. Madrid",
     "financialMetrics": "Financial Metrics",
-    "yearlyRevenue": "Yearly Revenue",
+    "financialMetricsDesc": "Provide financial highlights to attract investors.",
+    "yearlyRevenue": "Yearly Revenue (Last 12m)",
     "yearlyProfit": "Yearly Net Profit",
     "back": "Back",
     "next": "Next Step",
@@ -110,20 +125,34 @@
     "price": "Price",
     "revenue": "Revenue",
     "profit": "Profit",
-    "publish": "Publish Listing"
+    "publish": "Publish Listing",
+    "publishSuccess": "Listing created successfully!",
+    "publishError": "Something went wrong",
+    "imagesTitle": "Images & Branding",
+    "imagesDesc": "Upload high quality images of your business or charts.",
+    "imagesDragDrop": "Drag and drop images here, or click to upload.",
+    "imagesComingSoon": "Feature coming soon",
+    "uploadImage": "Upload Image",
+    "markdownSupported": "Markdown supported",
+    "write": "Write",
+    "preview": "Preview",
+    "nothingToPreview": "Nothing to preview"
   },
   "Favorites": {
     "title": "My Favorites",
     "subtitle": "Businesses you've saved",
     "empty": "No favorites yet",
-    "emptyDesc": "Start browsing and save listings you're interested in"
+    "emptyDesc": "Start browsing and save listings you're interested in",
+    "browseCta": "Browse Listings"
   },
   "Chat": {
     "title": "Messages",
     "noConversations": "No conversations yet",
     "startChat": "Start the conversation!",
     "typePlaceholder": "Type a message...",
-    "send": "Send"
+    "send": "Send",
+    "pleaseLogin": "Please login first",
+    "noMessagesYet": "No messages yet"
   },
   "Footer": {
     "description": "Your trusted marketplace for buying and selling businesses in Europe",
@@ -132,23 +161,87 @@
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
     "contact": "Contact",
-    "locations": "Spain • France",
+    "locations": "Spain · France · Germany · Italy · Portugal",
     "copyright": "© 2026 InvestBro. All rights reserved."
   },
   "Categories": {
+    "online-business": "Online Business",
+    "offline-business": "Offline Business",
+    "franchises": "Franchises",
+    "startups": "Startups",
+    "shares-partnership": "Shares & Partnership",
+    "ecommerce": "E-commerce",
+    "saas": "SaaS",
+    "content-media": "Content & Media",
+    "marketplaces": "Marketplaces",
+    "edtech": "EdTech",
+    "fintech": "Fintech",
+    "mobile-apps": "Mobile Apps",
+    "agencies": "Agencies",
+    "igaming": "iGaming",
+    "horeca": "HoReCa",
+    "retail": "Retail",
+    "b2c-services": "B2C Services",
+    "real-estate": "Real Estate & Construction",
+    "manufacturing": "Manufacturing",
+    "wholesale": "Wholesale & Distribution",
+    "logistics": "Logistics & Transport",
+    "agriculture": "Agriculture",
+    "entertainment": "Entertainment & Leisure",
+    "tourism": "Tourism & Hospitality",
+    "b2b-services": "B2B Services",
     "restaurant": "Restaurant / Cafe",
-    "retail": "Retail Store",
     "service": "Service Business",
     "hotel": "Hotel / Hospitality",
     "beauty": "Beauty / Wellness",
     "automotive": "Car Wash / Automotive",
     "gym": "Gym / Fitness",
-    "saas": "SaaS",
-    "ecommerce": "E-commerce",
     "content": "Content / Blog",
     "app": "Mobile App",
     "marketplace": "Marketplace",
     "agency": "Digital Agency"
+  },
+  "Countries": {
+    "FR": "France",
+    "ES": "Spain",
+    "PT": "Portugal",
+    "IT": "Italy",
+    "DE": "Germany",
+    "GB": "United Kingdom",
+    "NL": "Netherlands",
+    "BE": "Belgium",
+    "CH": "Switzerland",
+    "AT": "Austria",
+    "IE": "Ireland",
+    "LU": "Luxembourg",
+    "GR": "Greece",
+    "SE": "Sweden",
+    "DK": "Denmark",
+    "NO": "Norway",
+    "FI": "Finland",
+    "PL": "Poland",
+    "CZ": "Czech Republic",
+    "REMOTE": "Remote / Global"
+  },
+  "Filters": {
+    "sortBy": "Sort by",
+    "newest": "Newest",
+    "priceAsc": "Price: Low to High",
+    "priceDesc": "Price: High to Low",
+    "revenueDesc": "Revenue: High to Low",
+    "country": "Country",
+    "allCountries": "All Countries",
+    "minPrice": "Min Price",
+    "maxPrice": "Max Price"
+  },
+  "ThemeToggle": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "toggleTheme": "Toggle theme"
+  },
+  "LanguageSwitcher": {
+    "switchLanguage": "Switch language"
   },
   "Common": {
     "loading": "Loading...",
@@ -158,6 +251,8 @@
     "cancel": "Cancel",
     "delete": "Delete",
     "edit": "Edit",
-    "close": "Close"
+    "close": "Close",
+    "notFound": "Page not found",
+    "goHome": "Go Home"
   }
 }

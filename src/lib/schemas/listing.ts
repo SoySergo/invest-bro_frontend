@@ -9,22 +9,22 @@ export const categorySchema = z.object({
 export const basicInfoSchema = z.object({
   title: z.string().min(10, "Title must be at least 10 characters"),
   description: z.string().min(50, "Description must be at least 50 characters"),
-  price: z.preprocess((val) => Number(val), z.number().min(1, "Price is required")),
-  currency: z.string().default("USD"),
-  location: z.string().optional(), // Required only for offline?
+  price: z.number().min(1, "Price is required"),
+  currency: z.string().min(1, "Currency is required"),
+  country: z.string().optional(),
+  city: z.string().optional(),
 });
 
 export const metricsSchema = z.object({
-  yearlyRevenue: z.preprocess((val) => Number(val), z.number().optional()),
-  yearlyProfit: z.preprocess((val) => Number(val), z.number().optional()),
-  metricType: z.enum(["revenue", "profit", "users", "traffic", "other"]).default("revenue"),
-  // We will handle dynamic metrics data separately in the form state
+  yearlyRevenue: z.number().optional(),
+  yearlyProfit: z.number().optional(),
+  metricType: z.enum(["revenue", "profit", "users", "traffic", "other"]),
 });
 
 export const listingSchema = z.object({
-    ...categorySchema.shape,
-    ...basicInfoSchema.shape,
-    ...metricsSchema.shape,
+  ...categorySchema.shape,
+  ...basicInfoSchema.shape,
+  ...metricsSchema.shape,
 });
 
 export type ListingFormData = z.infer<typeof listingSchema>;

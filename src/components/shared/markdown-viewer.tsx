@@ -2,7 +2,6 @@
 
 import ReactMarkdown from 'react-markdown';
 import { cn } from '@/lib/utils';
-import { ClassNameValue } from 'tailwind-merge';
 
 interface MarkdownViewerProps {
     content: string;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -28,19 +28,11 @@ export function MarkdownEditor({ value, onChange, label, placeholder, className 
         const previousValue = textarea.value;
         const selectedText = previousValue.substring(start, end);
 
-        const activeLineStart = previousValue.lastIndexOf('\n', start - 1) + 1;
-        const activeLineContent = previousValue.substring(start, end);
+        const newText = previousValue.substring(0, start) + before + selectedText + after + previousValue.substring(end);
+        const newCursorPos = end + before.length;
 
-        let newText = "";
-        let newCursorPos = start + before.length;
-
-        // Logic for inserting/wrapping
-        newText = previousValue.substring(0, start) + before + selectedText + after + previousValue.substring(end);
-        newCursorPos = end + before.length;
-        
         onChange(newText);
-        
-        // Restore focus and cursor later
+
         setTimeout(() => {
             textarea.focus();
             textarea.setSelectionRange(newCursorPos, newCursorPos);
@@ -59,12 +51,12 @@ export function MarkdownEditor({ value, onChange, label, placeholder, className 
         <div className={cn("space-y-2", className)}>
             {label && <label className="text-sm font-medium">{label}</label>}
             <Tabs defaultValue="write" className="w-full border rounded-lg overflow-hidden bg-background">
-                <div className="flex items-center justify-between px-2 py-1 border-b bg-muted/40">
+                <div className="flex items-center justify-between px-2 py-1 border-b bg-surface-2/40">
                     <TabsList className="h-8 bg-transparent p-0">
                         <TabsTrigger value="write" className="h-7 px-3 text-xs data-[state=active]:bg-background data-[state=active]:shadow-sm">Write</TabsTrigger>
                         <TabsTrigger value="preview" className="h-7 px-3 text-xs data-[state=active]:bg-background data-[state=active]:shadow-sm">Preview</TabsTrigger>
                     </TabsList>
-                    
+
                     <div className="flex items-center gap-1">
                         <ToolbarButton onClick={handleBold} icon={Bold} title="Bold" />
                         <ToolbarButton onClick={handleItalic} icon={Italic} title="Italic" />
@@ -78,16 +70,16 @@ export function MarkdownEditor({ value, onChange, label, placeholder, className 
                     </div>
                 </div>
 
-                <TabsContent value="write" className="mt-0 p-0 border-none min-h-[200px] ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-                    <Textarea 
+                <TabsContent value="write" className="mt-0 p-0 border-none min-h-50 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+                    <Textarea
                         ref={textareaRef}
-                        value={value} 
-                        onChange={(e) => onChange(e.target.value)} 
+                        value={value}
+                        onChange={(e) => onChange(e.target.value)}
                         placeholder={placeholder}
-                        className="min-h-[300px] border-0 rounded-none focus-visible:ring-0 resize-y p-4 font-mono text-sm leading-relaxed"
+                        className="min-h-75 border-0 rounded-none focus-visible:ring-0 resize-y p-4 font-mono text-sm leading-relaxed"
                     />
                 </TabsContent>
-                <TabsContent value="preview" className="mt-0 p-4 min-h-[300px] bg-white dark:bg-zinc-950">
+                <TabsContent value="preview" className="mt-0 p-4 min-h-75 bg-surface-2/30">
                     {value ? (
                         <MarkdownViewer content={value} />
                     ) : (
@@ -96,19 +88,19 @@ export function MarkdownEditor({ value, onChange, label, placeholder, className 
                 </TabsContent>
             </Tabs>
             <div className="flex justify-end px-2">
-                 <p className="text-xs text-muted-foreground">Markdown supported</p>
+                <p className="text-xs text-muted-foreground">Markdown supported</p>
             </div>
         </div>
     );
 }
 
-function ToolbarButton({ onClick, icon: Icon, title }: { onClick: () => void; icon: any; title: string }) {
+function ToolbarButton({ onClick, icon: Icon, title }: { onClick: () => void; icon: React.ComponentType<{ className?: string }>; title: string }) {
     return (
-        <Button 
-            type="button" 
-            variant="ghost" 
-            size="sm" 
-            className="h-7 w-7 p-0 hover:bg-muted" 
+        <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            className="h-7 w-7 p-0 hover:bg-muted"
             onClick={onClick}
             title={title}
         >

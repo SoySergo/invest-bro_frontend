@@ -17,9 +17,17 @@ export const users = pgTable("users", {
 export const categories = pgTable("categories", {
   id: uuid("id").defaultRandom().primaryKey(),
   slug: text("slug").notNull().unique(),
-  nameEn: text("name_en").notNull(), 
+  nameEn: text("name_en").notNull(),
   nameRu: text("name_ru").notNull(),
+  nameFr: text("name_fr").notNull(),
+  nameEs: text("name_es").notNull(),
+  namePt: text("name_pt").notNull(),
+  nameDe: text("name_de").notNull(),
+  nameIt: text("name_it").notNull(),
+  nameNl: text("name_nl").notNull(),
   parentId: uuid("parent_id"), // Self-referencing for subcategories
+  icon: text("icon"), // Lucide icon slug
+  order: integer("order").default(0),
 });
 
 // LISTINGS
@@ -30,15 +38,16 @@ export const listings = pgTable("listings", {
   title: text("title").notNull(),
   description: text("description").notNull(),
   price: decimal("price", { precision: 12, scale: 2 }).notNull(),
-  currency: text("currency").default("USD").notNull(),
-  location: text("location"), // e.g. "Spain, Madrid"
+  currency: text("currency").default("EUR").notNull(),
+  country: text("country"), // ISO country code e.g. "FR", "ES"
+  city: text("city"), // Optional city name
   locationType: text("location_type").default("offline"), // offline vs online
   status: listingStatusEnum("status").default("draft").notNull(),
-  
+
   // Financial Highlights (Quick access)
   yearlyRevenue: decimal("yearly_revenue", { precision: 12, scale: 2 }),
   yearlyProfit: decimal("yearly_profit", { precision: 12, scale: 2 }),
-  
+
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });

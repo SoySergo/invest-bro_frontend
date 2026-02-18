@@ -25,8 +25,8 @@
     "step3SellerTitle": "Закройте сделку",
     "step3SellerDesc": "Договаривайтесь и завершайте с верифицированными покупателями",
     "categories": "Категории",
-    "offlineBusinesses": "Оффлайн бизнес",
-    "onlineBusinesses": "Онлайн бизнес",
+    "offlineBusinesses": "Офлайн-бизнес",
+    "onlineBusinesses": "Онлайн-бизнес",
     "ctaTitle": "Готовы начать?",
     "ctaSubtitle": "Присоединяйтесь к тысячам инвесторов и предпринимателей"
   },
@@ -37,7 +37,10 @@
     "chat": "Сообщения",
     "about": "О нас",
     "login": "Войти",
-    "sellBusiness": "Продать бизнес"
+    "sellBusiness": "Продать бизнес",
+    "toggleMenu": "Открыть меню",
+    "create": "Создать",
+    "profile": "Профиль"
   },
   "Listings": {
     "title": "Обзор бизнесов",
@@ -46,13 +49,14 @@
     "filters": "Фильтры",
     "allTypes": "Все типы",
     "online": "Онлайн",
-    "offline": "Оффлайн",
+    "offline": "Офлайн",
     "allCategories": "Все категории",
     "priceRange": "Диапазон цен",
     "location": "Локация",
     "noResults": "Объявления не найдены",
     "beFirst": "Будьте первым продавцом!",
-    "clearFilters": "Сбросить фильтры"
+    "clearFilters": "Сбросить фильтры",
+    "loading": "Загрузка..."
   },
   "ListingCard": {
     "viewDetails": "Подробнее",
@@ -62,7 +66,9 @@
     "payback": "Окупаемость",
     "years": "лет",
     "addToFavorites": "В избранное",
-    "removeFromFavorites": "Убрать из избранного"
+    "removeFromFavorites": "Убрать из избранного",
+    "users": "Пользователи",
+    "performance": "Показатели"
   },
   "ListingDetail": {
     "overview": "Описание бизнеса",
@@ -70,14 +76,18 @@
     "yearlyRevenue": "Годовая выручка",
     "yearlyProfit": "Чистая прибыль за год",
     "paybackPeriod": "Срок окупаемости",
+    "yearsLabel": "Лет",
+    "askingPrice": "Цена продажи",
+    "yearPayback": "Окупаемость {years} лет",
     "sellerInfo": "Информация о продавце",
     "memberSince": "На платформе с",
     "contactSeller": "Связаться с продавцом",
     "addToFavorites": "В избранное",
     "inFavorites": "В избранном",
+    "removedFromFavorites": "Убрано из избранного",
     "safetyTip": "Защитите себя от мошенничества.",
     "safetyWarning": "Никогда не платите до проверки бизнеса.",
-    "chartsComingSoon": "Подробные финансовые графики скоро"
+    "revenueChart": "Тренд ежемесячной выручки"
   },
   "Wizard": {
     "sellTitle": "Продать бизнес",
@@ -88,8 +98,8 @@
     "stepImages": "Фото",
     "stepReview": "Проверка",
     "whatKind": "Какой тип бизнеса вы продаёте?",
-    "offlineBusiness": "Оффлайн бизнес",
-    "onlineBusiness": "Онлайн бизнес",
+    "offlineBusiness": "Офлайн-бизнес",
+    "onlineBusiness": "Онлайн-бизнес",
     "category": "Категория",
     "selectCategory": "Выберите категорию",
     "basicDetails": "Основные данные",
@@ -97,11 +107,16 @@
     "titlePlaceholder": "напр. Прибыльное кафе в центре Мадрида",
     "description": "Описание",
     "descriptionPlaceholder": "Опишите ваш бизнес, ключевые преимущества и причину продажи...",
-    "askingPrice": "Цена продажи",
+    "askingPrice": "Цена продажи (EUR)",
     "location": "Локация",
     "locationPlaceholder": "напр. Мадрид, Испания",
+    "country": "Страна",
+    "selectCountry": "Выберите страну",
+    "city": "Город",
+    "cityPlaceholder": "напр. Мадрид",
     "financialMetrics": "Финансовые показатели",
-    "yearlyRevenue": "Годовая выручка",
+    "financialMetricsDesc": "Укажите финансовые данные для привлечения инвесторов.",
+    "yearlyRevenue": "Годовая выручка (за 12 мес.)",
     "yearlyProfit": "Чистая прибыль за год",
     "back": "Назад",
     "next": "Далее",
@@ -110,20 +125,34 @@
     "price": "Цена",
     "revenue": "Выручка",
     "profit": "Прибыль",
-    "publish": "Опубликовать"
+    "publish": "Опубликовать",
+    "publishSuccess": "Объявление успешно создано!",
+    "publishError": "Что-то пошло не так",
+    "imagesTitle": "Фотографии и брендинг",
+    "imagesDesc": "Загрузите качественные изображения вашего бизнеса.",
+    "imagesDragDrop": "Перетащите изображения сюда или нажмите для загрузки.",
+    "imagesComingSoon": "Скоро будет доступно",
+    "uploadImage": "Загрузить фото",
+    "markdownSupported": "Поддерживается Markdown",
+    "write": "Редактор",
+    "preview": "Превью",
+    "nothingToPreview": "Нечего показать"
   },
   "Favorites": {
     "title": "Избранное",
     "subtitle": "Сохранённые объявления",
     "empty": "Пока пусто",
-    "emptyDesc": "Начните просматривать и сохраняйте интересные объявления"
+    "emptyDesc": "Начните просматривать и сохраняйте интересные объявления",
+    "browseCta": "Смотреть объявления"
   },
   "Chat": {
     "title": "Сообщения",
     "noConversations": "Пока нет чатов",
     "startChat": "Начните общение!",
     "typePlaceholder": "Введите сообщение...",
-    "send": "Отправить"
+    "send": "Отправить",
+    "pleaseLogin": "Пожалуйста, войдите в аккаунт",
+    "noMessagesYet": "Пока нет сообщений"
   },
   "Footer": {
     "description": "Надёжная платформа для покупки и продажи бизнеса в Европе",
@@ -132,23 +161,87 @@
     "privacy": "Политика конфиденциальности",
     "terms": "Условия использования",
     "contact": "Контакты",
-    "locations": "Испания • Франция",
+    "locations": "Испания · Франция · Германия · Италия · Португалия",
     "copyright": "© 2026 InvestBro. Все права защищены."
   },
   "Categories": {
+    "online-business": "Онлайн-бизнес",
+    "offline-business": "Офлайн-бизнес",
+    "franchises": "Франшизы",
+    "startups": "Стартапы",
+    "shares-partnership": "Доли и партнёрство",
+    "ecommerce": "Интернет-магазин",
+    "saas": "SaaS",
+    "content-media": "Контент и медиа",
+    "marketplaces": "Маркетплейсы",
+    "edtech": "EdTech",
+    "fintech": "Финтех",
+    "mobile-apps": "Мобильные приложения",
+    "agencies": "Агентства",
+    "igaming": "iGaming",
+    "horeca": "Общепит (HoReCa)",
+    "retail": "Розничная торговля",
+    "b2c-services": "Услуги для населения",
+    "real-estate": "Недвижимость и строительство",
+    "manufacturing": "Производство",
+    "wholesale": "Оптовая торговля",
+    "logistics": "Логистика и транспорт",
+    "agriculture": "Агросектор",
+    "entertainment": "Развлечения и досуг",
+    "tourism": "Туризм и гостеприимство",
+    "b2b-services": "B2B-услуги",
     "restaurant": "Ресторан / Кафе",
-    "retail": "Розничный магазин",
     "service": "Сфера услуг",
     "hotel": "Отель / Гостиница",
     "beauty": "Красота / Велнес",
     "automotive": "Автомойка / Автосервис",
     "gym": "Спортзал / Фитнес",
-    "saas": "SaaS",
-    "ecommerce": "Интернет-магазин",
     "content": "Контент / Блог",
     "app": "Мобильное приложение",
     "marketplace": "Маркетплейс",
-    "agency": "Диджитал агентство"
+    "agency": "Диджитал-агентство"
+  },
+  "Countries": {
+    "FR": "Франция",
+    "ES": "Испания",
+    "PT": "Португалия",
+    "IT": "Италия",
+    "DE": "Германия",
+    "GB": "Великобритания",
+    "NL": "Нидерланды",
+    "BE": "Бельгия",
+    "CH": "Швейцария",
+    "AT": "Австрия",
+    "IE": "Ирландия",
+    "LU": "Люксембург",
+    "GR": "Греция",
+    "SE": "Швеция",
+    "DK": "Дания",
+    "NO": "Норвегия",
+    "FI": "Финляндия",
+    "PL": "Польша",
+    "CZ": "Чехия",
+    "REMOTE": "Удалённо / Глобально"
+  },
+  "Filters": {
+    "sortBy": "Сортировка",
+    "newest": "Новые",
+    "priceAsc": "Цена: по возрастанию",
+    "priceDesc": "Цена: по убыванию",
+    "revenueDesc": "Выручка: по убыванию",
+    "country": "Страна",
+    "allCountries": "Все страны",
+    "minPrice": "Мин. цена",
+    "maxPrice": "Макс. цена"
+  },
+  "ThemeToggle": {
+    "light": "Светлая",
+    "dark": "Тёмная",
+    "system": "Системная",
+    "toggleTheme": "Переключить тему"
+  },
+  "LanguageSwitcher": {
+    "switchLanguage": "Сменить язык"
   },
   "Common": {
     "loading": "Загрузка...",
@@ -158,6 +251,8 @@
     "cancel": "Отмена",
     "delete": "Удалить",
     "edit": "Изменить",
-    "close": "Закрыть"
+    "close": "Закрыть",
+    "notFound": "Страница не найдена",
+    "goHome": "На главную"
   }
 }
