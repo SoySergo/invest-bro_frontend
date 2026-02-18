@@ -1,6 +1,6 @@
 import { db } from "@/db";
 import { listings, categories } from "@/db/schema";
-import { eq, and, ilike, desc, or } from "drizzle-orm";
+import { eq, and, ilike, desc, or, inArray } from "drizzle-orm";
 
 export type ListingsFilters = {
   search?: string;
@@ -116,8 +116,11 @@ export async function getListingsByCategorySlug(slug: string) {
   });
   const categoryIds = [category.id, ...subcategories.map((c) => c.id)];
 
-  const allActive = await db.query.listings.findMany({
-    where: eq(listings.status, "active"),
+  return db.query.listings.findMany({
+    where: and(
+      eq(listings.status, "active"),
+      inArray(listings.categoryId, categoryIds)
+    ),
     with: {
       metrics: true,
       category: true,
@@ -125,6 +128,4 @@ export async function getListingsByCategorySlug(slug: string) {
     },
     orderBy: (listings, { desc }) => [desc(listings.createdAt)],
   });
-
-  return allActive.filter((l) => categoryIds.includes(l.categoryId!));
 }
