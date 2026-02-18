@@ -52,7 +52,8 @@
     "profile": "Profil",
     "investors": "Investisseurs",
     "createInvestor": "Profil investisseur",
-    "jobs": "Emplois"
+    "jobs": "Emplois",
+    "dashboard": "Tableau de bord"
   },
   "Listings": {
     "title": "Parcourir les entreprises",
@@ -732,5 +733,46 @@
       "misleading": "Informations trompeuses",
       "other": "Autre"
     }
+  },
+  "Dashboard": {
+    "title": "Tableau de bord",
+    "subtitle": "Suivez les performances de vos annonces et gérez votre activité",
+    "sellerTab": "Vendeur",
+    "investorTab": "Investisseur",
+    "monetizationTab": "Monétisation",
+    "totalViews": "Vues totales",
+    "totalFavorites": "Total favoris",
+    "totalContacts": "Total contacts",
+    "activeListings": "Annonces actives",
+    "viewsOverTime": "Vues sur 30 jours",
+    "noViewsYet": "Pas encore de données. Les vues apparaîtront lorsque vos annonces recevront du trafic.",
+    "myListings": "Mes annonces",
+    "noListings": "Vous n'avez pas encore d'annonces. Créez votre première annonce.",
+    "recentMessages": "Messages récents",
+    "viewAll": "Tout voir",
+    "noMessages": "Aucun message récent.",
+    "unknownUser": "Utilisateur inconnu",
+    "tips": "Conseils",
+    "tipAddPhotos": "Ajoutez des photos — les annonces avec photos reçoivent 3x plus de contacts.",
+    "tipPromote": "Promouvez vos annonces pour apparaître plus haut dans les résultats.",
+    "tipComplete": "Vous avez des brouillons. Publiez-les pour commencer à recevoir des vues.",
+    "investorDashboard": "Tableau de bord investisseur",
+    "noInvestorProfile": "Vous n'avez pas encore de profil investisseur. Créez-en un pour recevoir des projets correspondants.",
+    "createInvestorProfile": "Créer un profil investisseur",
+    "incomingRequests": "Demandes entrantes",
+    "matchingProjects": "Projets correspondants",
+    "noMatchingProjects": "Aucun projet correspondant trouvé.",
+    "premiumTitle": "Abonnement Premium",
+    "premiumActive": "Votre abonnement Premium est actif",
+    "premiumDescription": "Débloquez des fonctionnalités avancées avec un abonnement Premium.",
+    "premiumFeature1": "Badge Premium sur votre profil",
+    "premiumFeature2": "Analyses et statistiques avancées",
+    "premiumFeature3": "Support prioritaire",
+    "subscribePremium": "S'abonner Premium",
+    "premiumSuccess": "Abonnement Premium activé avec succès !",
+    "promoteTitle": "Promouvoir les annonces",
+    "promoteDescription": "Mettez en avant vos annonces dans les résultats de recherche.",
+    "promoteSuccess": "Annonce promue avec succès !",
+    "processing": "Traitement..."
   }
 }

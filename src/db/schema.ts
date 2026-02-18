@@ -15,6 +15,8 @@ export const notificationTypeEnum = pgEnum('notification_type', ['new_message', 
 export const verificationStatusEnum = pgEnum('verification_status', ['none', 'pending', 'verified', 'rejected']);
 export const reportStatusEnum = pgEnum('report_status', ['pending', 'reviewed', 'resolved', 'dismissed']);
 export const reportReasonEnum = pgEnum('report_reason', ['spam', 'fraud', 'inappropriate', 'duplicate', 'misleading', 'other']);
+export const promotionDurationEnum = pgEnum('promotion_duration', ['7', '14', '30']);
+export const subscriptionStatusEnum = pgEnum('subscription_status', ['active', 'cancelled', 'expired']);
 
 // USERS
 export const users = pgTable("users", {
@@ -254,6 +256,36 @@ export const reports = pgTable("reports", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+// LISTING VIEWS (Analytics)
+export const listingViews = pgTable("listing_views", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  listingId: uuid("listing_id").references(() => listings.id, { onDelete: "cascade" }).notNull(),
+  userId: uuid("user_id").references(() => users.id, { onDelete: "set null" }),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// PROMOTED LISTINGS (Monetization)
+export const promotedListings = pgTable("promoted_listings", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  listingId: uuid("listing_id").references(() => listings.id, { onDelete: "cascade" }).notNull(),
+  userId: uuid("user_id").references(() => users.id, { onDelete: "cascade" }).notNull(),
+  duration: promotionDurationEnum("duration").notNull(),
+  startDate: timestamp("start_date").defaultNow().notNull(),
+  endDate: timestamp("end_date").notNull(),
+  isActive: boolean("is_active").default(true).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// PREMIUM SUBSCRIPTIONS (Monetization)
+export const premiumSubscriptions = pgTable("premium_subscriptions", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  userId: uuid("user_id").references(() => users.id, { onDelete: "cascade" }).notNull(),
+  status: subscriptionStatusEnum("status").default("active").notNull(),
+  startDate: timestamp("start_date").defaultNow().notNull(),
+  endDate: timestamp("end_date").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
 // RELATIONS
 export const usersRelations = relations(users, ({ many }) => ({
   listings: many(listings),
@@ -267,6 +299,7 @@ export const usersRelations = relations(users, ({ many }) => ({
   reviewsGiven: many(reviews, { relationName: "reviewer" }),
   reviewsReceived: many(reviews, { relationName: "reviewed" }),
   reportsSubmitted: many(reports, { relationName: "reporter" }),
+  premiumSubscriptions: many(premiumSubscriptions),
 }));
 
 export const accountsRelations = relations(accounts, ({ one }) => ({
@@ -302,6 +335,8 @@ export const listingsRelations = relations(listings, ({ one, many }) => ({
   }),
   metrics: many(metrics),
   images: many(listingImages),
+  views: many(listingViews),
+  promotions: many(promotedListings),
 }));
 
 export const conversationsRelations = relations(conversations, ({ one, many }) => ({
@@ -355,6 +390,20 @@ export const reportsRelations = relations(reports, ({ one }) => ({
   reportedUser: one(users, { fields: [reports.reportedUserId], references: [users.id] }),
   listing: one(listings, { fields: [reports.listingId], references: [listings.id] }),
   resolver: one(users, { fields: [reports.resolvedBy], references: [users.id] }),
+}));
+
+export const listingViewsRelations = relations(listingViews, ({ one }) => ({
+  listing: one(listings, { fields: [listingViews.listingId], references: [listings.id] }),
+  user: one(users, { fields: [listingViews.userId], references: [users.id] }),
+}));
+
+export const promotedListingsRelations = relations(promotedListings, ({ one }) => ({
+  listing: one(listings, { fields: [promotedListings.listingId], references: [listings.id] }),
+  user: one(users, { fields: [promotedListings.userId], references: [users.id] }),
+}));
+
+export const premiumSubscriptionsRelations = relations(premiumSubscriptions, ({ one }) => ({
+  user: one(users, { fields: [premiumSubscriptions.userId], references: [users.id] }),
 }));
 
 // Quick fix for the category listing relation field naming

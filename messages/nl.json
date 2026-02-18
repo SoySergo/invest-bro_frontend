@@ -52,7 +52,8 @@
     "profile": "Profiel",
     "investors": "Investeerders",
     "createInvestor": "Investeerdersprofiel",
-    "jobs": "Vacatures"
+    "jobs": "Vacatures",
+    "dashboard": "Dashboard"
   },
   "Listings": {
     "title": "Bedrijven bekijken",
@@ -732,5 +733,46 @@
       "misleading": "Misleidende informatie",
       "other": "Overig"
     }
+  },
+  "Dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Volg de prestaties van uw advertenties en beheer uw bedrijf",
+    "sellerTab": "Verkoper",
+    "investorTab": "Investeerder",
+    "monetizationTab": "Monetisatie",
+    "totalViews": "Totaal weergaven",
+    "totalFavorites": "Totaal favorieten",
+    "totalContacts": "Totaal contacten",
+    "activeListings": "Actieve advertenties",
+    "viewsOverTime": "Weergaven over 30 dagen",
+    "noViewsYet": "Nog geen weergavegegevens. Ze verschijnen wanneer uw advertenties verkeer ontvangen.",
+    "myListings": "Mijn advertenties",
+    "noListings": "U heeft nog geen advertenties. Maak uw eerste advertentie aan.",
+    "recentMessages": "Recente berichten",
+    "viewAll": "Alles bekijken",
+    "noMessages": "Geen recente berichten.",
+    "unknownUser": "Onbekende gebruiker",
+    "tips": "Tips",
+    "tipAddPhotos": "Voeg foto's toe — advertenties met foto's krijgen 3x meer contacten.",
+    "tipPromote": "Promoot uw advertenties om hoger in de resultaten te verschijnen.",
+    "tipComplete": "U heeft concepten. Publiceer ze om weergaven te ontvangen.",
+    "investorDashboard": "Investeerder Dashboard",
+    "noInvestorProfile": "U heeft nog geen investeerdersprofiel. Maak er een aan om passende projecten te ontvangen.",
+    "createInvestorProfile": "Investeerdersprofiel aanmaken",
+    "incomingRequests": "Inkomende verzoeken",
+    "matchingProjects": "Passende projecten",
+    "noMatchingProjects": "Geen passende projecten gevonden.",
+    "premiumTitle": "Premium Abonnement",
+    "premiumActive": "Uw Premium abonnement is actief",
+    "premiumDescription": "Ontgrendel geavanceerde functies met een Premium abonnement.",
+    "premiumFeature1": "Premium badge op uw profiel",
+    "premiumFeature2": "Uitgebreide analyses en inzichten",
+    "premiumFeature3": "Prioritaire ondersteuning",
+    "subscribePremium": "Premium Abonneren",
+    "premiumSuccess": "Premium abonnement succesvol geactiveerd!",
+    "promoteTitle": "Advertenties promoten",
+    "promoteDescription": "Laat uw advertenties opvallen in zoekresultaten.",
+    "promoteSuccess": "Advertentie succesvol gepromoot!",
+    "processing": "Verwerken..."
   }
 }

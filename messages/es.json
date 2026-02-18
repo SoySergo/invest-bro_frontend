@@ -52,7 +52,8 @@
     "profile": "Perfil",
     "investors": "Inversores",
     "createInvestor": "Perfil inversor",
-    "jobs": "Empleos"
+    "jobs": "Empleos",
+    "dashboard": "Panel de control"
   },
   "Listings": {
     "title": "Explorar negocios",
@@ -732,5 +733,46 @@
       "misleading": "Información engañosa",
       "other": "Otro"
     }
+  },
+  "Dashboard": {
+    "title": "Panel de control",
+    "subtitle": "Rastrea el rendimiento de tus anuncios y gestiona tu negocio",
+    "sellerTab": "Vendedor",
+    "investorTab": "Inversor",
+    "monetizationTab": "Monetización",
+    "totalViews": "Visitas totales",
+    "totalFavorites": "Total favoritos",
+    "totalContacts": "Total contactos",
+    "activeListings": "Anuncios activos",
+    "viewsOverTime": "Visitas en 30 días",
+    "noViewsYet": "Aún no hay datos de visitas. Aparecerán cuando tus anuncios reciban tráfico.",
+    "myListings": "Mis anuncios",
+    "noListings": "Aún no tienes anuncios. Crea tu primer anuncio para empezar.",
+    "recentMessages": "Mensajes recientes",
+    "viewAll": "Ver todo",
+    "noMessages": "Sin mensajes recientes.",
+    "unknownUser": "Usuario desconocido",
+    "tips": "Consejos",
+    "tipAddPhotos": "Añade fotos — los anuncios con fotos reciben 3x más contactos.",
+    "tipPromote": "Promociona tus anuncios para aparecer más arriba en los resultados.",
+    "tipComplete": "Tienes borradores. Publícalos para empezar a recibir visitas.",
+    "investorDashboard": "Panel del inversor",
+    "noInvestorProfile": "Aún no tienes perfil de inversor. Crea uno para recibir proyectos compatibles.",
+    "createInvestorProfile": "Crear perfil de inversor",
+    "incomingRequests": "Solicitudes entrantes",
+    "matchingProjects": "Proyectos compatibles",
+    "noMatchingProjects": "No se encontraron proyectos compatibles.",
+    "premiumTitle": "Suscripción Premium",
+    "premiumActive": "Tu suscripción Premium está activa",
+    "premiumDescription": "Desbloquea funciones avanzadas con una suscripción Premium.",
+    "premiumFeature1": "Insignia Premium en tu perfil",
+    "premiumFeature2": "Análisis e información avanzados",
+    "premiumFeature3": "Soporte prioritario",
+    "subscribePremium": "Suscribirse Premium",
+    "premiumSuccess": "¡Suscripción Premium activada con éxito!",
+    "promoteTitle": "Promocionar anuncios",
+    "promoteDescription": "Destaca tus anuncios en los resultados de búsqueda.",
+    "promoteSuccess": "¡Anuncio promocionado con éxito!",
+    "processing": "Procesando..."
   }
 }

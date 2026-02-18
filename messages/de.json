@@ -52,7 +52,8 @@
     "profile": "Profil",
     "investors": "Investoren",
     "createInvestor": "Investorenprofil",
-    "jobs": "Jobs"
+    "jobs": "Jobs",
+    "dashboard": "Dashboard"
   },
   "Listings": {
     "title": "Unternehmen durchsuchen",
@@ -732,5 +733,46 @@
       "misleading": "Irreführende Informationen",
       "other": "Sonstiges"
     }
+  },
+  "Dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Verfolgen Sie die Leistung Ihrer Anzeigen und verwalten Sie Ihr Geschäft",
+    "sellerTab": "Verkäufer",
+    "investorTab": "Investor",
+    "monetizationTab": "Monetarisierung",
+    "totalViews": "Gesamtansichten",
+    "totalFavorites": "Gesamtfavoriten",
+    "totalContacts": "Gesamtkontakte",
+    "activeListings": "Aktive Anzeigen",
+    "viewsOverTime": "Ansichten über 30 Tage",
+    "noViewsYet": "Noch keine Ansichtsdaten. Sie erscheinen, wenn Ihre Anzeigen Traffic erhalten.",
+    "myListings": "Meine Anzeigen",
+    "noListings": "Sie haben noch keine Anzeigen. Erstellen Sie Ihre erste Anzeige.",
+    "recentMessages": "Letzte Nachrichten",
+    "viewAll": "Alle anzeigen",
+    "noMessages": "Keine neuen Nachrichten.",
+    "unknownUser": "Unbekannter Benutzer",
+    "tips": "Tipps",
+    "tipAddPhotos": "Fügen Sie Fotos hinzu — Anzeigen mit Fotos erhalten 3x mehr Kontakte.",
+    "tipPromote": "Bewerben Sie Ihre Anzeigen, um höher in den Ergebnissen zu erscheinen.",
+    "tipComplete": "Sie haben Entwürfe. Veröffentlichen Sie sie, um Ansichten zu erhalten.",
+    "investorDashboard": "Investor-Dashboard",
+    "noInvestorProfile": "Sie haben noch kein Investorenprofil. Erstellen Sie eines, um passende Projekte zu erhalten.",
+    "createInvestorProfile": "Investorenprofil erstellen",
+    "incomingRequests": "Eingehende Anfragen",
+    "matchingProjects": "Passende Projekte",
+    "noMatchingProjects": "Keine passenden Projekte gefunden.",
+    "premiumTitle": "Premium-Abonnement",
+    "premiumActive": "Ihr Premium-Abonnement ist aktiv",
+    "premiumDescription": "Schalten Sie erweiterte Funktionen mit einem Premium-Abonnement frei.",
+    "premiumFeature1": "Premium-Badge auf Ihrem Profil",
+    "premiumFeature2": "Erweiterte Analysen und Einblicke",
+    "premiumFeature3": "Prioritäts-Support",
+    "subscribePremium": "Premium abonnieren",
+    "premiumSuccess": "Premium-Abonnement erfolgreich aktiviert!",
+    "promoteTitle": "Anzeigen bewerben",
+    "promoteDescription": "Heben Sie Ihre Anzeigen in den Suchergebnissen hervor.",
+    "promoteSuccess": "Anzeige erfolgreich beworben!",
+    "processing": "Verarbeitung..."
   }
 }
