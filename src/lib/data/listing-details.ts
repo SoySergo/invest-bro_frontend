@@ -14,6 +14,7 @@ export async function getListingById(id: string) {
             name: true,
             image: true,
             createdAt: true,
+            verificationStatus: true,
         }
       },
       images: true,

@@ -13,6 +13,7 @@ import { useState, useTransition } from "react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { formatPrice } from "@/lib/constants/countries";
+import { VerifiedBadge } from "@/components/shared/verified-badge";
 
 interface MetricData {
     type: string;
@@ -35,6 +36,7 @@ interface ListingCardData {
     yearlyProfit: string | null;
     category?: { slug: string; nameEn: string } | null;
     metrics?: MetricData[];
+    user?: { verificationStatus?: string; [key: string]: unknown } | null;
 }
 
 const generateMockData = () => {
@@ -197,8 +199,11 @@ export function ListingCard({ listing, initialFavorite = false }: { listing: Lis
             <CardContent className="p-6">
                 <div className="flex flex-col gap-1 mb-4">
                     <div className="flex justify-between items-start gap-2">
-                        <h3 className="font-semibold text-lg leading-tight line-clamp-1 group-hover:text-primary transition-colors" style={{ fontWeight: 600 }}>
+                        <h3 className="font-semibold text-lg leading-tight line-clamp-1 group-hover:text-primary transition-colors flex items-center gap-1" style={{ fontWeight: 600 }}>
                             {listing.title}
+                            {listing.user?.verificationStatus === "verified" && (
+                                <VerifiedBadge size="sm" />
+                            )}
                         </h3>
                         <p className="font-bold text-lg text-primary whitespace-nowrap">
                             {formatPrice(Number(listing.price), listing.currency || "EUR", locale)}
