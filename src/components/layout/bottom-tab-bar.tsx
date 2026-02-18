@@ -2,20 +2,24 @@
 
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/routing";
-import { House, Search, PlusCircle, Heart, User } from "lucide-react";
+import { useSession } from "next-auth/react";
+import { House, Search, PlusCircle, Heart, User, LogIn } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-const TABS = [
-    { href: "/", icon: House, labelKey: "home" },
-    { href: "/listings", icon: Search, labelKey: "listings" },
-    { href: "/listing/create", icon: PlusCircle, labelKey: "create" },
-    { href: "/favorites", icon: Heart, labelKey: "favorites" },
-    { href: "/chat", icon: User, labelKey: "profile" },
-] as const;
 
 export function BottomTabBar() {
     const t = useTranslations("Navigation");
     const pathname = usePathname();
+    const { data: session } = useSession();
+
+    const tabs = [
+        { href: "/", icon: House, labelKey: "home" },
+        { href: "/listings", icon: Search, labelKey: "listings" },
+        { href: "/listing/create", icon: PlusCircle, labelKey: "create" },
+        { href: "/favorites", icon: Heart, labelKey: "favorites" },
+        session?.user
+            ? { href: "/profile", icon: User, labelKey: "profile" }
+            : { href: "/login", icon: LogIn, labelKey: "login" },
+    ] as const;
 
     return (
         <nav className="fixed bottom-0 left-0 right-0 z-50 md:hidden">
@@ -23,7 +27,7 @@ export function BottomTabBar() {
                 className="flex items-center justify-around border-t bg-background/80 backdrop-blur-xl"
                 style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
             >
-                {TABS.map((tab) => {
+                {tabs.map((tab) => {
                     const isActive =
                         tab.href === "/"
                             ? pathname === "/" || pathname === ""

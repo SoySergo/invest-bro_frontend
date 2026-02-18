@@ -1,17 +1,61 @@
-import { pgTable, text, timestamp, uuid, decimal, integer, jsonb, boolean, pgEnum } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, uuid, decimal, integer, jsonb, boolean, pgEnum, primaryKey } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
+import type { AdapterAccountType } from "next-auth/adapters";
 
 export const listingStatusEnum = pgEnum('listing_status', ['active', 'sold', 'hidden', 'draft']);
 export const metricTypeEnum = pgEnum('metric_type', ['revenue', 'profit', 'users', 'traffic', 'other']);
+export const userRoleEnum = pgEnum('user_role', ['user', 'admin']);
 
 // USERS
 export const users = pgTable("users", {
   id: uuid("id").defaultRandom().primaryKey(),
   name: text("name"),
   email: text("email").notNull().unique(),
+  emailVerified: timestamp("email_verified", { mode: "date" }),
   image: text("image"),
+  password: text("password"),
+  role: userRoleEnum("role").default("user").notNull(),
+  bio: text("bio"),
+  company: text("company"),
+  website: text("website"),
+  phone: text("phone"),
+  country: text("country"),
+  city: text("city"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
+
+// NEXTAUTH ACCOUNTS
+export const accounts = pgTable("accounts", {
+  userId: uuid("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  type: text("type").$type<AdapterAccountType>().notNull(),
+  provider: text("provider").notNull(),
+  providerAccountId: text("provider_account_id").notNull(),
+  refresh_token: text("refresh_token"),
+  access_token: text("access_token"),
+  expires_at: integer("expires_at"),
+  token_type: text("token_type"),
+  scope: text("scope"),
+  id_token: text("id_token"),
+  session_state: text("session_state"),
+}, (account) => [
+  primaryKey({ columns: [account.provider, account.providerAccountId] }),
+]);
+
+// NEXTAUTH SESSIONS
+export const sessions = pgTable("sessions", {
+  sessionToken: text("session_token").primaryKey(),
+  userId: uuid("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  expires: timestamp("expires", { mode: "date" }).notNull(),
+});
+
+// NEXTAUTH VERIFICATION TOKENS
+export const verificationTokens = pgTable("verification_tokens", {
+  identifier: text("identifier").notNull(),
+  token: text("token").notNull(),
+  expires: timestamp("expires", { mode: "date" }).notNull(),
+}, (vt) => [
+  primaryKey({ columns: [vt.identifier, vt.token] }),
+]);
 
 // CATEGORIES
 export const categories = pgTable("categories", {
@@ -101,6 +145,16 @@ export const messages = pgTable("messages", {
 export const usersRelations = relations(users, ({ many }) => ({
   listings: many(listings),
   favorites: many(favorites),
+  accounts: many(accounts),
+  sessions: many(sessions),
+}));
+
+export const accountsRelations = relations(accounts, ({ one }) => ({
+  user: one(users, { fields: [accounts.userId], references: [users.id] }),
+}));
+
+export const sessionsRelations = relations(sessions, ({ one }) => ({
+  user: one(users, { fields: [sessions.userId], references: [users.id] }),
 }));
 
 export const favoritesRelations = relations(favorites, ({ one }) => ({

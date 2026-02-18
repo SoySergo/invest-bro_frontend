@@ -388,3 +388,25 @@
 | Условия (/terms) | Новая | 6 |
 | Контакты (/contact) | Новая | 6 |
 | Admin-панель (/admin) | Новая | 7 |
+
+---
+
+## Статус выполнения
+
+| Фаза | Статус | Дата |
+|------|--------|------|
+| 0 | ⏳ В процессе | — |
+| 1 | ✅ Выполнено | 2026-02-18 |
+| 2-8 | 🔲 Не начато | — |
+
+### Фаза 1 — Что реализовано
+
+- NextAuth.js v5 с Credentials provider (JWT-стратегия)
+- Тестовый вход: `admin@investbro.com` / `admin` (авто-создание при первом логине)
+- DB schema: добавлены поля role, bio, company, website, phone, country, city в users; таблицы accounts, sessions, verificationTokens
+- Middleware: защита роутов /listing/create, /favorites, /chat, /profile, /dashboard
+- Страницы: /login, /register (split-screen дизайн), /profile, /profile/settings
+- Навигация: user dropdown с аватаром, logout, profile ссылками
+- Mock user заменён на auth() во всех server actions (listings, favorites, chat)
+- i18n: ключи Auth и Profile добавлены во все 8 локалей
+- Документация: docs/completed/phase-1/

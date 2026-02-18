@@ -1,16 +1,17 @@
 "use server";
 
 import { db } from "@/db";
-import { conversations, users, listings } from "@/db/schema";
+import { conversations, listings } from "@/db/schema";
 import { eq, and } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { messages } from "@/db/schema";
+import { auth } from "@/lib/auth";
 
 export async function startChat(listingId: string) {
-    // Mock user
-    const currentUser = await db.query.users.findFirst();
-    if (!currentUser) throw new Error("Not logged in");
+    const session = await auth();
+    if (!session?.user?.id) throw new Error("Not authenticated");
+    const currentUserId = session.user.id;
 
     const listing = await db.query.listings.findFirst({
         where: eq(listings.id, listingId)
@@ -18,9 +19,7 @@ export async function startChat(listingId: string) {
 
     if (!listing) throw new Error("Listing not found");
 
-    if (listing.userId === currentUser.id) {
-        // Cannot chat with self
-        // In real app, just redirect to chats
+    if (listing.userId === currentUserId) {
         return;
     }
 
@@ -28,7 +27,7 @@ export async function startChat(listingId: string) {
     const existing = await db.query.conversations.findFirst({
         where: and(
             eq(conversations.listingId, listingId),
-            eq(conversations.buyerId, currentUser.id),
+            eq(conversations.buyerId, currentUserId),
             eq(conversations.sellerId, listing.userId)
         )
     });
@@ -39,7 +38,7 @@ export async function startChat(listingId: string) {
 
     const [newConv] = await db.insert(conversations).values({
         listingId,
-        buyerId: currentUser.id,
+        buyerId: currentUserId,
         sellerId: listing.userId,
     }).returning();
 
@@ -50,13 +49,13 @@ export async function sendMessage(conversationId: string, formData: FormData) {
     const content = formData.get("content") as string;
     if (!content) return;
 
-    // Mock user
-    const currentUser = await db.query.users.findFirst();
-    if (!currentUser) throw new Error("Not logged in");
+    const session = await auth();
+    if (!session?.user?.id) throw new Error("Not authenticated");
+    const currentUserId = session.user.id;
 
     await db.insert(messages).values({
         conversationId,
-        senderId: currentUser.id,
+        senderId: currentUserId,
         content,
     } as any);
 

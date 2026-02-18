@@ -1,9 +1,10 @@
 "use server";
 
 import { db } from "@/db";
-import { listings, users } from "@/db/schema";
+import { listings } from "@/db/schema";
 import { ListingFormData, listingSchema } from "@/lib/schemas/listing";
 import { revalidatePath } from "next/cache";
+import { auth } from "@/lib/auth";
 
 export async function createListing(data: ListingFormData) {
   const result = listingSchema.safeParse(data);
@@ -12,15 +13,9 @@ export async function createListing(data: ListingFormData) {
     return { error: "Invalid data" };
   }
 
-  // TODO: Get actual logged in user
-  // For now, get the first user or create a seeded one
-  let user = await db.query.users.findFirst();
-  if (!user) {
-    [user] = await db.insert(users).values({
-      email: "demo@investbro.com",
-      name: "Demo User",
-    }).returning();
-  }
+  const session = await auth();
+  if (!session?.user?.id) return { error: "Not authenticated" };
+  const userId = session.user.id;
 
   // Resolve Category ID
   const category = await db.query.categories.findFirst({
@@ -33,7 +28,7 @@ export async function createListing(data: ListingFormData) {
 
   try {
     const [stats] = await db.insert(listings).values({
-      userId: user.id,
+      userId,
       categoryId: category.id,
       title: result.data.title,
       description: result.data.description,

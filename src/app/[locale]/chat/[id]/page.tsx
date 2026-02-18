@@ -8,17 +8,13 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-
-// Mock user
-const getMockUserId = async () => {
-    const u = await db.query.users.findFirst();
-    return u?.id;
-};
+import { auth } from "@/lib/auth";
 
 export default async function ChatRoomPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
     const t = await getTranslations("Chat");
-    const currentUserId = await getMockUserId();
+    const session = await auth();
+    const currentUserId = session?.user?.id;
 
     if (!currentUserId) return <div>{t("pleaseLogin")}</div>;
 
