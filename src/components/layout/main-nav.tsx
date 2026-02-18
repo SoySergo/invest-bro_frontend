@@ -65,6 +65,12 @@ export function MainNav() {
                             {t("investors")}
                         </Link>
                         <Link
+                            href="/jobs"
+                            className="transition-colors hover:text-foreground text-muted-foreground"
+                        >
+                            {t("jobs")}
+                        </Link>
+                        <Link
                             href="/favorites"
                             className="transition-colors hover:text-foreground text-muted-foreground"
                         >
@@ -172,6 +178,10 @@ export function MainNav() {
                                 <Link href="/investors" className="text-lg font-medium flex items-center gap-2">
                                     <TrendingUp className="h-5 w-5" />
                                     {t("investors")}
+                                </Link>
+                                <Link href="/jobs" className="text-lg font-medium flex items-center gap-2">
+                                    <BriefcaseBusiness className="h-5 w-5" />
+                                    {t("jobs")}
                                 </Link>
                                 <Link href="/favorites" className="text-lg font-medium flex items-center gap-2">
                                     <Heart className="h-5 w-5" />
