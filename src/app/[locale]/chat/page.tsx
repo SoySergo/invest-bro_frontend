@@ -5,16 +5,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Link } from "@/i18n/routing";
 import { getTranslations } from "next-intl/server";
-
-// Mock user for MVP - get first user
-const getMockUserId = async () => {
-  const u = await db.query.users.findFirst();
-  return u?.id;
-};
+import { auth } from "@/lib/auth";
 
 export default async function ChatListPage() {
   const t = await getTranslations("Chat");
-  const currentUserId = await getMockUserId();
+  const session = await auth();
+  const currentUserId = session?.user?.id;
   if (!currentUserId) return <div>{t("pleaseLogin")}</div>;
 
   const userConversations = await db.query.conversations.findMany({

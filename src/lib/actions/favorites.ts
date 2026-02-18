@@ -4,18 +4,12 @@ import { db } from "@/db";
 import { favorites } from "@/db/schema";
 import { eq, and } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
-
-// Mock user for MVP - get first user
-async function getMockUserId() {
-  const u = await db.query.users.findFirst();
-  return u?.id;
-}
+import { auth } from "@/lib/auth";
 
 export async function toggleFavorite(listingId: string) {
-  const userId = await getMockUserId();
-  if (!userId) {
-    return { error: "Not logged in" };
-  }
+  const session = await auth();
+  if (!session?.user?.id) return { error: "Not authenticated" };
+  const userId = session.user.id;
 
   try {
     // Check if already favorited
@@ -49,8 +43,9 @@ export async function toggleFavorite(listingId: string) {
 }
 
 export async function checkFavorite(listingId: string) {
-  const userId = await getMockUserId();
-  if (!userId) return false;
+  const session = await auth();
+  if (!session?.user?.id) return false;
+  const userId = session.user.id;
 
   const existing = await db.query.favorites.findFirst({
     where: and(
@@ -63,8 +58,9 @@ export async function checkFavorite(listingId: string) {
 }
 
 export async function getFavoriteListings() {
-  const userId = await getMockUserId();
-  if (!userId) return [];
+  const session = await auth();
+  if (!session?.user?.id) return [];
+  const userId = session.user.id;
 
   const userFavorites = await db.query.favorites.findMany({
     where: eq(favorites.userId, userId),

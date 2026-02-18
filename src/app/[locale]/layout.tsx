@@ -3,6 +3,7 @@ import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '../../i18n/routing';
 import { ThemeProvider } from "@/components/providers/theme-provider"
+import { AuthProvider } from "@/components/providers/auth-provider"
 import { Outfit } from "next/font/google";
 import "../globals.css";
 
@@ -35,22 +36,24 @@ export default async function LocaleLayout({
     <html lang={locale} suppressHydrationWarning>
       <body className={outfit.className}>
         <NextIntlClientProvider messages={messages}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <div className="flex min-h-screen flex-col">
-              <MainNav />
-              <main className="flex-1 bg-background text-foreground pb-16 md:pb-0">
-                {children}
-              </main>
-              <Footer />
-              <BottomTabBar />
-            </div>
-            <Toaster />
-          </ThemeProvider>
+          <AuthProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <div className="flex min-h-screen flex-col">
+                <MainNav />
+                <main className="flex-1 bg-background text-foreground pb-16 md:pb-0">
+                  {children}
+                </main>
+                <Footer />
+                <BottomTabBar />
+              </div>
+              <Toaster />
+            </ThemeProvider>
+          </AuthProvider>
         </NextIntlClientProvider>
       </body>
     </html>
