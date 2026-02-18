@@ -1,12 +1,18 @@
 "use client";
 
-import { useRef } from 'react';
+import { useRef, useState, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Bold, Italic, List, Heading, Link as LinkIcon, Quote, ListOrdered } from 'lucide-react';
+import {
+    Bold, Italic, Strikethrough, List, Heading1, Heading2, Heading3,
+    Link as LinkIcon, Quote, ListOrdered, Code, Minus, Table, Eye, EyeOff
+} from 'lucide-react';
 import { MarkdownViewer } from './markdown-viewer';
 import { cn } from '@/lib/utils';
+import { useTranslations } from 'next-intl';
+import {
+    DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu';
 
 interface MarkdownEditorProps {
     value: string;
@@ -17,9 +23,11 @@ interface MarkdownEditorProps {
 }
 
 export function MarkdownEditor({ value, onChange, label, placeholder, className }: MarkdownEditorProps) {
+    const t = useTranslations("MarkdownEditor");
     const textareaRef = useRef<HTMLTextAreaElement>(null);
+    const [showPreview, setShowPreview] = useState(false);
 
-    const insertText = (before: string, after: string = "") => {
+    const insertText = useCallback((before: string, after: string = "") => {
         const textarea = textareaRef.current;
         if (!textarea) return;
 
@@ -37,40 +45,117 @@ export function MarkdownEditor({ value, onChange, label, placeholder, className 
             textarea.focus();
             textarea.setSelectionRange(newCursorPos, newCursorPos);
         }, 0);
-    };
+    }, [onChange]);
+
+    const insertLinePrefix = useCallback((prefix: string) => {
+        const textarea = textareaRef.current;
+        if (!textarea) return;
+
+        const start = textarea.selectionStart;
+        const previousValue = textarea.value;
+        const lineStart = previousValue.lastIndexOf('\n', start - 1) + 1;
+
+        const newText = previousValue.substring(0, lineStart) + prefix + previousValue.substring(lineStart);
+        const newCursorPos = start + prefix.length;
+
+        onChange(newText);
+
+        setTimeout(() => {
+            textarea.focus();
+            textarea.setSelectionRange(newCursorPos, newCursorPos);
+        }, 0);
+    }, [onChange]);
 
     const handleBold = () => insertText("**", "**");
     const handleItalic = () => insertText("*", "*");
-    const handleHeading = () => insertText("### ");
-    const handleList = () => insertText("- ");
-    const handleOrderedList = () => insertText("1. ");
-    const handleQuote = () => insertText("> ");
+    const handleStrikethrough = () => insertText("~~", "~~");
+    const handleH1 = () => insertLinePrefix("# ");
+    const handleH2 = () => insertLinePrefix("## ");
+    const handleH3 = () => insertLinePrefix("### ");
+    const handleList = () => insertLinePrefix("- ");
+    const handleOrderedList = () => insertLinePrefix("1. ");
+    const handleQuote = () => insertLinePrefix("> ");
+    const handleCode = () => insertText("`", "`");
     const handleLink = () => insertText("[", "](url)");
+    const handleHorizontalRule = () => insertText("\n---\n");
+    const handleTable = () => insertText("\n| Column 1 | Column 2 | Column 3 |\n| --- | --- | --- |\n| ", " | | |\n");
 
     return (
         <div className={cn("space-y-2", className)}>
             {label && <label className="text-sm font-medium">{label}</label>}
-            <Tabs defaultValue="write" className="w-full border rounded-lg overflow-hidden bg-background">
+            <div className="w-full border rounded-lg overflow-hidden bg-background">
                 <div className="flex items-center justify-between px-2 py-1 border-b bg-surface-2/40">
-                    <TabsList className="h-8 bg-transparent p-0">
-                        <TabsTrigger value="write" className="h-7 px-3 text-xs data-[state=active]:bg-background data-[state=active]:shadow-sm">Write</TabsTrigger>
-                        <TabsTrigger value="preview" className="h-7 px-3 text-xs data-[state=active]:bg-background data-[state=active]:shadow-sm">Preview</TabsTrigger>
-                    </TabsList>
-
-                    <div className="flex items-center gap-1">
-                        <ToolbarButton onClick={handleBold} icon={Bold} title="Bold" />
-                        <ToolbarButton onClick={handleItalic} icon={Italic} title="Italic" />
-                        <ToolbarButton onClick={handleHeading} icon={Heading} title="Heading" />
-                        <div className="w-px h-4 bg-border mx-1" />
-                        <ToolbarButton onClick={handleList} icon={List} title="List" />
-                        <ToolbarButton onClick={handleOrderedList} icon={ListOrdered} title="Numbered List" />
-                        <div className="w-px h-4 bg-border mx-1" />
-                        <ToolbarButton onClick={handleQuote} icon={Quote} title="Quote" />
-                        <ToolbarButton onClick={handleLink} icon={LinkIcon} title="Link" />
+                    <div className="flex items-center gap-1 flex-wrap">
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button type="button" variant="ghost" size="sm" className="h-7 px-2 text-xs hover:bg-muted" title={t("heading")}>
+                                    H
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="start">
+                                <DropdownMenuItem onClick={handleH1}>
+                                    <Heading1 className="h-4 w-4 mr-2" />
+                                    {t("heading1")}
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={handleH2}>
+                                    <Heading2 className="h-4 w-4 mr-2" />
+                                    {t("heading2")}
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={handleH3}>
+                                    <Heading3 className="h-4 w-4 mr-2" />
+                                    {t("heading3")}
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                        <div className="w-px h-4 bg-border mx-0.5" />
+                        <ToolbarButton onClick={handleBold} icon={Bold} title={t("bold")} />
+                        <ToolbarButton onClick={handleItalic} icon={Italic} title={t("italic")} />
+                        <ToolbarButton onClick={handleStrikethrough} icon={Strikethrough} title={t("strikethrough")} />
+                        <div className="w-px h-4 bg-border mx-0.5" />
+                        <ToolbarButton onClick={handleList} icon={List} title={t("bulletList")} />
+                        <ToolbarButton onClick={handleOrderedList} icon={ListOrdered} title={t("numberedList")} />
+                        <div className="w-px h-4 bg-border mx-0.5" />
+                        <ToolbarButton onClick={handleQuote} icon={Quote} title={t("quote")} />
+                        <ToolbarButton onClick={handleCode} icon={Code} title={t("inlineCode")} />
+                        <ToolbarButton onClick={handleLink} icon={LinkIcon} title={t("link")} />
+                        <div className="w-px h-4 bg-border mx-0.5" />
+                        <ToolbarButton onClick={handleHorizontalRule} icon={Minus} title={t("horizontalRule")} />
+                        <ToolbarButton onClick={handleTable} icon={Table} title={t("table")} />
                     </div>
+
+                    <Button
+                        type="button"
+                        variant={showPreview ? "secondary" : "ghost"}
+                        size="sm"
+                        className="h-7 px-2 text-xs gap-1"
+                        onClick={() => setShowPreview(!showPreview)}
+                        title={showPreview ? t("hidePreview") : t("showPreview")}
+                    >
+                        {showPreview ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
+                        <span className="hidden sm:inline">{t("preview")}</span>
+                    </Button>
                 </div>
 
-                <TabsContent value="write" className="mt-0 p-0 border-none min-h-50 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+                {showPreview ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 divide-x divide-border">
+                        <div className="min-h-75">
+                            <Textarea
+                                ref={textareaRef}
+                                value={value}
+                                onChange={(e) => onChange(e.target.value)}
+                                placeholder={placeholder}
+                                className="min-h-75 border-0 rounded-none focus-visible:ring-0 resize-y p-4 font-mono text-sm leading-relaxed"
+                            />
+                        </div>
+                        <div className="p-4 min-h-75 bg-surface-2/30 overflow-auto">
+                            {value ? (
+                                <MarkdownViewer content={value} />
+                            ) : (
+                                <div className="text-muted-foreground text-sm italic">{t("nothingToPreview")}</div>
+                            )}
+                        </div>
+                    </div>
+                ) : (
                     <Textarea
                         ref={textareaRef}
                         value={value}
@@ -78,17 +163,10 @@ export function MarkdownEditor({ value, onChange, label, placeholder, className 
                         placeholder={placeholder}
                         className="min-h-75 border-0 rounded-none focus-visible:ring-0 resize-y p-4 font-mono text-sm leading-relaxed"
                     />
-                </TabsContent>
-                <TabsContent value="preview" className="mt-0 p-4 min-h-75 bg-surface-2/30">
-                    {value ? (
-                        <MarkdownViewer content={value} />
-                    ) : (
-                        <div className="text-muted-foreground text-sm italic">Nothing to preview</div>
-                    )}
-                </TabsContent>
-            </Tabs>
+                )}
+            </div>
             <div className="flex justify-end px-2">
-                <p className="text-xs text-muted-foreground">Markdown supported</p>
+                <p className="text-xs text-muted-foreground">{t("markdownSupported")}</p>
             </div>
         </div>
     );

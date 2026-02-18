@@ -10,6 +10,9 @@ import { RevenueChart } from "@/components/charts/revenue-chart";
 import { FavoriteButton } from "@/components/shared/favorite-button";
 import { MarkdownViewer } from "@/components/shared/markdown-viewer";
 import { formatPrice } from "@/lib/constants/countries";
+import { auth } from "@/lib/auth";
+import { ListingOwnerActions } from "@/components/listings/listing-owner-actions";
+import Image from "next/image";
 
 export default async function ListingDetailsPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -17,10 +20,13 @@ export default async function ListingDetailsPage({ params }: { params: Promise<{
   const t = await getTranslations("ListingDetail");
   const tCountries = await getTranslations("Countries");
   const locale = await getLocale();
+  const session = await auth();
 
   if (!listing) {
     notFound();
   }
+
+  const isOwner = session?.user?.id === listing.userId;
 
   // Calculate payback period
   const price = Number(listing.price) || 0;
@@ -60,6 +66,9 @@ export default async function ListingDetailsPage({ params }: { params: Promise<{
                 </div>
 
                 <h1 className="text-3xl md:text-5xl font-bold leading-tight tracking-tight">{listing.title}</h1>
+                {isOwner && (
+                  <ListingOwnerActions listingId={listing.id} currentStatus={listing.status} />
+                )}
               </div>
 
               <div className="flex flex-col items-end gap-2 bg-card p-4 rounded-2xl shadow-sm border border-muted/40 min-w-50">
@@ -76,6 +85,18 @@ export default async function ListingDetailsPage({ params }: { params: Promise<{
               </div>
             </div>
           </div>
+
+          {listing.images && listing.images.length > 0 && (
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              {listing.images
+                .sort((a, b) => (a.order || 0) - (b.order || 0))
+                .map((img) => (
+                  <div key={img.id} className="relative aspect-video rounded-lg overflow-hidden border bg-surface-2/30">
+                    <Image src={img.url} alt={listing.title} fill className="object-cover" sizes="(max-width: 768px) 50vw, 33vw" />
+                  </div>
+                ))}
+            </div>
+          )}
 
           <Card>
             <CardHeader>

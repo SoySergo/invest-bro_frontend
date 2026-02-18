@@ -2,16 +2,19 @@
 
 import { Button } from "@/components/ui/button";
 import { ListingFormData } from "@/lib/schemas/listing";
+import { ImageUpload, UploadedImage } from "@/components/shared/image-upload";
 import { useTranslations } from "next-intl";
 
 type StepImagesProps = {
-    defaultValues: Partial<ListingFormData>;
+    images: UploadedImage[];
+    onImagesChange: (images: UploadedImage[]) => void;
     onNext: (data: Partial<ListingFormData>) => void;
     onBack: () => void;
 };
 
-export function StepImages({ defaultValues, onNext, onBack }: StepImagesProps) {
+export function StepImages({ images, onImagesChange, onNext, onBack }: StepImagesProps) {
     const t = useTranslations("Wizard");
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         onNext({});
@@ -22,14 +25,10 @@ export function StepImages({ defaultValues, onNext, onBack }: StepImagesProps) {
             <h2 className="text-xl font-semibold">{t("imagesTitle")}</h2>
             <p className="text-muted-foreground">{t("imagesDesc")}</p>
 
-            <div className="border-2 border-dashed border-border/50 rounded-lg p-12 flex flex-col items-center justify-center text-center bg-surface-2/20">
-                <div className="text-muted-foreground">
-                    {t("imagesDragDrop")}
-                    <br />
-                    ({t("imagesComingSoon")})
-                </div>
-                <Button variant="secondary" className="mt-4" type="button">{t("uploadImage")}</Button>
-            </div>
+            <ImageUpload
+                images={images}
+                onImagesChange={onImagesChange}
+            />
 
             <div className="flex justify-between">
                 <Button type="button" variant="outline" onClick={onBack}>{t("back")}</Button>

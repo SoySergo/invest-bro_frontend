@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "@/i18n/routing";
-import { Settings } from "lucide-react";
+import { Settings, Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export async function generateMetadata() {
@@ -31,6 +31,7 @@ export default async function ProfilePage({
   const profile = await getProfile();
   const myListings = await getMyListings();
   const t = await getTranslations("Profile");
+  const tNav = await getTranslations("Navigation");
 
   return (
     <div className="container max-w-4xl py-8 px-4 space-y-8">
@@ -76,8 +77,11 @@ export default async function ProfilePage({
 
       {/* My Listings */}
       <Card className="border-border/50">
-        <CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle>{t("myListings")}</CardTitle>
+          <Link href="/listing/create">
+            <Button size="sm">{tNav("create")}</Button>
+          </Link>
         </CardHeader>
         <CardContent>
           {myListings.length === 0 ? (
@@ -85,19 +89,30 @@ export default async function ProfilePage({
           ) : (
             <div className="space-y-3">
               {myListings.map((listing) => (
-                <Link
+                <div
                   key={listing.id}
-                  href={`/listings/${listing.id}`}
                   className="flex items-center justify-between rounded-lg border border-border/50 p-3 hover:bg-accent/50 transition-colors"
                 >
-                  <div>
-                    <p className="font-medium">{listing.title}</p>
+                  <Link href={`/listing/${listing.id}`} className="flex-1 min-w-0">
+                    <p className="font-medium truncate">{listing.title}</p>
                     <p className="text-sm text-muted-foreground">
                       €{Number(listing.price).toLocaleString()}
                     </p>
+                  </Link>
+                  <div className="flex items-center gap-2 ml-3">
+                    <Badge variant="outline" className={
+                      listing.status === "active" ? "border-emerald-500/50 text-emerald-600 dark:text-emerald-400" :
+                      listing.status === "draft" ? "border-amber-500/50 text-amber-600 dark:text-amber-400" :
+                      listing.status === "sold" ? "border-blue-500/50 text-blue-600 dark:text-blue-400" :
+                      "border-muted-foreground/50"
+                    }>{listing.status}</Badge>
+                    <Link href={`/listing/${listing.id}/edit`}>
+                      <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                        <Pencil className="h-3.5 w-3.5" />
+                      </Button>
+                    </Link>
                   </div>
-                  <Badge variant="outline">{listing.status}</Badge>
-                </Link>
+                </div>
               ))}
             </div>
           )}
